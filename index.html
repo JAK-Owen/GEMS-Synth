@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.6/Tone.js'></script>
+<script type="text/javascript" src="https://unpkg.com/@tonejs/ui@0.0.8/build/tonejs-ui.js"></script>
+<script src= 'https://cdn.jsdelivr.net/npm/nexusui@latest/dist/NexusUI.js'></script>
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+<link rel="stylesheet" href="styleSheet.css">
+
+
+<!-- <tone-content>
+      <tone-play-toggle></tone-play-toggle>
+   </tone-content>
+
+   <script type="text/javascript">
+      document.querySelector("tone-play-toggle").addEventListener("play", (e) => {
+
+         const playing = e.detail;
+
+         if (playing){
+            Tone.Transport.start();
+         } else {
+            Tone.Transport.stop();
+         }
+      }); -->
+
+   </script>
+
+   <div id="oscilloscope"></div>
+
+   <div id="gain">V o l u m e</div>
+
+   <div id="LPFilter"> L o w P a s s</div>
+
+   <div id="HPFilter">H i g h P a s s</div>
+
+   <div id="verb">R e v e r b</div>
+
+   <div id="FBDelay">D e l a y</div>
+
+   <div id=dials-container>
+     <div id="gain2"><span class="iconify" data-icon="clarity:volume-down-line" data-inline="false"></span></div>
+
+     <div id="LPFilter2"><span class="iconify" data-icon="ph:arrow-bend-up-left-thin" data-inline="false"></span></div>
+
+     <div id="HPFilter2"><span class="iconify" data-icon="ph:arrow-bend-up-right-thin" data-inline="false"></span></div>
+
+     <div id="verb2"><span class="iconify" data-icon="mdi:waveform" data-inline="false"></span></div>
+
+     <div id="FBDelay2"><span class="iconify" data-icon="carbon:edt-loop" data-inline="false"></span></div>
+   </div>
+
+
+   <div id='container'></div>
+
+   <div class= 'controls'>
+   <div class= 'wave-selector'>
+     <input onclick='onWaveSelection(this.value)' type="radio" id="wave-type" name="wave" value="sine">
+     <label for="sine"><span class="iconify" data-icon="mdi-sine-wave" data-inline="false"></span></label>
+     <br>
+     <input onclick='onWaveSelection(this.value)' type="radio" id="wave-type" name="wave" value="triangle">
+     <label for="triangle"><span class="iconify" data-icon="mdi:triangle-wave" data-inline="false"></span></label>
+     <br>
+     <input onclick='onWaveSelection(this.value)' type="radio" id="wave-type" name="wave" value="square">
+     <label for="square"><span class="iconify" data-icon="mdi:square-wave" data-inline="false"></span></label>
+     <br>
+     <input onclick='onWaveSelection(this.value)' type="radio" id="wave-type" name="wave" value="sawtooth">
+     <label for="sawtooth"><span class="iconify" data-icon="mdi:sawtooth-wave" data-inline="false"></span></label>
+     <br>
+   </div>
+   </div>
+
+
+<script>
+
+
+
+////////////////////////////////////////////////////////////////////////
+// KEY SELECTOR
+////////////////////////////////////////////////////////////////////////
+
+const key = {
+  cMinor:      ["c2", "d#2", "g2", "c3", "d#3", "g3"],
+  cSharpMinor: ["c#2", "e2", "g#2","c#3", "e3", "g#3"],
+  dMinor:      ["d2", "f2", "a2", "d3", "f3", "a3"],
+  dSharpMinor: ["d#2", "f#2", "a#2", "d#3", "f#3", "a#3"],
+  eMinor:      ["e2", "g2", "b2", "e3", "g3", "b3"],
+  fMinor:      ["f2", "g#2", "c2", "c#2", "f3", "g#3", "c3"],
+  fSharpMinor: ["f#2", "a2","c#2", "f#3", "a3", "c#3"],
+  gMinor:      ["g2", "a#2", "d2", "g3", "a#3", "d3"],
+  gSharpMinor: ["g#2", "b2", "d#2", "g#3", "b3", "d#3"],
+  aMinor:      ["a2", "c2", "e2", "a3", "c3", "e3"],
+  aSharpMinor: ["a#2", "c#2", "e#2", "a#3", "c#3", "e#3"],
+  bMinor:      ["b2", "d2", "f#2", "b3", "d3", "f#3"],
+
+};
+
+////////////////////////////////////////////////////////////////////////
+// WAVEFORM SELECTOR
+////////////////////////////////////////////////////////////////////////
+
+const waveform = {
+  sine:     "sine",
+  triangle: "triangle",
+  square:   "square",
+  saw:      "sawtooth",
+
+};
+
+////////////////////////////////////////////////////////////////////////
+// DURATION SELECTOR
+////////////////////////////////////////////////////////////////////////
+
+const duration = {
+
+// N = BEATS
+// M = MESSURES
+
+  "16": "16m",
+  "8" : "8m",
+  "4" : "4m",
+  "2" : "2m",
+  "1" : "1m",
+  "1/4" : "1n",
+  "2/4" : "2n",
+  "4/4" : "4n",
+  "8/4" : "8n",
+  "16/4": "16n",
+  "32/4": "32n",
+  "64/4": "64n"
+
+};
+
+////////////////////////////////////////////////////////////////////////
+// GLOBAL SELECTORS
+////////////////////////////////////////////////////////////////////////
+
+Tone.Transport.bpm.value = 132.142;
+const scale = key.dSharpMinor;
+const wave = waveform.saw;
+const noteDuration = duration[16];
+
+
+//////////////////////////////////////////////////////
+// GLOBAL EFFECTS
+//////////////////////////////////////////////////////
+
+const volume = new Tone.Volume(-Infinity).toDestination();
+
+const LPfilter = new Tone.Filter(10000, "lowpass").connect(volume);
+
+const HPfilter = new Tone.Filter(550, "highpass").connect(LPfilter);
+
+const reverb = new Tone.Reverb(10).connect(HPfilter);
+
+const delay = new Tone.FeedbackDelay("1m.", 0.9).connect(reverb);
+
+
+///////////////////////////////////////////////////////////////////////////
+
+const volume2 = new Tone.Volume(-Infinity).toDestination();
+
+const LPfilter2 = new Tone.Filter(550, "lowpass").connect(volume2);
+
+const HPfilter2 = new Tone.Filter(550, "highpass").connect(LPfilter2);
+
+const reverb2 = new Tone.Reverb(100,  "verb2").connect(HPfilter2);
+
+const delay2 = new Tone.FeedbackDelay("8.", 1, "FBDelay2").connect(reverb2);
+
+//////////////////////////////////////////////////////
+// SYNTH INST 1
+//////////////////////////////////////////////////////
+
+  const synth1 = new Tone.Synth({
+
+    "volume": -8,
+  "oscillator": {
+    "type": wave
+  },
+  "envelope": {
+    "attack": 0.8,
+    "decay": 20.0,
+    "sustain": 0.0,
+    "release": 20.0,
+  },
+  "filterEnvelope": {
+    "attack": 0.8,
+    "decay": 20.0,
+    "sustain": 0.0,
+    "release": 20.0,
+    "baseFrequency": 300,
+    "octaves": 4
+  }});
+
+  synth1.connect(delay);
+
+  const pattern1 = scale;
+
+  console.log(scale);
+
+
+var index = 0;
+
+Tone.Transport.scheduleRepeat(time => {
+  repeat(time);
+}, noteDuration);
+
+function repeat(time) {
+  let note = pattern1[Math.floor(Math.random() * pattern1.length)];
+  synth1.triggerAttackRelease(note, noteDuration, time);
+  synth1.envelope.triggerAttackRelease(noteDuration);
+  index++;
+}
+Tone.Transport.start();
+
+
+///////////////////////////////////////////////
+
+const synth2 = new Tone.Synth({
+
+  "volume": -10,
+"oscillator": {
+  "type": wave
+},
+"envelope": {
+  "attack": 0.8,
+  "decay": 20.0,
+  "sustain": 0.0,
+  "release": 20.0,
+},
+"filterEnvelope": {
+  "attack": 0.8,
+  "decay": 20.0,
+  "sustain": 0.0,
+  "release": 20.0,
+  "baseFrequency": 300,
+  "octaves": 4
+}});
+
+synth2.connect(delay);
+
+const pattern2 = scale;
+
+
+var index = 0;
+
+Tone.Transport.scheduleRepeat(time => {
+repeat2(time);
+}, noteDuration);
+
+function repeat2(time) {
+let note = pattern2[Math.floor(Math.random() * pattern2.length)];
+synth2.triggerAttackRelease(note, noteDuration, time);
+synth2.envelope.triggerAttackRelease(noteDuration);
+index++;
+}
+
+///////////////////////////////////////////////
+
+const synth3 = new Tone.Synth({
+
+  "volume": -9,
+"oscillator": {
+  "type": wave
+},
+"envelope": {
+  "attack": 0.8,
+  "decay": 20.0,
+  "sustain": 0.0,
+  "release": 20.0,
+},
+"filterEnvelope": {
+  "attack": 0.8,
+  "decay": 20.0,
+  "sustain": 0.0,
+  "release": 20.0,
+  "baseFrequency": 300,
+  "octaves": 4
+}});
+
+synth3.connect(delay);
+
+const pattern3 = scale;
+
+
+var index = 0;
+
+Tone.Transport.scheduleRepeat(time => {
+repeat3(time);
+}, noteDuration);
+
+function repeat3(time) {
+let note = pattern3[Math.floor(Math.random() * pattern3.length)];
+synth3.triggerAttackRelease(note, noteDuration, time);
+synth3.envelope.triggerAttackRelease(noteDuration);
+index++;
+}
+
+///////////////////////////////////////////////
+
+const synth4 = new Tone.Synth({
+
+  "volume": -10,
+"oscillator": {
+  "type": wave
+},
+"envelope": {
+  "attack": 0.8,
+  "decay": 20.0,
+  "sustain": 0.0,
+  "release": 20.0,
+},
+"filterEnvelope": {
+  "attack": 0.8,
+  "decay": 20.0,
+  "sustain": 0.0,
+  "release": 20.0,
+  "baseFrequency": 300,
+  "octaves": 4
+}});
+
+const panner4 = new Tone.Panner(-1).connect(delay);
+
+synth4.connect(panner4);
+
+const pattern4 = scale;
+
+
+var index = 0;
+
+Tone.Transport.scheduleRepeat(time => {
+repeat4(time);
+}, noteDuration);
+
+function repeat4(time) {
+let note = pattern4[Math.floor(Math.random() * pattern4.length)];
+synth4.triggerAttackRelease(note, noteDuration, time);
+synth4.envelope.triggerAttackRelease(noteDuration);
+index++;
+}
+
+///////////////////////////////////////////////
+
+const synth5 = new Tone.Synth({
+
+  "volume": -10,
+"oscillator": {
+  "type": wave
+},
+"envelope": {
+  "attack": 0.8,
+  "decay": 20.0,
+  "sustain": 0.0,
+  "release": 20.0,
+},
+"filterEnvelope": {
+  "attack": 0.8,
+  "decay": 20.0,
+  "sustain": 0.0,
+  "release": 20.0,
+  "baseFrequency": 300,
+  "octaves": 4
+}});
+
+const panner5 = new Tone.Panner(1).connect(delay);
+
+synth5.connect(panner5);
+
+const pattern5 = scale;
+
+
+var index = 0;
+
+Tone.Transport.scheduleRepeat(time => {
+repeat5(time);
+}, noteDuration);
+
+function repeat5(time) {
+let note = pattern5[Math.floor(Math.random() * pattern5.length)];
+synth5.triggerAttackRelease(note, noteDuration, time);
+synth5.envelope.triggerAttackRelease(noteDuration);
+index++;
+}
+
+//////////////////////////////////////////////////////////////////////
+//DRONE SYNTH
+//////////////////////////////////////////////////////////////////////
+
+const synth = new Tone.MonoSynth({
+
+
+			"volume": -8,
+			"oscillator": {
+				"type": "sawtooth"
+			},
+			"envelope": {
+				"attack": 1.0,
+				"decay": 1.0,
+				"sustain": 1.0,
+				"release": 1.0,
+			},
+			"filterEnvelope": {
+				"attack": 1.0,
+				"decay": 0.7,
+				"sustain": 0.1,
+				"release": 0.8,
+				"baseFrequency": 300,
+				"octaves": 4
+			}});
+
+    synth.connect(delay2);
+
+//////////////////////////////////////////////////////////////////////
+
+// Keyboard____________________________________________
+
+var notes = ['C','D','E','F','G','A','B'];
+var html = "";
+
+for (var octave = -2; octave < 0; octave++)
+{
+for (var i = 0; i < notes.length; i++) {
+    var hasSharp = true;
+    var note = notes[i];
+
+    if (note == 'E' || note == 'B')
+        hasSharp = false;
+    html += `<div class='whitenote'onmousedown='noteDown(this, false)'
+    data-note='${note + (octave+4)}'>`;
+
+    if (hasSharp) {
+    html += `<div class='blacknote'onmousedown='noteDown(this, true)'
+    data-note='${note + '#' + (octave+4)}'></div>`;
+    }
+    html += '</div>';
+}
+}
+document.getElementById('container').innerHTML = html;
+
+function noteDown(elem, isSharp) {
+  var note = elem.dataset.note;
+    synth.triggerAttack(note);
+    Tone.start();
+      event.stopPropagation()
+
+}
+
+
+const loop = new Tone.Loop((time) => {
+	console.log(time);
+}, "1n").start(0);
+Tone.Transport.start();
+
+// function Stop(){
+//   Tone.Transport.stop();
+//
+// }
+
+//////////////////////////////////////////////////////////////////////
+
+var oscilloscope = new Nexus.Oscilloscope('#oscilloscope',{
+  'size': [480,250]
+})
+
+oscilloscope.colorize("accent","white")
+oscilloscope.colorize("fill","black")
+document.body.style.backgroundColor = "#000"
+
+oscilloscope.connect(reverb);
+
+
+
+const gain = new Nexus.Dial("#gain",{
+
+  'size': [75,75],
+  'interaction': 'vertical',
+  'mode': 'relative',
+})
+ gain.on('change',function(v) {
+	volume.volume.rampTo(v,.1)
+});
+gain.min = -50;
+gain.max = 0;
+gain.value = -6;
+gain.colorize("accent","white")
+gain.colorize("fill","#333")
+document.body.style.backgroundColor = "#000"
+
+
+
+
+const LPFilter = new Nexus.Dial("#LPFilter",{
+
+  'size': [75,75],
+  'interaction': 'vertical',
+  'mode': 'relative',
+})
+ LPFilter.on('change',function(v) {
+	LPfilter.frequency.rampTo(v,.1)
+});
+LPFilter.min = 20;
+LPFilter.max = 10000;
+LPFilter.value = 10000;
+LPFilter.colorize("accent","white")
+LPFilter.colorize("fill","#333")
+document.body.style.backgroundColor = "#000"
+
+
+const HPFilter = new Nexus.Dial("#HPFilter",{
+
+  'size': [75,75],
+  'interaction': 'vertical',
+  'mode': 'relative',
+})
+ HPFilter.on('change',function(v) {
+	HPfilter.frequency.rampTo(v,.1)
+});
+HPFilter.min = 20;
+HPFilter.max = 650;
+HPFilter.value = 20;
+HPFilter.colorize("accent","white")
+HPFilter.colorize("fill","#333")
+document.body.style.backgroundColor = "#000"
+
+const verb = new Nexus.Dial("#verb",{
+
+  'size': [75,75],
+  'interaction': 'vertical',
+  'mode': 'relative',
+})
+ verb.on('change',function(v) {
+	reverb.wet.rampTo(v,.1)
+});
+verb.min = 0;
+verb.max = 1;
+verb.value = 0.8;
+verb.colorize("accent","white")
+verb.colorize("fill","#333")
+document.body.style.backgroundColor = "#000"
+
+
+const FBDelay = new Nexus.Dial("#FBDelay",{
+
+  'size': [75,75],
+  'interaction': 'vertical',
+  'mode': 'relative',
+})
+ FBDelay.on('change',function(v) {
+	delay.wet.rampTo(v,.1)
+});
+FBDelay.min = 0;
+FBDelay.max = 1;
+FBDelay.value = 0.9;
+FBDelay.colorize("accent","white")
+FBDelay.colorize("fill","#333")
+document.body.style.backgroundColor = "#000"
+
+
+///////////////////////////////////////////////////////////
+
+const gain2 = new Nexus.Dial("#gain2",{
+
+  'size': [75,75],
+  'interaction': 'vertical',
+  'mode': 'relative',
+})
+ gain2.on('change',function(v) {
+	volume2.volume.rampTo(v,.1)
+});
+gain2.min = -50;
+gain2.max = 0;
+gain2.value = -6;
+gain2.colorize("accent","white")
+gain2.colorize("fill","#333")
+document.body.style.backgroundColor = "#000"
+
+
+
+
+const LPFilter2 = new Nexus.Dial("#LPFilter2",{
+
+  'size': [75,75],
+  'interaction': 'vertical',
+  'mode': 'relative',
+})
+ LPFilter2.on('change',function(v) {
+	LPfilter2.frequency.rampTo(v,.1)
+});
+LPFilter2.min = 20;
+LPFilter2.max = 550;
+LPFilter2.value = 550;
+LPFilter2.colorize("accent","white")
+LPFilter2.colorize("fill","#333")
+document.body.style.backgroundColor = "#000"
+
+
+const HPFilter2 = new Nexus.Dial("#HPFilter2",{
+
+  'size': [75,75],
+  'interaction': 'vertical',
+  'mode': 'relative',
+})
+ HPFilter2.on('change',function(v) {
+	HPfilter2.frequency.rampTo(v,.1)
+});
+HPFilter2.min = 20;
+HPFilter2.max = 650;
+HPFilter2.value = 20;
+HPFilter2.colorize("accent","white")
+HPFilter2.colorize("fill","#333")
+document.body.style.backgroundColor = "#000"
+
+
+
+  function onWaveSelection(wave) {
+   synth.oscillator.type = wave;
+ };
+
+
+
+const verb2 = new Nexus.Dial("#verb2",{
+
+  'size': [75,75],
+  'interaction': 'vertical',
+  'mode': 'relative',
+})
+ verb2.on('change',function(v) {
+	reverb2.wet.rampTo(v,.1)
+});
+verb2.min = 0;
+verb2.max = 1;
+verb2.value = 0.3;
+verb2.colorize("accent","white")
+verb2.colorize("fill","#333")
+document.body.style.backgroundColor = "#000"
+
+
+const FBDelay2 = new Nexus.Dial("#FBDelay2",{
+
+  'size': [75,75],
+  'interaction': 'vertical',
+  'mode': 'relative',
+})
+ FBDelay2.on('change',function(v) {
+	delay2.wet.rampTo(v,.1)
+});
+FBDelay2.min = 0;
+FBDelay2.max = 1;
+FBDelay2.value = 0.3;
+FBDelay2.colorize("accent","white")
+FBDelay2.colorize("fill","#333")
+document.body.style.backgroundColor = "#000"
+
+
+
+</script>
+
+</body>
+</html>

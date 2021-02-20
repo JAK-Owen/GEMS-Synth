@@ -1,0 +1,219 @@
+body {
+  background-color: black;
+
+}
+
+#oscilloscope {
+  position:absolute;
+  height:100%;
+  width: auto;
+  border:3px solid white;
+  top:calc(30% - 100px);
+  left:calc(50% - 200px);
+  overflow:hidden;
+  z-index: 1;
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+#gain {
+ position: absolute;
+ color: white;
+ padding: 10px;
+ top: 400px;
+ left:calc(50% - 200px);
+ font-family: monospace;
+ font-weight: lighter;
+ font-size: 8px;
+
+}
+
+
+#LPFilter {
+  position: relative;
+  left: 100px;
+  color: white;
+  padding: 10px;
+  top: 393px;
+  left:calc(50% - 100px);
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 8px;
+}
+
+#HPFilter {
+  position: relative;
+  left: 200px;
+  color: white;
+  padding: 10px;
+  top: 300px;
+  left:calc(50% - 0px);
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 8px;
+}
+
+
+#verb {
+  position: relative;
+  left: 300px;
+  color: white;
+  padding: 10px;
+  top: 206px;
+  left:calc(50% - -100px);
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 8px;
+}
+
+#FBDelay {
+  position: relative;
+  left: 400px;
+  color: white;
+  padding: 10px;
+  top: 110px;
+  left:calc(50% - -200px);
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 8px;
+}
+
+#container {
+  position:absolute;
+  height:100%;
+  width: auto;
+  border:10px solid black;
+  top:calc(105% - 100px);
+  left:calc(50% - 200px);
+  overflow:hidden;
+  z-index: 1;
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+
+}
+.whitenote {
+  height:20%;
+  width:30px;
+  background: white;
+  float:left;
+  border-right:1px solid black;
+  position:relative;
+  border: 2px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 2px;
+}
+
+.whitenote:hover {
+  height:20%;
+  width:30px;
+  background: grey;
+  float:left;
+  border-right:1px solid black;
+  position:relative;
+}
+
+.blacknote{
+  position:absolute;
+  height:65%;
+  width:20px;
+  z-index:1;
+  background:black;
+  left:68%;
+  border: 2px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 2px;
+}
+
+.wave-selector {
+
+ position: absolute;
+ top: 650px;
+ color: white;
+ filter: grayscale(1);
+ left:calc(50% - 200px);
+ -webkit-animation-name: fade;
+ -webkit-animation-duration: 1.5s;
+ animation-name: fade;
+ animation-duration: 1.5s;
+}
+
+
+#gain2 {
+ position: absolute;
+ color: white;
+ padding: 10px;
+ left:calc(50% - 200px);
+ top: 500px;
+ font-family: monospace;
+ font-weight: lighter;
+ font-size: 15px;
+
+}
+
+
+#LPFilter2 {
+  position: relative;
+  left: 100px;
+  color: white;
+  padding: 10px;
+  top: 112px;
+  left:calc(50% - 100px);
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 15px;
+}
+
+#HPFilter2 {
+  position: relative;
+  left: 200px;
+  color: white;
+  padding: 10px;
+  top: 17px;
+  left:calc(50% - 0px);
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 15px;
+}
+
+#verb2 {
+  position: relative;
+  left: 300px;
+  color: white;
+  padding: 10px;
+  top: -75px;
+  left:calc(50% - -100px);
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 15px;
+}
+
+#FBDelay2 {
+  position: relative;
+  left: 400px;
+  color: white;
+  padding: 10px;
+  top: -170px;
+  left:calc(50% - -200px);
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 15px;
+
+
+
+
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
