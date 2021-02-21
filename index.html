@@ -29,17 +29,19 @@
 
    <div id="oscilloscope"></div>
 
-   <div id="gain">V o l u m e</div>
 
-   <div id="LPFilter"> L o w P a s s</div>
 
-   <div id="HPFilter">H i g h P a s s</div>
+     <div id="gain">V o l u m e</div>
 
-   <div id="verb">R e v e r b</div>
+     <div id="LPFilter"> L o w P a s s</div>
 
-   <div id="FBDelay">D e l a y</div>
+     <div id="HPFilter">H i g h P a s s</div>
 
-   <div id=dials-container>
+     <div id="verb">R e v e r b</div>
+
+     <div id="FBDelay">D e l a y</div>
+
+
      <div id="gain2"><span class="iconify" data-icon="clarity:volume-down-line" data-inline="false"></span></div>
 
      <div id="LPFilter2"><span class="iconify" data-icon="ph:arrow-bend-up-left-thin" data-inline="false"></span></div>
@@ -49,7 +51,8 @@
      <div id="verb2"><span class="iconify" data-icon="mdi:waveform" data-inline="false"></span></div>
 
      <div id="FBDelay2"><span class="iconify" data-icon="carbon:edt-loop" data-inline="false"></span></div>
-   </div>
+
+
 
 
    <div id='container'></div>
@@ -72,21 +75,21 @@
    </div>
 
 
+   <!-- <div class="pads">
+  <div class="pad-1"></div>
+  <div class="pad-2"></div>
+  <div class="pad-3"></div>
+  <div class="pad-4"></div>
 
-   <div class="pad">
-  <div class="box pad-1"></div>
-  <div class="box pad-2"></div>
-  <div class="box pad-3"></div>
-  <div class="box pad-4"></div>
-
-  <div class="box pad-5"></div>
-  <div class="box pad-6"></div>
-  <div class="box pad-7"></div>
-  <div class="box pad-8"></div>
+  <div class="pad-5"></div>
+  <div class="pad-6"></div>
+  <div class="pad-7"></div>
+  <div class="pad-8"></div> -->
 
 
 
 <script>
+
 
 
 
@@ -427,6 +430,46 @@ const synth = new Tone.MonoSynth({
     synth.connect(delay2);
 
 //////////////////////////////////////////////////////////////////////
+var wrappingDiv = document.createElement('div');
+wrappingDiv.className = "pads";
+wrappingDiv.id ="wrappingDiv";
+document.body.appendChild(wrappingDiv);
+
+
+
+for (var i = 0; i< scale.length; i++) {
+    var newElement = document.createElement('button');
+    newElement.id = scale[i]; newElement.className = "pad-1";
+    newElement.onclick = myOnClickHandler;
+    newElement.innerHTML = scale[i];
+    document.getElementById("wrappingDiv").appendChild(newElement);
+
+}
+ // need to pass in an argument on onclick line 450
+ // need to pass in an argument on notedown line 452
+ // need to assign a fution that expecting an argument (newElement.id)
+
+ function myOnClickHandler(){
+   console.log('im being clicked')
+   noteDown();
+   startLoop();
+
+
+ }
+ function noteDown(note) {
+     synth.triggerAttack(note);
+     Tone.start();
+       // event.stopPropagation()
+
+ }
+
+function startLoop(){
+ const loop = new Tone.Loop((time) => {
+ 	// console.log(time);
+ }, "1n").start(0);
+ Tone.Transport.start();
+}
+
 //////////////////////////////////////////////////////////////////////
 
 var oscilloscope = new Nexus.Oscilloscope('#oscilloscope',{

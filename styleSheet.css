@@ -18,6 +18,7 @@ body {
   animation-duration: 1.5s;
 }
 
+
 #gain {
  position: absolute;
  color: white;
@@ -81,7 +82,8 @@ body {
 }
 
 
-.pad {
+.pads {
+  
   left:calc(50% - 200px);
   position: relative;
   width: 500px;
@@ -90,7 +92,7 @@ body {
   flex-wrap: wrap;
 }
 
-.box {
+.pad-1, .pad-2, .pad-3, .pad-4, .pad-5, .pad-6, .pad-7, .pad-8  {
   width: 100px;
   height: 100px;
   margin: 10px 0;
@@ -100,10 +102,12 @@ body {
   justify-content: center;
   align-items: center;
   user-select: none;
+  border: 3px solid white;
 }
 
-.pad-1, .pad-2, .pad-3, .pad-4, .pad-5, .pad-6, .pad-7, .pad-8  {
-  border: 2px solid white;
+.pad-1:hover, .pad-2:hover, .pad-3:hover, .pad-4:hover, .pad-5:hover, .pad-6:hover, .pad-7:hover, .pad-8:hover  {
+
+  background-color: white;
 }
 
 
