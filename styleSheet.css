@@ -80,55 +80,33 @@ body {
   font-size: 8px;
 }
 
-#container {
-  position:absolute;
-  height:100%;
-  width: auto;
-  border:10px solid black;
-  top:calc(105% - 100px);
+
+.pad {
   left:calc(50% - 200px);
-  overflow:hidden;
-  z-index: 1;
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
-
-}
-.whitenote {
-  height:20%;
-  width:30px;
-  background: white;
-  float:left;
-  border-right:1px solid black;
-  position:relative;
-  border: 2px;
-  border-style: solid;
-  border-color: black;
-  border-radius: 2px;
+  position: relative;
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.whitenote:hover {
-  height:20%;
-  width:30px;
-  background: grey;
-  float:left;
-  border-right:1px solid black;
-  position:relative;
+.box {
+  width: 100px;
+  height: 100px;
+  margin: 10px 0;
+  box-shadow: 0 8px 6px -6px black;
+  background-color: #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
 }
 
-.blacknote{
-  position:absolute;
-  height:65%;
-  width:20px;
-  z-index:1;
-  background:black;
-  left:68%;
-  border: 2px;
-  border-style: solid;
-  border-color: black;
-  border-radius: 2px;
+.pad-1, .pad-2, .pad-3, .pad-4, .pad-5, .pad-6, .pad-7, .pad-8  {
+  border: 2px solid white;
 }
+
+
 
 .wave-selector {
 

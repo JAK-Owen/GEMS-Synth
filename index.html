@@ -72,6 +72,20 @@
    </div>
 
 
+
+   <div class="pad">
+  <div class="box pad-1"></div>
+  <div class="box pad-2"></div>
+  <div class="box pad-3"></div>
+  <div class="box pad-4"></div>
+
+  <div class="box pad-5"></div>
+  <div class="box pad-6"></div>
+  <div class="box pad-7"></div>
+  <div class="box pad-8"></div>
+
+
+
 <script>
 
 
@@ -413,51 +427,6 @@ const synth = new Tone.MonoSynth({
     synth.connect(delay2);
 
 //////////////////////////////////////////////////////////////////////
-
-// Keyboard____________________________________________
-
-var notes = ['C','D','E','F','G','A','B'];
-var html = "";
-
-for (var octave = -2; octave < 0; octave++)
-{
-for (var i = 0; i < notes.length; i++) {
-    var hasSharp = true;
-    var note = notes[i];
-
-    if (note == 'E' || note == 'B')
-        hasSharp = false;
-    html += `<div class='whitenote'onmousedown='noteDown(this, false)'
-    data-note='${note + (octave+4)}'>`;
-
-    if (hasSharp) {
-    html += `<div class='blacknote'onmousedown='noteDown(this, true)'
-    data-note='${note + '#' + (octave+4)}'></div>`;
-    }
-    html += '</div>';
-}
-}
-document.getElementById('container').innerHTML = html;
-
-function noteDown(elem, isSharp) {
-  var note = elem.dataset.note;
-    synth.triggerAttack(note);
-    Tone.start();
-      event.stopPropagation()
-
-}
-
-
-const loop = new Tone.Loop((time) => {
-	console.log(time);
-}, "1n").start(0);
-Tone.Transport.start();
-
-// function Stop(){
-//   Tone.Transport.stop();
-//
-// }
-
 //////////////////////////////////////////////////////////////////////
 
 var oscilloscope = new Nexus.Oscilloscope('#oscilloscope',{
