@@ -81,21 +81,25 @@ body {
   font-size: 8px;
 }
 
+.padContainer{
+
+}
+
 
 .pads {
-  
-  left:calc(50% - 200px);
+
+  left:calc(54% - 200px);
   position: relative;
-  width: 500px;
+  width: 400px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
-.pad-1, .pad-2, .pad-3, .pad-4, .pad-5, .pad-6, .pad-7, .pad-8  {
+.pad-1  {
   width: 100px;
   height: 100px;
-  margin: 10px 0;
+  margin: 0px 0;
   box-shadow: 0 8px 6px -6px black;
   background-color: #444;
   display: flex;
@@ -105,7 +109,7 @@ body {
   border: 3px solid white;
 }
 
-.pad-1:hover, .pad-2:hover, .pad-3:hover, .pad-4:hover, .pad-5:hover, .pad-6:hover, .pad-7:hover, .pad-8:hover  {
+.pad-1:hover  {
 
   background-color: white;
 }
