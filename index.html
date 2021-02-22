@@ -94,7 +94,7 @@
 
 
 ////////////////////////////////////////////////////////////////////////
-// KEY SELECTOR
+// KEY SELECTOR GENERATIVE
 ////////////////////////////////////////////////////////////////////////
 
 const key = {
@@ -110,6 +110,26 @@ const key = {
   aMinor:      ["a2", "c2", "e2", "a3", "c3", "e3"],
   aSharpMinor: ["a#2", "c#2", "e#2", "a#3", "c#3", "e#3"],
   bMinor:      ["b2", "d2", "f#2", "b3", "d3", "f#3"],
+
+};
+
+////////////////////////////////////////////////////////////////////////
+// KEY SELECTOR PADS
+////////////////////////////////////////////////////////////////////////
+
+const keyPads = {
+  cMinor:      ["c3", "d#3", "g3", "c4", "d#4", "g4"],
+  cSharpMinor: ["c#3", "e3", "g#3","c#4", "e4", "g#4"],
+  dMinor:      ["d3", "f3", "a3", "d4", "f4", "a4"],
+  dSharpMinor: ["d#3", "f#3", "a#3", "d#4", "f#4", "a#4"],
+  eMinor:      ["e3", "g3", "b3", "e4", "g4", "b4"],
+  fMinor:      ["f3", "g#3", "c3", "c#3", "f4", "g#4", "c4"],
+  fSharpMinor: ["f#3", "a3","c#3", "f#4", "a4", "c#4"],
+  gMinor:      ["g3", "a#3", "d3", "g4", "a#4", "d4"],
+  gSharpMinor: ["g#3", "b3", "d#3", "g#4", "b4", "d#4"],
+  aMinor:      ["a3", "c3", "e3", "a4", "c4", "e4"],
+  aSharpMinor: ["a#3", "c#3", "e#3", "a#4", "c#4", "e#4"],
+  bMinor:      ["b3", "d3", "f#3", "b4", "d4", "f#4"],
 
 };
 
@@ -155,6 +175,7 @@ const duration = {
 
 Tone.Transport.bpm.value = 132.142;
 const scale = key.dSharpMinor;
+const scalePads = keyPads.dSharpMinor;
 const wave = waveform.saw;
 const noteDuration = duration[16];
 
@@ -437,17 +458,14 @@ document.body.appendChild(padContainer);
 
 
 
-for (var i = 0; i< scale.length; i++) {
+for (var i = 0; i< scalePads.length; i++) {
     var newPad = document.createElement('button');
-    newPad.id = scale[i]; newPad.className = "pad-1";
+    newPad.id = scalePads[i]; newPad.className = "pad-1";
     newPad.onclick = myOnClickHandler;
-    newPad.innerHTML = scale[i];
+    // newPad.innerHTML = scalePads[i];
     document.getElementById("padContainer").appendChild(newPad);
 
 }
- // need to pass in an argument on onclick line 450
- // need to pass in an argument on notedown line 452
- // need to assign a fuction that expecting an argument (newElement.id)
 
  function myOnClickHandler(){
    console.log(this.id)
