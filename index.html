@@ -430,28 +430,28 @@ const synth = new Tone.MonoSynth({
     synth.connect(delay2);
 
 //////////////////////////////////////////////////////////////////////
-var wrappingDiv = document.createElement('div');
-wrappingDiv.className = "pads";
-wrappingDiv.id ="wrappingDiv";
-document.body.appendChild(wrappingDiv);
+var padContainer = document.createElement('div');
+padContainer.className = "pads";
+padContainer.id ="padContainer";
+document.body.appendChild(padContainer);
 
 
 
 for (var i = 0; i< scale.length; i++) {
-    var newElement = document.createElement('button');
-    newElement.id = scale[i]; newElement.className = "pad-1";
-    newElement.onclick = myOnClickHandler;
-    newElement.innerHTML = scale[i];
-    document.getElementById("wrappingDiv").appendChild(newElement);
+    var newPad = document.createElement('button');
+    newPad.id = scale[i]; newPad.className = "pad-1";
+    newPad.onclick = myOnClickHandler;
+    newPad.innerHTML = scale[i];
+    document.getElementById("padContainer").appendChild(newPad);
 
 }
  // need to pass in an argument on onclick line 450
  // need to pass in an argument on notedown line 452
- // need to assign a fution that expecting an argument (newElement.id)
+ // need to assign a fuction that expecting an argument (newElement.id)
 
  function myOnClickHandler(){
-   console.log('im being clicked')
-   noteDown();
+   console.log(this.id)
+   noteDown(this.id);
    startLoop();
 
 
