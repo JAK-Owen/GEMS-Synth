@@ -191,6 +191,7 @@ const scale = key.dSharpMinor;
 const scalePads = keyPads.dSharpMinor;
 const wave = waveform.saw;
 const noteDuration = duration[16];
+const noteDurationPads = duration[1];
 
 
 //////////////////////////////////////////////////////
@@ -436,7 +437,7 @@ index++;
 }
 
 //////////////////////////////////////////////////////////////////////
-//DRONE SYNTH
+//PAD SYNTH
 //////////////////////////////////////////////////////////////////////
 
 const synth = new Tone.MonoSynth({
@@ -488,7 +489,7 @@ for (var i = 0; i< scalePads.length; i++) {
 
  }
  function noteDown(note) {
-     synth.triggerAttackRelease(note);
+     synth.triggerAttackRelease(note, noteDurationPads);
      Tone.start();
        // event.stopPropagation()
 
