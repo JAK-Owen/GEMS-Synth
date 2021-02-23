@@ -22,6 +22,40 @@
      };
    </script>
 
+//////////////////////////////////////////////////////////////////////////////////
+//DROPDOWN
+/////////////////////////////////////////////////////////////////////////////////
+
+<!-- <select id="assign-key">
+  <option value="Cminor">C minor</option>
+  <option value="C#Minor">C# Minor</option>
+  <option value="DMinor">D Minor</option>
+  <option value="D#Minor" selected="selected">D# Minor</option>
+  <option value="EMinor">E Minor</option>
+  <option value="FMinor">F Minor</option>
+  <option value="F#Minor">F# Minor</option>
+  <option value="GMinor">G Minor</option>
+  <option value="G#Minor">G# Minor</option>
+  <option value="AMinor">A Minor</option>
+  <option value="A#Minor">A# Minor</option>
+  <option value="BMinor">B Minor</option>
+</select>
+
+
+<script>
+
+var keyValue = document.getElementById("assign-key");
+var selectedKey = keyValue.value;
+
+// console.log(selectedKey);
+
+document.getElementById("Cminor").value = key.cMinor;
+
+</script> -->
+
+
+/////////////////////////////////////////////////////////////////////////////////
+
 
      <div id="oscilloscope"></div>
 
@@ -96,7 +130,7 @@ const key = {
 ////////////////////////////////////////////////////////////////////////
 
 const keyPads = {
-  cMinor:        ["c3", "d3", "d#3", "f3", "g3", "g#3", "a#3", "c4"],
+    cMinor:      ["c3", "d3", "d#3", "f3", "g3", "g#3", "a#3", "c4"],
     cSharpMinor: ["c#3", "d#3", "e3", "f#3", "g#3", "a3", "b3", "c#4"],
     dMinor:      ["d3", "e3", "f3", "g3", "a3", "a#3", "c3", "d4"],
     dSharpMinor: ["d#3", "e#3", "f#3", "g#3", "a#3", "b3", "c#4", "d#4"],
@@ -184,7 +218,7 @@ const HPfilter2 = new Tone.Filter(550, "highpass").connect(LPfilter2);
 
 const reverb2 = new Tone.Reverb(100,  "verb2").connect(HPfilter2);
 
-const delay2 = new Tone.FeedbackDelay("8.", 1, "FBDelay2").connect(reverb2);
+const delay2 = new Tone.FeedbackDelay("8.", 0.8, "FBDelay2").connect(reverb2);
 
 //////////////////////////////////////////////////////
 // SYNTH INST 1
