@@ -23,7 +23,20 @@
          } else {
             Tone.Transport.stop();
          }
-      }); -->
+      });
+
+   </script> -->
+
+   <button id='reset-button' onclick = 'stopTransport()'<span class="iconify" data-icon="entypo:cycle" data-inline="false"></span>>R e s e t</button>
+
+   <script>
+
+     function stopTransport(){
+
+         Tone.Transport.stop();
+         Tone.stop();
+     };
+
 
    </script>
 
@@ -75,23 +88,7 @@
    </div>
 
 
-   <!-- <div class="pads">
-  <div class="pad-1"></div>
-  <div class="pad-2"></div>
-  <div class="pad-3"></div>
-  <div class="pad-4"></div>
-
-  <div class="pad-5"></div>
-  <div class="pad-6"></div>
-  <div class="pad-7"></div>
-  <div class="pad-8"></div> -->
-
-
-
 <script>
-
-
-
 
 ////////////////////////////////////////////////////////////////////////
 // KEY SELECTOR GENERATIVE
@@ -476,11 +473,19 @@ for (var i = 0; i< scalePads.length; i++) {
 
  }
  function noteDown(note) {
-     synth.triggerAttack(note);
+     synth.triggerAttackRelease(note);
      Tone.start();
        // event.stopPropagation()
 
  }
+
+ function noteUp(note) {
+     synth.triggerRelease(note);
+     Tone.stop();
+       // event.stopPropagation()
+     }
+
+
 
 function startLoop(){
  const loop = new Tone.Loop((time) => {

@@ -3,6 +3,30 @@ body {
 
 }
 
+#reset-button{
+  position: absolute;
+  background-color: black;
+  color: white;
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 30px;
+  top:calc(25% - 100px);
+  left:calc(50% - 200px);
+
+}
+
+#reset-button:hover{
+  position: absolute;
+  background-color: white;
+  color: black;
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 35px;
+  top:calc(25% - 100px);
+  left:calc(50% - 200px);
+
+}
+
 #oscilloscope {
   position:absolute;
   height:100%;
@@ -87,7 +111,7 @@ body {
 
 
 .pads {
-
+  top: -115px;
   left:calc(54% - 200px);
   position: relative;
   width: 400px;
@@ -190,7 +214,7 @@ body {
   font-weight: lighter;
   font-size: 15px;
 
-
+}
 
 
 
