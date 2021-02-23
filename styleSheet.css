@@ -9,70 +9,16 @@ body {
   color: white;
   font-family: monospace;
   font-weight: lighter;
-  font-size: 30px;
-  top:calc(25% - 100px);
+  font-size: 20px;
+  top:calc(20% - 100px);
   left:calc(50% - 200px);
 
 }
 
 #reset-button:hover{
-  position: absolute;
-  background-color: white;
-  color: black;
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 35px;
-  top:calc(25% - 100px);
-  left:calc(50% - 200px);
-
-}
-
-.dropbtn {
-  position: static;
-  width: 50px;
-  padding: 5px;
-  border: none;
-  cursor: pointer;
-  background-color: black;
-  color: white;
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 10px;
-  left: 180px;
-  top: 85px;
-  z-index: 1;
-}
-
-.dropbtn:hover, .dropbtn:focus {
   background-color: white;
   color: black;
 }
-
-.dropdownKey {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #444;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: white;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {background-color: #ddd}
-
-.show {display:block;}
-
 
 
 #oscilloscope {
@@ -80,7 +26,7 @@ body {
   height:100%;
   width: auto;
   border:3px solid white;
-  top:calc(30% - 100px);
+  top:calc(25% - 100px);
   left:calc(50% - 200px);
   overflow:hidden;
   z-index: 1;
@@ -92,10 +38,10 @@ body {
 
 
 #gain {
- position: absolute;
+ position: relative;
  color: white;
  padding: 10px;
- top: 422px;
+ top: 350px;
  left:calc(50% - 200px);
  font-family: monospace;
  font-weight: lighter;
@@ -109,7 +55,7 @@ body {
   left: 100px;
   color: white;
   padding: 10px;
-  top: 393px;
+  top: 257px;
   left:calc(50% - 100px);
   font-family: monospace;
   font-weight: lighter;
@@ -121,7 +67,7 @@ body {
   left: 200px;
   color: white;
   padding: 10px;
-  top: 300px;
+  top: 162px;
   left:calc(50% - 0px);
   font-family: monospace;
   font-weight: lighter;
@@ -134,7 +80,7 @@ body {
   left: 300px;
   color: white;
   padding: 10px;
-  top: 206px;
+  top: 68px;
   left:calc(50% - -100px);
   font-family: monospace;
   font-weight: lighter;
@@ -146,7 +92,7 @@ body {
   left: 400px;
   color: white;
   padding: 10px;
-  top: 110px;
+  top: -27px;
   left:calc(50% - -200px);
   font-family: monospace;
   font-weight: lighter;
@@ -156,11 +102,11 @@ body {
 
 
 #gain2 {
- position: absolute;
+ position: relative;
  color: white;
  padding: 10px;
  left:calc(50% - 200px);
- top: 522px;
+ top: -30px;
  font-family: monospace;
  font-weight: lighter;
  font-size: 15px;
@@ -173,7 +119,7 @@ body {
   left: 100px;
   color: white;
   padding: 10px;
-  top: 112px;
+  top: -125px;
   left:calc(50% - 100px);
   font-family: monospace;
   font-weight: lighter;
@@ -185,7 +131,7 @@ body {
   left: 200px;
   color: white;
   padding: 10px;
-  top: 17px;
+  top: -218px;
   left:calc(50% - 0px);
   font-family: monospace;
   font-weight: lighter;
@@ -197,7 +143,7 @@ body {
   left: 300px;
   color: white;
   padding: 10px;
-  top: -75px;
+  top: -312px;
   left:calc(50% - -100px);
   font-family: monospace;
   font-weight: lighter;
@@ -209,7 +155,7 @@ body {
   left: 400px;
   color: white;
   padding: 10px;
-  top: -170px;
+  top: -408px;
   left:calc(50% - -200px);
   font-family: monospace;
   font-weight: lighter;
@@ -224,7 +170,7 @@ body {
 
 
 .pads {
-  top: -115px;
+  top: -350px;
   left:calc(54% - 200px);
   position: relative;
   width: 400px;
@@ -253,7 +199,7 @@ body {
 
 
 
-.wave-selector {
+/* .wave-selector {
 
  position: absolute;
  top: 650px;
@@ -264,7 +210,7 @@ body {
  -webkit-animation-duration: 1.5s;
  animation-name: fade;
  animation-duration: 1.5s;
-}
+} */
 
 
 
