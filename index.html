@@ -9,40 +9,48 @@
 <link rel="stylesheet" href="styleSheet.css">
 
 
-<!-- <tone-content>
-      <tone-play-toggle></tone-play-toggle>
-   </tone-content>
-
-   <script type="text/javascript">
-      document.querySelector("tone-play-toggle").addEventListener("play", (e) => {
-
-         const playing = e.detail;
-
-         if (playing){
-            Tone.Transport.start();
-         } else {
-            Tone.Transport.stop();
-         }
-      });
-
-   </script> -->
-
    <button id='reset-button' onclick = 'stopTransport()'<span class="iconify" data-icon="entypo:cycle" data-inline="false"></span>>R e s e t</button>
 
    <script>
 
      function stopTransport(){
-
          Tone.Transport.stop();
          Tone.stop();
      };
-
-
    </script>
 
-   <div id="oscilloscope"></div>
+   <div class="dropdownKey">
+  <button onclick="keyMenu()" class="dropbtn">K e y</button>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+  </div>
+</div>
 
+<script>
 
+function keyMenu() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+</script>
+
+     <div id="oscilloscope"></div>
 
      <div id="gain">V o l u m e</div>
 
