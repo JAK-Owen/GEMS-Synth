@@ -12,33 +12,48 @@
 //RESET BUTTON
 /////////////////////////////////////////////////////////////////////////////////
 
-   <button id='reset-button' onclick = 'stopTransport()'<span class="iconify" data-icon="entypo:cycle" data-inline="false"></span>>R e s e t</button>
+   <button id='reset-button' onclick = 'resetButton()'<span class="iconify" data-icon="entypo:cycle" data-inline="false"></span>>R e s e t</button>
 
    <script>
 
-     function stopTransport(){
+     function resetButton(){
+         window.location.reload(true);
          Tone.Transport.stop();
          Tone.stop();
      };
    </script>
 
 //////////////////////////////////////////////////////////////////////////////////
-//DROPDOWN
+//STOP BUTTON
 /////////////////////////////////////////////////////////////////////////////////
 
-<!-- <select id="assign-key">
-  <option value="Cminor">C minor</option>
+      <button id='stop-button' onclick = 'stopTransport()'<span class="iconify" data-icon="ph:stop-bold" data-inline="false"></span>>S t o p</button>
+
+      <script>
+
+        function stopTransport(){
+            Tone.Transport.stop();
+            // Tone.stop();
+        };
+      </script>
+
+//////////////////////////////////////////////////////////////////////////////////
+//DROPDOWN
+/////////////////////////////////////////////////////////////////////////////////
+<!--
+<select id="assign-key">
+  <option value="Cminor"> C minor</option>
   <option value="C#Minor">C# Minor</option>
-  <option value="DMinor">D Minor</option>
+  <option value="DMinor"> D Minor</option>
   <option value="D#Minor" selected="selected">D# Minor</option>
-  <option value="EMinor">E Minor</option>
-  <option value="FMinor">F Minor</option>
+  <option value="EMinor"> E Minor</option>
+  <option value="FMinor"> F Minor</option>
   <option value="F#Minor">F# Minor</option>
-  <option value="GMinor">G Minor</option>
+  <option value="GMinor"> G Minor</option>
   <option value="G#Minor">G# Minor</option>
-  <option value="AMinor">A Minor</option>
+  <option value="AMinor"> A Minor</option>
   <option value="A#Minor">A# Minor</option>
-  <option value="BMinor">B Minor</option>
+  <option value="BMinor"> B Minor</option>
 </select>
 
 
@@ -47,9 +62,21 @@
 var keyValue = document.getElementById("assign-key");
 var selectedKey = keyValue.value;
 
-// console.log(selectedKey);
-
+console.log(selectedKey);
+//
 document.getElementById("Cminor").value = key.cMinor;
+document.getElementById("C#minor").value = key.cSharpMinor;
+document.getElementById("Dminor").value = key.dMinor;
+document.getElementById("D#minor").value = key.dSharpMinor;
+document.getElementById("Eminor").value = key.eMinor;
+document.getElementById("Fminor").value = key.fMinor;
+document.getElementById("F#minor").value = key.fSharpMinor;
+document.getElementById("Gminor").value = key.gMinor;
+document.getElementById("G#minor").value = key.gSharpMinor;
+document.getElementById("Aminor").value = key.aMinor;
+document.getElementById("A#minor").value = key.aSharpMinor;
+document.getElementById("Bminor").value = key.bMinor;
+
 
 </script> -->
 
@@ -192,6 +219,34 @@ const scalePads = keyPads.dSharpMinor;
 const wave = waveform.saw;
 const noteDuration = duration[16];
 const noteDurationPads = duration[1];
+
+
+////////////////////////////////////////////////////////////////////////
+// DROPDOWN SELECTORS
+////////////////////////////////////////////////////////////////////////
+
+
+
+
+// console.log(selectedKey);
+
+// document.getElementById("Cminor").value = key.cMinor;
+// document.getElementById("C#minor").value = key.cSharpMinor;
+// document.getElementById("Dminor").value = key.dMinor;
+// document.getElementById("D#minor").value = key.dSharpMinor;
+// document.getElementById("Eminor").value = key.eMinor;
+// document.getElementById("Fminor").value = key.fMinor;
+// document.getElementById("F#minor").value = key.fSharpMinor;
+// document.getElementById("Gminor").value = key.gMinor;
+// document.getElementById("G#minor").value = key.gSharpMinor;
+// document.getElementById("Aminor").value = key.aMinor;
+// document.getElementById("A#minor").value = key.aSharpMinor;
+// document.getElementById("Bminor").value = key.bMinor;
+//
+// var keyValue = document.getElementById("assign-key");
+// var selectedKey = keyValue.value;
+
+
 
 
 //////////////////////////////////////////////////////

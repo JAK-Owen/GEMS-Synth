@@ -18,7 +18,27 @@ body {
 #reset-button:hover{
   background-color: white;
   color: black;
+  cursor: pointer;
 }
+
+#stop-button{
+  position: absolute;
+  background-color: black;
+  color: white;
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 20px;
+  top:calc(20% - 100px);
+  left:calc(55% - 200px);
+
+}
+
+#stop-button:hover{
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+
 
 
 #oscilloscope {
@@ -195,6 +215,7 @@ body {
 .pad-1:hover  {
 
   background-color: white;
+  cursor: pointer;
 }
 
 
