@@ -1,5 +1,10 @@
-body {
+
+ body {
   background-color: black;
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
 
 }
 
@@ -37,6 +42,26 @@ body {
   background-color: white;
   color: black;
   cursor: pointer;
+}
+
+#assignKey {
+
+  position: absolute;
+  background-color: black;
+  color: white;
+  /* border: none; */
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 11px;
+  top:calc(20% - 100px);
+  left:calc(60% - 200px);
+  filter: grayscale(1);
+}
+
+#assignKey:hover {
+  cursor: pointer;
+
+
 }
 
 
@@ -197,6 +222,7 @@ body {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  filter: grayscale(1);
 }
 
 .pad-1  {

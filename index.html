@@ -8,11 +8,11 @@
 <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 <link rel="stylesheet" href="styleSheet.css">
 
-//////////////////////////////////////////////////////////////////////////////////
+<!-- //////////////////////////////////////////////////////////////////////////////////
 //RESET BUTTON
-/////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////// -->
 
-   <button id='reset-button' onclick = 'resetButton()'<span class="iconify" data-icon="entypo:cycle" data-inline="false"></span>>R e s e t</button>
+   <button id='reset-button' onclick = 'resetButton()'<span class="iconify" data-icon="entypo:cycle" data-inline="false"></span></button>
 
    <script>
 
@@ -23,65 +23,49 @@
      };
    </script>
 
-//////////////////////////////////////////////////////////////////////////////////
+<!-- //////////////////////////////////////////////////////////////////////////////////
 //STOP BUTTON
-/////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////// -->
 
-      <button id='stop-button' onclick = 'stopTransport()'<span class="iconify" data-icon="ph:stop-bold" data-inline="false"></span>>S t o p</button>
+      <button id='stop-button' onclick = 'stopTransport()'<span class="iconify" data-icon="ph:stop-bold" data-inline="false"></span></button>
 
       <script>
 
         function stopTransport(){
             Tone.Transport.stop();
-            // Tone.stop();
+
         };
       </script>
-
-//////////////////////////////////////////////////////////////////////////////////
-//DROPDOWN
-/////////////////////////////////////////////////////////////////////////////////
-<!--
-<select id="assign-key">
-  <option value="Cminor"> C minor</option>
-  <option value="C#Minor">C# Minor</option>
-  <option value="DMinor"> D Minor</option>
-  <option value="D#Minor" selected="selected">D# Minor</option>
-  <option value="EMinor"> E Minor</option>
-  <option value="FMinor"> F Minor</option>
-  <option value="F#Minor">F# Minor</option>
-  <option value="GMinor"> G Minor</option>
-  <option value="G#Minor">G# Minor</option>
-  <option value="AMinor"> A Minor</option>
-  <option value="A#Minor">A# Minor</option>
-  <option value="BMinor"> B Minor</option>
-</select>
 
 
 <script>
 
-var keyValue = document.getElementById("assign-key");
-var selectedKey = keyValue.value;
-
-console.log(selectedKey);
-//
-document.getElementById("Cminor").value = key.cMinor;
-document.getElementById("C#minor").value = key.cSharpMinor;
-document.getElementById("Dminor").value = key.dMinor;
-document.getElementById("D#minor").value = key.dSharpMinor;
-document.getElementById("Eminor").value = key.eMinor;
-document.getElementById("Fminor").value = key.fMinor;
-document.getElementById("F#minor").value = key.fSharpMinor;
-document.getElementById("Gminor").value = key.gMinor;
-document.getElementById("G#minor").value = key.gSharpMinor;
-document.getElementById("Aminor").value = key.aMinor;
-document.getElementById("A#minor").value = key.aSharpMinor;
-document.getElementById("Bminor").value = key.bMinor;
 
 
-</script> -->
+</script>
+
+<!-- //////////////////////////////////////////////////////////////////////////////////
+//DROPDOWN
+///////////////////////////////////////////////////////////////////////////////// -->
+
+<select id="assignKey" onchange="keyChange()">
+  <option id="Cminor" value="Cminor"> C Minor</option>
+  <option id="C#minor"value="C#minor">C# Minor</option>
+  <option id="Dminor" value="Dminor"> D Minor</option>
+  <option id="D#minor"value="D#minor" selected="selected">D# Minor</option>
+  <option id="Eminor" value="Eminor"> E Minor</option>
+  <option id="Fminor" value="Fminor"> F Minor</option>
+  <option id="F#minor"value="F#minor">F# Minor</option>
+  <option id="Gminor" value="Gminor"> G Minor</option>
+  <option id="G#minor"value="G#minor">G# Minor</option>
+  <option id="Aminor" value="Aminor"> A Minor</option>
+  <option id="A#minor"value="A#minor">A# Minor</option>
+  <option id="Bminor" value="Bminor"> B Minor</option>
+</select>
 
 
-/////////////////////////////////////////////////////////////////////////////////
+
+<!-- ///////////////////////////////////////////////////////////////////////////////// -->
 
 
      <div id="oscilloscope"></div>
@@ -109,28 +93,8 @@ document.getElementById("Bminor").value = key.bMinor;
 
 
 
-
-   <!-- <div id='container'></div>
-
-   <div class= 'controls'>
-   <div class= 'wave-selector'>
-     <input onclick='onWaveSelection(this.value)' type="radio" id="wave-type" name="wave" value="sine">
-     <label for="sine"><span class="iconify" data-icon="mdi-sine-wave" data-inline="false"></span></label>
-     <br>
-     <input onclick='onWaveSelection(this.value)' type="radio" id="wave-type" name="wave" value="triangle">
-     <label for="triangle"><span class="iconify" data-icon="mdi:triangle-wave" data-inline="false"></span></label>
-     <br>
-     <input onclick='onWaveSelection(this.value)' type="radio" id="wave-type" name="wave" value="square">
-     <label for="square"><span class="iconify" data-icon="mdi:square-wave" data-inline="false"></span></label>
-     <br>
-     <input onclick='onWaveSelection(this.value)' type="radio" id="wave-type" name="wave" value="sawtooth">
-     <label for="sawtooth"><span class="iconify" data-icon="mdi:sawtooth-wave" data-inline="false"></span></label>
-     <br>
-   </div>
-   </div> -->
-
-
 <script>
+
 
 ////////////////////////////////////////////////////////////////////////
 // KEY SELECTOR GENERATIVE
@@ -153,6 +117,30 @@ const key = {
 };
 
 ////////////////////////////////////////////////////////////////////////
+// KEY DROPDOWN SELECTORS
+////////////////////////////////////////////////////////////////////////
+
+
+
+    window.keyChange = function(){
+      console.log('selected key' + selectedKey)
+      console.log('key' + key)
+
+    currentKey = document.getElementById("assignKey").value;
+    selectedKey = key[currentKey];
+    console.log('selected key HAS THE KEY CHANGED  ' + selectedKey)
+
+    console.log(selectedKey);
+
+
+    };
+
+
+    let currentKey= 'dSharpMinor'
+    let selectedKey = key[currentKey];
+
+
+////////////////////////////////////////////////////////////////////////
 // KEY SELECTOR PADS
 ////////////////////////////////////////////////////////////////////////
 
@@ -160,7 +148,7 @@ const keyPads = {
     cMinor:      ["c3", "d3", "d#3", "f3", "g3", "g#3", "a#3", "c4"],
     cSharpMinor: ["c#3", "d#3", "e3", "f#3", "g#3", "a3", "b3", "c#4"],
     dMinor:      ["d3", "e3", "f3", "g3", "a3", "a#3", "c3", "d4"],
-    dSharpMinor: ["d#3", "e#3", "f#3", "g#3", "a#3", "b3", "c#4", "d#4"],
+    dSharpMinor: ["d#4", "e#4", "f#4", "g#4", "a#4", "b4", "c#5", "d#5"],
     eMinor:      ["e3", "f#3", "g3", "a3", "b3", "c3", "d3", "e4"],
     fMinor:      ["f3", "g3", "g#3", "a#3", "c3", "c#3", "d#3", "f4"],
     fSharpMinor: ["f#3", "g#3", "a3", "b3", "c#3", "d3", "e3", "f#4"],
@@ -209,43 +197,27 @@ const duration = {
 
 };
 
+
+
+
+
 ////////////////////////////////////////////////////////////////////////
 // GLOBAL SELECTORS
 ////////////////////////////////////////////////////////////////////////
-
 Tone.Transport.bpm.value = 132.142;
-const scale = key.dSharpMinor;
+const scale = selectedKey;
 const scalePads = keyPads.dSharpMinor;
 const wave = waveform.saw;
-const noteDuration = duration[16];
-const noteDurationPads = duration[1];
+const noteDuration = duration[8];
+const noteDurationPads = duration[4];
 
-
-////////////////////////////////////////////////////////////////////////
-// DROPDOWN SELECTORS
-////////////////////////////////////////////////////////////////////////
-
-
+const attack  = 10.0;
+const decay   = 20.0;
+const sustain = 0.0;
+const release = 20.0;
 
 
 // console.log(selectedKey);
-
-// document.getElementById("Cminor").value = key.cMinor;
-// document.getElementById("C#minor").value = key.cSharpMinor;
-// document.getElementById("Dminor").value = key.dMinor;
-// document.getElementById("D#minor").value = key.dSharpMinor;
-// document.getElementById("Eminor").value = key.eMinor;
-// document.getElementById("Fminor").value = key.fMinor;
-// document.getElementById("F#minor").value = key.fSharpMinor;
-// document.getElementById("Gminor").value = key.gMinor;
-// document.getElementById("G#minor").value = key.gSharpMinor;
-// document.getElementById("Aminor").value = key.aMinor;
-// document.getElementById("A#minor").value = key.aSharpMinor;
-// document.getElementById("Bminor").value = key.bMinor;
-//
-// var keyValue = document.getElementById("assign-key");
-// var selectedKey = keyValue.value;
-
 
 
 
@@ -287,16 +259,16 @@ const delay2 = new Tone.FeedbackDelay("8.", 0.8, "FBDelay2").connect(reverb2);
     "type": wave
   },
   "envelope": {
-    "attack": 0.8,
-    "decay": 20.0,
-    "sustain": 0.0,
-    "release": 20.0,
+    "attack": attack,
+    "decay": decay,
+    "sustain": sustain,
+    "release": release,
   },
   "filterEnvelope": {
-    "attack": 0.8,
-    "decay": 20.0,
-    "sustain": 0.0,
-    "release": 20.0,
+    "attack": attack,
+    "decay": decay,
+    "sustain": sustain,
+    "release": release,
     "baseFrequency": 300,
     "octaves": 4
   }});
@@ -305,7 +277,6 @@ const delay2 = new Tone.FeedbackDelay("8.", 0.8, "FBDelay2").connect(reverb2);
 
   const pattern1 = scale;
 
-  console.log(scale);
 
 
 var index = 0;
@@ -332,16 +303,16 @@ const synth2 = new Tone.Synth({
   "type": wave
 },
 "envelope": {
-  "attack": 0.8,
-  "decay": 20.0,
-  "sustain": 0.0,
-  "release": 20.0,
+  "attack": attack,
+  "decay": decay,
+  "sustain": sustain,
+  "release": release,
 },
 "filterEnvelope": {
-  "attack": 0.8,
-  "decay": 20.0,
-  "sustain": 0.0,
-  "release": 20.0,
+  "attack": attack,
+  "decay": decay,
+  "sustain": sustain,
+  "release": release,
   "baseFrequency": 300,
   "octaves": 4
 }});
@@ -373,16 +344,16 @@ const synth3 = new Tone.Synth({
   "type": wave
 },
 "envelope": {
-  "attack": 0.8,
-  "decay": 20.0,
-  "sustain": 0.0,
-  "release": 20.0,
+  "attack": attack,
+  "decay": decay,
+  "sustain": sustain,
+  "release": release,
 },
 "filterEnvelope": {
-  "attack": 0.8,
-  "decay": 20.0,
-  "sustain": 0.0,
-  "release": 20.0,
+  "attack": attack,
+  "decay": decay,
+  "sustain": sustain,
+  "release": release,
   "baseFrequency": 300,
   "octaves": 4
 }});
@@ -414,16 +385,16 @@ const synth4 = new Tone.Synth({
   "type": wave
 },
 "envelope": {
-  "attack": 0.8,
-  "decay": 20.0,
-  "sustain": 0.0,
-  "release": 20.0,
+  "attack": attack,
+  "decay": decay,
+  "sustain": sustain,
+  "release": release,
 },
 "filterEnvelope": {
-  "attack": 0.8,
-  "decay": 20.0,
-  "sustain": 0.0,
-  "release": 20.0,
+  "attack": attack,
+  "decay": decay,
+  "sustain": sustain,
+  "release": release,
   "baseFrequency": 300,
   "octaves": 4
 }});
@@ -457,16 +428,16 @@ const synth5 = new Tone.Synth({
   "type": wave
 },
 "envelope": {
-  "attack": 0.8,
-  "decay": 20.0,
-  "sustain": 0.0,
-  "release": 20.0,
+  "attack": attack,
+  "decay": decay,
+  "sustain": sustain,
+  "release": release,
 },
 "filterEnvelope": {
-  "attack": 0.8,
-  "decay": 20.0,
-  "sustain": 0.0,
-  "release": 20.0,
+  "attack": attack,
+  "decay": decay,
+  "sustain": sustain,
+  "release": release,
   "baseFrequency": 300,
   "octaves": 4
 }});
@@ -498,26 +469,26 @@ index++;
 const synth = new Tone.MonoSynth({
 
 
-			"volume": -8,
+			"volume": -6,
 			"oscillator": {
-				"type": "sawtooth"
+				"type": wave
 			},
 			"envelope": {
-				"attack": 1.0,
-				"decay": 1.0,
-				"sustain": 1.0,
-				"release": 1.0,
+				"attack": attack,
+				"decay": decay,
+				"sustain": sustain,
+				"release": release,
 			},
 			"filterEnvelope": {
-				"attack": 1.0,
-				"decay": 0.7,
-				"sustain": 0.1,
-				"release": 0.8,
+				"attack": attack,
+				"decay": decay,
+				"sustain": sustain,
+				"release": release,
 				"baseFrequency": 300,
 				"octaves": 4
 			}});
 
-    synth.connect(delay2);
+    synth.connect(delay);
 
 //////////////////////////////////////////////////////////////////////
 var padContainer = document.createElement('div');
@@ -546,14 +517,11 @@ for (var i = 0; i< scalePads.length; i++) {
  function noteDown(note) {
      synth.triggerAttackRelease(note, noteDurationPads);
      Tone.start();
-       // event.stopPropagation()
-
- }
+     }
 
  function noteUp(note) {
      synth.triggerRelease(note);
      Tone.stop();
-       // event.stopPropagation()
      }
 
 
@@ -759,6 +727,7 @@ FBDelay2.value = 0.3;
 FBDelay2.colorize("accent","white")
 FBDelay2.colorize("fill","#333")
 document.body.style.backgroundColor = "#000"
+
 
 
 
