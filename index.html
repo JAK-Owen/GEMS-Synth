@@ -81,18 +81,6 @@
      <div id="FBDelay">D e l a y</div>
 
 
-     <div id="gain2"><span class="iconify" data-icon="clarity:volume-down-line" data-inline="false"></span></div>
-
-     <div id="LPFilter2"><span class="iconify" data-icon="ph:arrow-bend-up-left-thin" data-inline="false"></span></div>
-
-     <div id="HPFilter2"><span class="iconify" data-icon="ph:arrow-bend-up-right-thin" data-inline="false"></span></div>
-
-     <div id="verb2"><span class="iconify" data-icon="mdi:waveform" data-inline="false"></span></div>
-
-     <div id="FBDelay2"><span class="iconify" data-icon="carbon:edt-loop" data-inline="false"></span></div>
-
-
-
 <script>
 
 
@@ -209,7 +197,7 @@ const wave = waveform.saw;
 const noteDuration = duration[16];
 const noteDurationPads = duration[4];
 
-const attack  = 1.0;
+const attack  = 2.0;
 const decay   = 20.0;
 const sustain = 0.0;
 const release = 10.0;
@@ -232,18 +220,6 @@ const reverb = new Tone.Reverb(10).connect(HPfilter);
 
 const delay = new Tone.FeedbackDelay("1m.", 0.9).connect(reverb);
 
-
-///////////////////////////////////////////////////////////////////////////
-
-const volume2 = new Tone.Volume(-Infinity).toDestination();
-
-const LPfilter2 = new Tone.Filter(550, "lowpass").connect(volume2);
-
-const HPfilter2 = new Tone.Filter(550, "highpass").connect(LPfilter2);
-
-const reverb2 = new Tone.Reverb(100,  "verb2").connect(HPfilter2);
-
-const delay2 = new Tone.FeedbackDelay("8.", 0.8, "FBDelay2").connect(reverb2);
 
 //////////////////////////////////////////////////////
 // SYNTH INST 1
@@ -546,7 +522,7 @@ oscilloscope.connect(reverb);
 
 const gain = new Nexus.Dial("#gain",{
 
-  'size': [75,75],
+  'size': [70,70],
   'interaction': 'vertical',
   'mode': 'relative',
 })
@@ -565,7 +541,7 @@ document.body.style.backgroundColor = "#000"
 
 const LPFilter = new Nexus.Dial("#LPFilter",{
 
-  'size': [75,75],
+  'size': [70,70],
   'interaction': 'vertical',
   'mode': 'relative',
 })
@@ -582,7 +558,7 @@ document.body.style.backgroundColor = "#000"
 
 const HPFilter = new Nexus.Dial("#HPFilter",{
 
-  'size': [75,75],
+  'size': [70,70],
   'interaction': 'vertical',
   'mode': 'relative',
 })
@@ -598,7 +574,7 @@ document.body.style.backgroundColor = "#000"
 
 const verb = new Nexus.Dial("#verb",{
 
-  'size': [75,75],
+  'size': [70,70],
   'interaction': 'vertical',
   'mode': 'relative',
 })
@@ -615,7 +591,7 @@ document.body.style.backgroundColor = "#000"
 
 const FBDelay = new Nexus.Dial("#FBDelay",{
 
-  'size': [75,75],
+  'size': [70,70],
   'interaction': 'vertical',
   'mode': 'relative',
 })
@@ -632,98 +608,6 @@ document.body.style.backgroundColor = "#000"
 
 ///////////////////////////////////////////////////////////
 
-const gain2 = new Nexus.Dial("#gain2",{
-
-  'size': [75,75],
-  'interaction': 'vertical',
-  'mode': 'relative',
-})
- gain2.on('change',function(v) {
-	volume2.volume.rampTo(v,.1)
-});
-gain2.min = -50;
-gain2.max = 0;
-gain2.value = -6;
-gain2.colorize("accent","white")
-gain2.colorize("fill","#333")
-document.body.style.backgroundColor = "#000"
-
-
-
-
-const LPFilter2 = new Nexus.Dial("#LPFilter2",{
-
-  'size': [75,75],
-  'interaction': 'vertical',
-  'mode': 'relative',
-})
- LPFilter2.on('change',function(v) {
-	LPfilter2.frequency.rampTo(v,.1)
-});
-LPFilter2.min = 20;
-LPFilter2.max = 550;
-LPFilter2.value = 550;
-LPFilter2.colorize("accent","white")
-LPFilter2.colorize("fill","#333")
-document.body.style.backgroundColor = "#000"
-
-
-const HPFilter2 = new Nexus.Dial("#HPFilter2",{
-
-  'size': [75,75],
-  'interaction': 'vertical',
-  'mode': 'relative',
-})
- HPFilter2.on('change',function(v) {
-	HPfilter2.frequency.rampTo(v,.1)
-});
-HPFilter2.min = 20;
-HPFilter2.max = 650;
-HPFilter2.value = 20;
-HPFilter2.colorize("accent","white")
-HPFilter2.colorize("fill","#333")
-document.body.style.backgroundColor = "#000"
-
-
-
-  function onWaveSelection(wave) {
-   synth.oscillator.type = wave;
- };
-
-
-
-const verb2 = new Nexus.Dial("#verb2",{
-
-  'size': [75,75],
-  'interaction': 'vertical',
-  'mode': 'relative',
-})
- verb2.on('change',function(v) {
-	reverb2.wet.rampTo(v,.1)
-});
-verb2.min = 0;
-verb2.max = 1;
-verb2.value = 0.3;
-verb2.colorize("accent","white")
-verb2.colorize("fill","#333")
-document.body.style.backgroundColor = "#000"
-
-
-const FBDelay2 = new Nexus.Dial("#FBDelay2",{
-
-  'size': [75,75],
-  'interaction': 'vertical',
-  'mode': 'relative',
-})
- FBDelay2.on('change',function(v) {
-	delay2.wet.rampTo(v,.1)
-});
-FBDelay2.min = 0;
-FBDelay2.max = 1;
-FBDelay2.value = 0.3;
-FBDelay2.colorize("accent","white")
-FBDelay2.colorize("fill","#333")
-document.body.style.backgroundColor = "#000"
 
 
 

@@ -86,11 +86,11 @@
  position: relative;
  color: white;
  padding: 10px;
- top: 350px;
+ top: 340px;
  left:calc(50% - 200px);
  font-family: monospace;
  font-weight: lighter;
- font-size: 8px;
+ font-size: 7px;
 
 }
 
@@ -100,11 +100,11 @@
   left: 100px;
   color: white;
   padding: 10px;
-  top: 257px;
+  top: 250px;
   left:calc(50% - 100px);
   font-family: monospace;
   font-weight: lighter;
-  font-size: 8px;
+  font-size: 7px;
 }
 
 #HPFilter {
@@ -112,11 +112,11 @@
   left: 200px;
   color: white;
   padding: 10px;
-  top: 162px;
+  top: 160px;
   left:calc(50% - 0px);
   font-family: monospace;
   font-weight: lighter;
-  font-size: 8px;
+  font-size: 7px;
 }
 
 
@@ -125,11 +125,11 @@
   left: 300px;
   color: white;
   padding: 10px;
-  top: 68px;
+  top: 69px;
   left:calc(50% - -100px);
   font-family: monospace;
   font-weight: lighter;
-  font-size: 8px;
+  font-size: 7px;
 }
 
 #FBDelay {
@@ -137,76 +137,15 @@
   left: 400px;
   color: white;
   padding: 10px;
-  top: -27px;
+  top: -21px;
   left:calc(50% - -200px);
   font-family: monospace;
   font-weight: lighter;
-  font-size: 8px;
+  font-size: 7px;
 }
 
 
 
-#gain2 {
- position: relative;
- color: white;
- padding: 10px;
- left:calc(50% - 200px);
- top: -30px;
- font-family: monospace;
- font-weight: lighter;
- font-size: 15px;
-
-}
-
-
-#LPFilter2 {
-  position: relative;
-  left: 100px;
-  color: white;
-  padding: 10px;
-  top: -125px;
-  left:calc(50% - 100px);
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 15px;
-}
-
-#HPFilter2 {
-  position: relative;
-  left: 200px;
-  color: white;
-  padding: 10px;
-  top: -218px;
-  left:calc(50% - 0px);
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 15px;
-}
-
-#verb2 {
-  position: relative;
-  left: 300px;
-  color: white;
-  padding: 10px;
-  top: -312px;
-  left:calc(50% - -100px);
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 15px;
-}
-
-#FBDelay2 {
-  position: relative;
-  left: 400px;
-  color: white;
-  padding: 10px;
-  top: -408px;
-  left:calc(50% - -200px);
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 15px;
-
-}
 
 
 .padContainer{
@@ -215,8 +154,8 @@
 
 
 .pads {
-  top: -350px;
-  left:calc(54% - 200px);
+  top: 50px;
+  left:calc(53% - 200px);
   position: relative;
   width: 400px;
   display: flex;
