@@ -209,16 +209,18 @@ const wave = waveform.saw;
 const noteDuration = duration[16];
 const noteDurationPads = duration[4];
 
-const attack  = 5.0;
+const attack  = 1.0;
 const decay   = 20.0;
 const sustain = 0.0;
-const release = 20.0;
+const release = 10.0;
 
 
 
 //////////////////////////////////////////////////////
 // GLOBAL EFFECTS
 //////////////////////////////////////////////////////
+
+
 
 const volume = new Tone.Volume(-Infinity).toDestination();
 
@@ -510,6 +512,7 @@ for (var i = 0; i< scalePads.length; i++) {
  }
  function noteDown(note) {
      synth.triggerAttackRelease(note, noteDurationPads);
+     synth.envelope.triggerAttackRelease(noteDuration);
      Tone.start();
      }
 
