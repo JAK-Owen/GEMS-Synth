@@ -101,18 +101,18 @@
 ////////////////////////////////////////////////////////////////////////
 
 const key = {
-  cMinor:      ["c2", "d#2", "g2", "c3", "d#3", "g3"],
-  cSharpMinor: ["c#2", "e2", "g#2","c#3", "e3", "g#3"],
-  dMinor:      ["d2", "f2", "a2", "d3", "f3", "a3"],
-  dSharpMinor: ["d#2", "f#2", "a#2", "d#3", "f#3", "a#3"],
-  eMinor:      ["e2", "g2", "b2", "e3", "g3", "b3"],
-  fMinor:      ["f2", "g#2", "c2", "c#2", "f3", "g#3", "c3"],
-  fSharpMinor: ["f#2", "a2","c#2", "f#3", "a3", "c#3"],
-  gMinor:      ["g2", "a#2", "d2", "g3", "a#3", "d3"],
-  gSharpMinor: ["g#2", "b2", "d#2", "g#3", "b3", "d#3"],
-  aMinor:      ["a2", "c2", "e2", "a3", "c3", "e3"],
-  aSharpMinor: ["a#2", "c#2", "e#2", "a#3", "c#3", "e#3"],
-  bMinor:      ["b2", "d2", "f#2", "b3", "d3", "f#3"],
+  cMinor:      ["c2", "d#2", "g2", "c3", "d#3", "g3", "c4", "d#4", "g4"],
+  cSharpMinor: ["c#2", "e2", "g#2","c#3", "e3", "g#3", "c#4", "e4", "g#4"],
+  dMinor:      ["d2", "f2", "a2", "d3", "f3", "a3", "d4", "f4", "a4"],
+  dSharpMinor: ["d#2", "f#2", "a#2", "d#3", "f#3", "a#3", "d#4", "f#4", "a#4"],
+  eMinor:      ["e2", "g2", "b2", "e3", "g3", "b3", "e4", "g4", "b4"],
+  fMinor:      ["f2", "g#2", "c2", "c#2", "f3", "g#3", "c3", "f4", "g#4", "c4"],
+  fSharpMinor: ["f#2", "a2","c#2", "f#3", "a3", "c#3", "f#4", "a4", "c#4"],
+  gMinor:      ["g2", "a#2", "d2", "g3", "a#3", "d3", "g4", "a#4", "d4"],
+  gSharpMinor: ["g#2", "b2", "d#2", "g#3", "b3", "d#3", "g#4", "b4", "d#4"],
+  aMinor:      ["a2", "c2", "e2", "a3", "c3", "e3", "a4", "c4", "e4"],
+  aSharpMinor: ["a#2", "c#2", "e#2", "a#3", "c#3", "e#3", "a#4", "c#4", "e#4"],
+  bMinor:      ["b2", "d2", "f#2", "b3", "d3", "f#3", "b4", "d4", "f#4"],
 
 };
 
@@ -198,26 +198,21 @@ const duration = {
 };
 
 
-
-
-
 ////////////////////////////////////////////////////////////////////////
 // GLOBAL SELECTORS
 ////////////////////////////////////////////////////////////////////////
-Tone.Transport.bpm.value = 132.142;
+
+Tone.Transport.bpm.value = 132;
 const scale = selectedKey;
 const scalePads = keyPads.dSharpMinor;
 const wave = waveform.saw;
-const noteDuration = duration[8];
+const noteDuration = duration[16];
 const noteDurationPads = duration[4];
 
-const attack  = 10.0;
+const attack  = 5.0;
 const decay   = 20.0;
 const sustain = 0.0;
 const release = 20.0;
-
-
-// console.log(selectedKey);
 
 
 
@@ -252,7 +247,7 @@ const delay2 = new Tone.FeedbackDelay("8.", 0.8, "FBDelay2").connect(reverb2);
 // SYNTH INST 1
 //////////////////////////////////////////////////////
 
-  const synth1 = new Tone.Synth({
+  const synth1 = new Tone.MonoSynth({
 
     "volume": -8,
   "oscillator": {
@@ -278,7 +273,6 @@ const delay2 = new Tone.FeedbackDelay("8.", 0.8, "FBDelay2").connect(reverb2);
   const pattern1 = scale;
 
 
-
 var index = 0;
 
 Tone.Transport.scheduleRepeat(time => {
@@ -296,7 +290,7 @@ Tone.Transport.start();
 
 ///////////////////////////////////////////////
 
-const synth2 = new Tone.Synth({
+const synth2 = new Tone.MonoSynth({
 
   "volume": -10,
 "oscillator": {
@@ -337,7 +331,7 @@ index++;
 
 ///////////////////////////////////////////////
 
-const synth3 = new Tone.Synth({
+const synth3 = new Tone.MonoSynth({
 
   "volume": -9,
 "oscillator": {
@@ -378,7 +372,7 @@ index++;
 
 ///////////////////////////////////////////////
 
-const synth4 = new Tone.Synth({
+const synth4 = new Tone.MonoSynth({
 
   "volume": -10,
 "oscillator": {
@@ -421,7 +415,7 @@ index++;
 
 ///////////////////////////////////////////////
 
-const synth5 = new Tone.Synth({
+const synth5 = new Tone.MonoSynth({
 
   "volume": -10,
 "oscillator": {
@@ -727,6 +721,8 @@ FBDelay2.value = 0.3;
 FBDelay2.colorize("accent","white")
 FBDelay2.colorize("fill","#333")
 document.body.style.backgroundColor = "#000"
+
+
 
 
 
