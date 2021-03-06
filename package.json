@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/JAKOwen-gh/GEMS-Synth#readme",
   "dependencies": {
+    "akai-lpd8": "^1.0.1",
     "nexusui": "^2.1.6",
     "tone": "^14.7.77"
   }

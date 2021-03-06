@@ -2,30 +2,14 @@
 <html>
 <body>
 
+<!-- <script> import * as Tone from 'tone'; </script> -->
+
+<script src="https://unpkg.com/akai-lpd8@1.0.1/dist/AkaiLPD8.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.6/Tone.js'></script>
 <script type="text/javascript" src="https://unpkg.com/@tonejs/ui@0.0.8/build/tonejs-ui.js"></script>
 <script src= 'https://cdn.jsdelivr.net/npm/nexusui@latest/dist/NexusUI.js'></script>
 <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 <link rel="stylesheet" href="styleSheet.css">
-
-<!--
-<form id=global-selectors>
-  <label for="Key Generative">Key Generative:</label>
-  <input type="text" id="Key Generative" name="Key Generative"><br><br>
-  <label for="Key Pads">Key Pads:</label>
-  <input type="text" id="Key Pads" name="Key Pads"><br><br>
-  <label for="Waveform">Waveform:</label>
-  <input type="text" id="Waveform" name="Waveform"><br><br>
-  <label for="Note Duration Generative">Note Duration Generative:</label>
-  <input type="text" id="Note Duration Generative" name="Note Duration Generative"><br><br>
-  <label for="Note Duration Pads">Note Duration Pads:</label>
-  <input type="text" id="Note Duration Pads" name="Note Duration Pads"><br><br>
-  <input type="submit" value="Submit">
-</form> -->
-
-
-
-
 
 
 <!-- //////////////////////////////////////////////////////////////////////////////////
@@ -106,7 +90,7 @@ const key = {
   cMinor:      ["c2", "d#2", "g2", "c3", "d#3", "g3", "c4", "d#4", "g4"],
   cSharpMinor: ["c#2", "e2", "g#2","c#3", "e3", "g#3", "c#4", "e4", "g#4"],
   dMinor:      ["d2", "f2", "a2", "d3", "f3", "a3", "d4", "f4", "a4"],
-  dSharpMinor: ["d#2", "f#2", "a#2", "d#3", "f#3", "a#3", "d#4", "f#4", "a#4"],
+  dSharpMinor: ["d#2", "f#2", "a#2", "d#3", "f#3", "a#3", "d#4", "f#4", "e#4", "f#4", "g#4", "a#4", "b4", "c#5", "d#5"],
   eMinor:      ["e2", "g2", "b2", "e3", "g3", "b3", "e4", "g4", "b4"],
   fMinor:      ["f2", "g#2", "c2", "c#2", "f3", "g#3", "c3", "f4", "g#4", "c4"],
   fSharpMinor: ["f#2", "a2","c#2", "f#3", "a3", "c#3", "f#4", "a4", "c#4"],
@@ -542,6 +526,7 @@ const gain = new Nexus.Dial("#gain",{
 })
  gain.on('change',function(v) {
 	volume.volume.rampTo(v,.1)
+  // console.log(volume)
 });
 gain.min = -50;
 gain.max = 0;
@@ -620,10 +605,67 @@ FBDelay.colorize("fill","#333")
 document.body.style.backgroundColor = "#000"
 
 
+
+
+///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
+///// LPD8 MIDI CONTROL SETUP
 ///////////////////////////////////////////////////////////
 
 
 
+const LPD8 = new AkaiLPD8()
+
+
+LPD8.init()
+    .then(() => {
+        console.log(LPD8)
+        LPD8.K1.on('change', vel =>
+        	calculateNewVolume(vel))
+
+        console.log('this is gain' + gain.value)
+
+    })
+    .catch(error => console.error({ error }))
+
+function calculateNewVolume(vel){
+  var newRange = range(vel, 0, 127, -50, 0)
+  console.log(newRange); // 0
+
+  volume.volume.rampTo(newRange,.1)
+  gain.value = newRange;
+}
+
+const range = (num, in_min, in_max, out_min, out_max) => {
+  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+//
+// LPD8.init()
+//     .then(() => {
+//         console.log(LPD8)
+//         LPD8.K1.on('change', function(){
+//           gain.value;
+//           console.log(gain.value);
+//         });
+//         LPD8.K2.on('change', LPFilter => console.log({LPFilter}))
+//         LPD8.K3.on('change', HPFilter => console.log({HPFilter}))
+//         LPD8.K4.on('change', Reverb => console.log({Reverb}))
+//         LPD8.K5.on('change', Delay => console.log({Delay}))
+//         LPD8.K6.on('change', vel => console.log({vel}))
+//         LPD8.K7.on('change', vel => console.log({vel}))
+//         LPD8.K8.on('change', vel => console.log({vel}))
+//
+//         LPD8.PAD1.noteOn(vel => console.log({vel}))
+//         LPD8.PAD2.noteOn(vel => console.log({vel}))
+//         LPD8.PAD3.noteOn(vel => console.log({vel}))
+//         LPD8.PAD4.noteOn(vel => console.log({vel}))
+//         LPD8.PAD5.noteOn(vel => console.log({vel}))
+//         LPD8.PAD6.noteOn(vel => console.log({vel}))
+//         LPD8.PAD7.noteOn(vel => console.log({vel}))
+//         LPD8.PAD8.noteOn(vel => console.log({vel}))
+//     })
+//     .catch(error => console.error({ error }))
 
 
 
