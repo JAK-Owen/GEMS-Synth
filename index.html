@@ -620,20 +620,24 @@ const LPD8 = new AkaiLPD8()
 LPD8.init()
     .then(() => {
         console.log(LPD8)
+
+
         LPD8.K1.on('change', vel =>
         	calculateNewVolume(vel))
-
-        console.log('this is gain' + gain.value)
-
+          console.log(gain.value)
     })
+
+
+
+
     .catch(error => console.error({ error }))
 
 function calculateNewVolume(vel){
-  var newRange = range(vel, 0, 127, -50, 0)
-  console.log(newRange); // 0
+  var gainRange = range(vel, 0, 127, -50, 0)
+  console.log(gainRange); // 0
 
-  volume.volume.rampTo(newRange,.1)
-  gain.value = newRange;
+  volume.volume.rampTo(gainRange,.1)
+  gain.value = gainRange;
 }
 
 const range = (num, in_min, in_max, out_min, out_max) => {
