@@ -629,6 +629,19 @@ LPD8.init()
         LPD8.K2.on('change', vel =>
           calculateNewLPF(vel))
           console.log(LPFilter.value)
+
+        LPD8.K3.on('change', vel =>
+          calculateNewHPF(vel))
+          console.log(HPFilter.value)
+
+        LPD8.K4.on('change', vel =>
+          calculateNewVerb(vel))
+          console.log(verb.value)
+
+
+        LPD8.K8.on('change', vel =>
+          calculateNewFBDelay(vel))
+          console.log(verb.value)
     })
 
 
@@ -639,7 +652,7 @@ LPD8.init()
 // K1
 
 function calculateNewVolume(vel){
-  var gainRange = MIDIVolumeRange(vel, 0, 127, -50, 0)
+  var gainRange = MIDIVolumeRange(vel, 0, 127, -50, 0) // (MIDI min, MIDI max, Tone min, Tone max)
   console.log(gainRange); // 0
 
   volume.volume.rampTo(gainRange,.1)
@@ -665,33 +678,49 @@ const MIDILPFRange = (num, in_min, in_max, out_min, out_max) => {
   return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
+//K3
 
-//
-// LPD8.init()
-//     .then(() => {
-//         console.log(LPD8)
-//         LPD8.K1.on('change', function(){
-//           gain.value;
-//           console.log(gain.value);
-//         });
-//         LPD8.K2.on('change', LPFilter => console.log({LPFilter}))
-//         LPD8.K3.on('change', HPFilter => console.log({HPFilter}))
-//         LPD8.K4.on('change', Reverb => console.log({Reverb}))
-//         LPD8.K5.on('change', Delay => console.log({Delay}))
-//         LPD8.K6.on('change', vel => console.log({vel}))
-//         LPD8.K7.on('change', vel => console.log({vel}))
-//         LPD8.K8.on('change', vel => console.log({vel}))
-//
-//         LPD8.PAD1.noteOn(vel => console.log({vel}))
-//         LPD8.PAD2.noteOn(vel => console.log({vel}))
-//         LPD8.PAD3.noteOn(vel => console.log({vel}))
-//         LPD8.PAD4.noteOn(vel => console.log({vel}))
-//         LPD8.PAD5.noteOn(vel => console.log({vel}))
-//         LPD8.PAD6.noteOn(vel => console.log({vel}))
-//         LPD8.PAD7.noteOn(vel => console.log({vel}))
-//         LPD8.PAD8.noteOn(vel => console.log({vel}))
-//     })
-//     .catch(error => console.error({ error }))
+function calculateNewHPF(vel){
+  var HPFRange = MIDIHPFRange(vel, 0, 127, 20, 650)
+  console.log(HPFRange); // 0
+
+  HPfilter.frequency.rampTo(HPFRange,.1)
+  HPFilter.value = HPFRange;
+}
+
+const MIDIHPFRange = (num, in_min, in_max, out_min, out_max) => {
+  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+//K4
+
+function calculateNewVerb(vel){
+  var verbRange = MIDIVerbRange(vel, 0, 127, 0, 1)
+  console.log(verbRange); // 0
+
+  reverb.wet.rampTo(verbRange,.1)
+  verb.value = verbRange;
+}
+
+const MIDIVerbRange = (num, in_min, in_max, out_min, out_max) => {
+  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+
+//K8
+
+function calculateNewFBDelay(vel){
+  var FBDelayRange = MIDIFBDelayRange(vel, 0, 127, 0, 1)
+  console.log(FBDelayRange); // 0
+
+  delay.wet.rampTo(FBDelayRange,.1)
+  FBDelay.value = FBDelayRange;
+}
+
+const MIDIFBDelayRange = (num, in_min, in_max, out_min, out_max) => {
+  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////
 
