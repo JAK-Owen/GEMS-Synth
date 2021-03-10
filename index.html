@@ -625,6 +625,10 @@ LPD8.init()
         LPD8.K1.on('change', vel =>
         	calculateNewVolume(vel))
           console.log(gain.value)
+
+        LPD8.K2.on('change', vel =>
+          calculateNewLPF(vel))
+          console.log(LPFilter.value)
     })
 
 
@@ -632,17 +636,35 @@ LPD8.init()
 
     .catch(error => console.error({ error }))
 
+// K1
+
 function calculateNewVolume(vel){
-  var gainRange = range(vel, 0, 127, -50, 0)
+  var gainRange = MIDIVolumeRange(vel, 0, 127, -50, 0)
   console.log(gainRange); // 0
 
   volume.volume.rampTo(gainRange,.1)
   gain.value = gainRange;
 }
 
-const range = (num, in_min, in_max, out_min, out_max) => {
+const MIDIVolumeRange = (num, in_min, in_max, out_min, out_max) => {
   return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
+
+
+//k2
+
+function calculateNewLPF(vel){
+  var LPFRange = MIDILPFRange(vel, 0, 127, 20, 10000)
+  console.log(LPFRange); // 0
+
+  LPfilter.frequency.rampTo(LPFRange,.1)
+  LPFilter.value = LPFRange;
+}
+
+const MIDILPFRange = (num, in_min, in_max, out_min, out_max) => {
+  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 
 //
 // LPD8.init()
@@ -670,6 +692,8 @@ const range = (num, in_min, in_max, out_min, out_max) => {
 //         LPD8.PAD8.noteOn(vel => console.log({vel}))
 //     })
 //     .catch(error => console.error({ error }))
+
+////////////////////////////////////////////////////////////////////////////
 
 
 
