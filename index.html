@@ -90,7 +90,7 @@ const key = {
   cMinor:      ["c2", "d#2", "g2", "c3", "d#3", "g3", "c4", "d#4", "g4"],
   cSharpMinor: ["c#2", "e2", "g#2","c#3", "e3", "g#3", "c#4", "e4", "g#4"],
   dMinor:      ["d2", "f2", "a2", "d3", "f3", "a3", "d4", "f4", "a4"],
-  dSharpMinor: ["d#2", "f#2", "a#2", "d#3", "f#3", "a#3", "d#4", "f#4", "e#4", "f#4", "g#4", "a#4", "b4", "c#5", "d#5"],
+  dSharpMinor: ["d#2", "f#2", "a#2", "d#3", "f#3", "a#3", "d#4", "f#4"],
   eMinor:      ["e2", "g2", "b2", "e3", "g3", "b3", "e4", "g4", "b4"],
   fMinor:      ["f2", "g#2", "c2", "c#2", "f3", "g#3", "c3", "f4", "g#4", "c4"],
   fSharpMinor: ["f#2", "a2","c#2", "f#3", "a3", "c#3", "f#4", "a4", "c#4"],
@@ -471,13 +471,13 @@ document.body.appendChild(padContainer);
 for (var i = 0; i< scalePads.length; i++) {
     var newPad = document.createElement('button');
     newPad.id = scalePads[i]; newPad.className = "pad-1";
-    newPad.onclick = myOnClickHandler;
+    newPad.onclick = PadOnClickHandler;
     // newPad.innerHTML = scalePads[i]; // DISPLAYS NAMES ON PADS
     document.getElementById("padContainer").appendChild(newPad);
 
 }
 
- function myOnClickHandler(){
+ function PadOnClickHandler(){
    console.log(this.id)
    noteDown(this.id);
    startLoop();
@@ -641,7 +641,15 @@ LPD8.init()
 
         LPD8.K8.on('change', vel =>
           calculateNewFBDelay(vel))
-          console.log(verb.value)
+          console.log(FBDelay.value)
+
+
+        LPD8.PAD5.on('change', vel =>
+          NewPAD5(vel))
+          console.log(newPad)
+
+
+
     })
 
 
@@ -721,6 +729,32 @@ const MIDIFBDelayRange = (num, in_min, in_max, out_min, out_max) => {
   return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
+
+
+///////////////
+//PADS
+///////////////
+
+function NewPAD5(vel){
+
+
+
+
+}
+
+
+
+//
+//         LPD8.PAD1.noteOn(vel => console.log({vel}))
+//         LPD8.PAD2.noteOn(vel => console.log({vel}))
+//         LPD8.PAD3.noteOn(vel => console.log({vel}))
+//         LPD8.PAD4.noteOn(vel => console.log({vel}))
+//         LPD8.PAD5.noteOn(vel => console.log({vel}))
+//         LPD8.PAD6.noteOn(vel => console.log({vel}))
+//         LPD8.PAD7.noteOn(vel => console.log({vel}))
+//         LPD8.PAD8.noteOn(vel => console.log({vel}))
+//     })
+//     .catch(error => console.error({ error }))
 
 ////////////////////////////////////////////////////////////////////////////
 
