@@ -15,7 +15,7 @@
   font-family: monospace;
   font-weight: lighter;
   font-size: 20px;
-  top:calc(20% - 100px);
+  top:calc(15% - 100px);
   left:calc(50% - 200px);
 
 }
@@ -33,7 +33,7 @@
   font-family: monospace;
   font-weight: lighter;
   font-size: 20px;
-  top:calc(20% - 100px);
+  top:calc(15% - 100px);
   left:calc(55% - 200px);
 
 }
@@ -53,7 +53,7 @@
   font-family: monospace;
   font-weight: lighter;
   font-size: 11px;
-  top:calc(20% - 100px);
+  top:calc(15% - 100px);
   left:calc(60% - 200px);
   filter: grayscale(1);
 }
@@ -61,6 +61,41 @@
 #assignKey:hover {
   cursor: pointer;
 
+}
+
+
+.control{
+  filter: grayscale();
+}
+
+.label{
+  color: white;
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 8px;
+}
+
+#envelope-container{
+  position: relative;
+  top: 50px;
+  left:calc(38% - 200px);
+}
+
+#oscillator-type {
+
+  position: absolute;
+  background-color: black;
+  color: white;
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 11px;
+  top:calc(15% - 100px);
+  left:calc(70% - 200px);
+  filter: grayscale(1);
+}
+
+#oscillator-type:hover {
+  cursor: pointer;
 
 }
 
@@ -71,7 +106,7 @@
   height:100%;
   width: auto;
   border:3px solid white;
-  top:calc(25% - 100px);
+  top:calc(20% - 100px);
   left:calc(50% - 200px);
   overflow:hidden;
   z-index: 1;
@@ -86,7 +121,7 @@
  position: relative;
  color: white;
  padding: 10px;
- top: 340px;
+ top: 140px;
  left:calc(50% - 200px);
  font-family: monospace;
  font-weight: lighter;
@@ -100,7 +135,7 @@
   left: 100px;
   color: white;
   padding: 10px;
-  top: 250px;
+  top: 50px;
   left:calc(50% - 100px);
   font-family: monospace;
   font-weight: lighter;
@@ -112,7 +147,7 @@
   left: 200px;
   color: white;
   padding: 10px;
-  top: 160px;
+  top: -40px;
   left:calc(50% - 0px);
   font-family: monospace;
   font-weight: lighter;
@@ -125,7 +160,7 @@
   left: 300px;
   color: white;
   padding: 10px;
-  top: 69px;
+  top: -130px;
   left:calc(50% - -100px);
   font-family: monospace;
   font-weight: lighter;
@@ -137,7 +172,7 @@
   left: 400px;
   color: white;
   padding: 10px;
-  top: -21px;
+  top: -219px;
   left:calc(50% - -200px);
   font-family: monospace;
   font-weight: lighter;
@@ -154,7 +189,7 @@
 
 
 .pads {
-  top: 50px;
+  top: -210px;
   left:calc(53% - 200px);
   position: relative;
   width: 400px;

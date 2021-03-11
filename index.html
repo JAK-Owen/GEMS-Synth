@@ -11,6 +11,60 @@
 <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 <link rel="stylesheet" href="styleSheet.css">
 
+<!-- ///////////////////////////////////////////////////////////////////////////// -->
+<div class="container">
+  <section class="section">
+    <div class="field">
+        <select id="oscillator-type">
+          <option value="triangle">triangle</option>
+          <option value="sawtooth" selected>sawtooth</option>
+          <option value="sine">sine</option>
+          <option value="square">square</option>
+        </select>
+    </div>
+
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<div id="envelope-container">
+<div class="field">
+      <label class="label" for="envelope-attack">A t t a c k </label>
+      <div class="control">
+        <input id="envelope-attack" class="input is-fullwidth"
+               value="1" min="0" max="10" step="1" type="range" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="envelope-decay">D e c a y </label>
+      <div class="control">
+        <input id="envelope-decay" class="input is-fullwidth"
+               value="1" min="0" max="10" step="1" type="range" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="envelope-sustain">S u s t a i n </label>
+      <div class="control">
+        <input id="envelope-sustain" class="input is-fullwidth"
+               value="9" min="0" max="10" step="1" type="range" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label" for="envelope-release">R e l e a s e </label>
+      <div class="control">
+        <input id="envelope-release" class="input is-fullwidth"
+               value="7" min="0" max="10" step="1" type="range" />
+      </div>
+    </div>
+	</div>
+<!-- //////////////////////////////////////////////////////////////////////////////// -->
+<script>
+
+
+
+
+</script>
+
+
+
+
 
 <!-- //////////////////////////////////////////////////////////////////////////////////
 //RESET BUTTON
@@ -77,6 +131,8 @@
      <div id="verb">R e v e r b</div>
 
      <div id="FBDelay">D e l a y</div>
+
+		 <div id="attack">ATTACK</div>
 
 
 <script>
@@ -605,8 +661,6 @@ FBDelay.colorize("fill","#333")
 document.body.style.backgroundColor = "#000"
 
 
-
-
 ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////
 ///// LPD8 MIDI CONTROL SETUP
@@ -652,10 +706,11 @@ LPD8.init()
 
     })
 
-
-
-
     .catch(error => console.error({ error }))
+
+///////////////////////////////
+//KNOBS
+//////////////////////////////
 
 // K1
 
@@ -738,23 +793,8 @@ const MIDIFBDelayRange = (num, in_min, in_max, out_min, out_max) => {
 function NewPAD5(vel){
 
 
-
-
 }
 
-
-
-//
-//         LPD8.PAD1.noteOn(vel => console.log({vel}))
-//         LPD8.PAD2.noteOn(vel => console.log({vel}))
-//         LPD8.PAD3.noteOn(vel => console.log({vel}))
-//         LPD8.PAD4.noteOn(vel => console.log({vel}))
-//         LPD8.PAD5.noteOn(vel => console.log({vel}))
-//         LPD8.PAD6.noteOn(vel => console.log({vel}))
-//         LPD8.PAD7.noteOn(vel => console.log({vel}))
-//         LPD8.PAD8.noteOn(vel => console.log({vel}))
-//     })
-//     .catch(error => console.error({ error }))
 
 ////////////////////////////////////////////////////////////////////////////
 
