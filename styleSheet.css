@@ -8,6 +8,30 @@
 
 }
 
+
+tone-slider{
+  color: white;
+  background-color: #444;
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 8px;
+  border-style: solid;
+  border-color: white;
+
+}
+
+
+#bpm-slider{
+  width: 130px;
+  height: 50%;
+  color: white;
+  position: relative;
+  left:calc(38% - 200px);
+  top: 55px;
+
+
+}
+
 #reset-button{
   position: absolute;
   background-color: black;
@@ -77,7 +101,7 @@
 
 #envelope-container{
   position: relative;
-  top: 50px;
+  top: 75px;
   left:calc(38% - 200px);
 }
 
@@ -116,12 +140,17 @@
   animation-duration: 1.5s;
 }
 
+#dials-container{
+ position: relative;
+
+}
+
 
 #gain {
  position: relative;
  color: white;
  padding: 10px;
- top: 140px;
+ top: 70px;
  left:calc(50% - 200px);
  font-family: monospace;
  font-weight: lighter;
@@ -135,7 +164,7 @@
   left: 100px;
   color: white;
   padding: 10px;
-  top: 50px;
+  top: -20px;
   left:calc(50% - 100px);
   font-family: monospace;
   font-weight: lighter;
@@ -147,7 +176,7 @@
   left: 200px;
   color: white;
   padding: 10px;
-  top: -40px;
+  top: -110px;
   left:calc(50% - 0px);
   font-family: monospace;
   font-weight: lighter;
@@ -160,7 +189,7 @@
   left: 300px;
   color: white;
   padding: 10px;
-  top: -130px;
+  top: -200px;
   left:calc(50% - -100px);
   font-family: monospace;
   font-weight: lighter;
@@ -172,7 +201,7 @@
   left: 400px;
   color: white;
   padding: 10px;
-  top: -219px;
+  top: -289px;
   left:calc(50% - -200px);
   font-family: monospace;
   font-weight: lighter;
@@ -189,7 +218,7 @@
 
 
 .pads {
-  top: -210px;
+  top: -250px;
   left:calc(53% - 200px);
   position: relative;
   width: 400px;

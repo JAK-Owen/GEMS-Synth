@@ -1,807 +1,818 @@
 <!DOCTYPE html>
 <html>
+
 <body>
 
-<!-- <script> import * as Tone from 'tone'; </script> -->
+  <!-- <script> import * as Tone from 'tone'; </script> -->
 
-<script src="https://unpkg.com/akai-lpd8@1.0.1/dist/AkaiLPD8.min.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.6/Tone.js'></script>
-<script type="text/javascript" src="https://unpkg.com/@tonejs/ui@0.0.8/build/tonejs-ui.js"></script>
-<script src= 'https://cdn.jsdelivr.net/npm/nexusui@latest/dist/NexusUI.js'></script>
-<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
-<link rel="stylesheet" href="styleSheet.css">
+  <script src="https://unpkg.com/akai-lpd8@1.0.1/dist/AkaiLPD8.min.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.6/Tone.js'></script>
+  <script type="text/javascript" src="https://unpkg.com/@tonejs/ui@0.0.8/build/tonejs-ui.js"></script>
+  <script src='https://cdn.jsdelivr.net/npm/nexusui@latest/dist/NexusUI.js'></script>
+  <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+  <link rel="stylesheet" href="styleSheet.css">
 
-<!-- ///////////////////////////////////////////////////////////////////////////// -->
-<div class="container">
-  <section class="section">
-    <div class="field">
-        <select id="oscillator-type">
-          <option value="triangle">triangle</option>
-          <option value="sawtooth" selected>sawtooth</option>
-          <option value="sine">sine</option>
-          <option value="square">square</option>
-        </select>
-    </div>
+<div id="bpm-slider">
+  <tone-slider id="bpm" units="bpm" min="60" max="240" value="132" ></tone-slider>
+</div>
+  <script>
 
-<!-- //////////////////////////////////////////////////////////////////////////// -->
-<div id="envelope-container">
-<div class="field">
-      <label class="label" for="envelope-attack">A t t a c k </label>
-      <div class="control">
-        <input id="envelope-attack" class="input is-fullwidth"
-               value="1" min="0" max="10" step="1" type="range" />
+  document.querySelector("tone-slider").addEventListener("input", (e) => Tone.Transport.bpm.value = parseFloat(e.target.value));
+  console.log();
+
+  </script>
+
+  <!-- ///////////////////////////////////////////////////////////////////////////// -->
+  <div class="container">
+    <section class="section">
+      <div class="field">
+        <div class='wave-selector'>
+          <select id="oscillator-type">
+            <option  value="triangle">triangle</option>
+            <option  value="sawtooth" selected>sawtooth</option>
+            <option  value="sine">sine</option>
+            <option  value="sawtooth">square</option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <label class="label" for="envelope-decay">D e c a y </label>
-      <div class="control">
-        <input id="envelope-decay" class="input is-fullwidth"
-               value="1" min="0" max="10" step="1" type="range" />
+
+
+
+      <!-- //////////////////////////////////////////////////////////////////////////// -->
+      <div id="envelope-container">
+        <div class="field">
+          <label class="label" for="envelope-attack">A t t a c k </label>
+          <div class="control">
+            <input id="envelope-attack" value="1" min="0" max="10" step="1" type="range" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="envelope-decay">D e c a y </label>
+          <div class="control">
+            <input id="envelope-decay" value="1" min="0" max="10" step="1" type="range" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="envelope-sustain">S u s t a i n </label>
+          <div class="control">
+            <input id="envelope-sustain" value="9" min="0" max="10" step="1" type="range" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="envelope-release">R e l e a s e </label>
+          <div class="control">
+            <input id="envelope-release" value="7" min="0" max="10" step="1" type="range" />
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <label class="label" for="envelope-sustain">S u s t a i n </label>
-      <div class="control">
-        <input id="envelope-sustain" class="input is-fullwidth"
-               value="9" min="0" max="10" step="1" type="range" />
-      </div>
-    </div>
-    <div class="field">
-      <label class="label" for="envelope-release">R e l e a s e </label>
-      <div class="control">
-        <input id="envelope-release" class="input is-fullwidth"
-               value="7" min="0" max="10" step="1" type="range" />
-      </div>
-    </div>
-	</div>
-<!-- //////////////////////////////////////////////////////////////////////////////// -->
-<script>
+      <!-- //////////////////////////////////////////////////////////////////////////////// -->
 
-
-
-
-</script>
-
-
-
-
-
-<!-- //////////////////////////////////////////////////////////////////////////////////
+      <!-- //////////////////////////////////////////////////////////////////////////////////
 //RESET BUTTON
 ///////////////////////////////////////////////////////////////////////////////// -->
 
-   <button id='reset-button' onclick = 'resetButton()'<span class="iconify" data-icon="entypo:cycle" data-inline="false"></span></button>
+      <button id='reset-button' onclick='resetButton()' <span class="iconify" data-icon="entypo:cycle" data-inline="false"></span></button>
 
-   <script>
+      <script>
+        function resetButton() {
+          window.location.reload(true);
+          Tone.Transport.stop();
+          Tone.stop();
+        };
+      </script>
 
-     function resetButton(){
-         window.location.reload(true);
-         Tone.Transport.stop();
-         Tone.stop();
-     };
-   </script>
-
-<!-- //////////////////////////////////////////////////////////////////////////////////
+      <!-- //////////////////////////////////////////////////////////////////////////////////
 //STOP BUTTON
 ///////////////////////////////////////////////////////////////////////////////// -->
 
-      <button id='stop-button' onclick = 'stopTransport()'<span class="iconify" data-icon="ph:stop-bold" data-inline="false"></span></button>
+      <button id='stop-button' onclick='stopTransport()' <span class="iconify" data-icon="ph:stop-bold" data-inline="false"></span></button>
 
       <script>
-
-        function stopTransport(){
-            Tone.Transport.stop();
+        function stopTransport() {
+          Tone.Transport.stop();
 
         };
       </script>
 
 
-<!-- //////////////////////////////////////////////////////////////////////////////////
+      <!-- //////////////////////////////////////////////////////////////////////////////////
 //DROPDOWN
 ///////////////////////////////////////////////////////////////////////////////// -->
 
-<select id="assignKey" onchange="keyChange()">
-  <option id="Cminor" value="Cminor"> C Minor</option>
-  <option id="C#minor"value="C#minor">C# Minor</option>
-  <option id="Dminor" value="Dminor"> D Minor</option>
-  <option id="D#minor"value="D#minor" selected="selected">D# Minor</option>
-  <option id="Eminor" value="Eminor"> E Minor</option>
-  <option id="Fminor" value="Fminor"> F Minor</option>
-  <option id="F#minor"value="F#minor">F# Minor</option>
-  <option id="Gminor" value="Gminor"> G Minor</option>
-  <option id="G#minor"value="G#minor">G# Minor</option>
-  <option id="Aminor" value="Aminor"> A Minor</option>
-  <option id="A#minor"value="A#minor">A# Minor</option>
-  <option id="Bminor" value="Bminor"> B Minor</option>
-</select>
+      <select id="assignKey" onchange="keyChange()">
+        <option id="Cminor" value="Cminor"> C Minor</option>
+        <option id="C#minor" value="C#minor">C# Minor</option>
+        <option id="Dminor" value="Dminor"> D Minor</option>
+        <option id="D#minor" value="D#minor" selected="selected">D# Minor</option>
+        <option id="Eminor" value="Eminor"> E Minor</option>
+        <option id="Fminor" value="Fminor"> F Minor</option>
+        <option id="F#minor" value="F#minor">F# Minor</option>
+        <option id="Gminor" value="Gminor"> G Minor</option>
+        <option id="G#minor" value="G#minor">G# Minor</option>
+        <option id="Aminor" value="Aminor"> A Minor</option>
+        <option id="A#minor" value="A#minor">A# Minor</option>
+        <option id="Bminor" value="Bminor"> B Minor</option>
+      </select>
 
 
 
-<!-- ///////////////////////////////////////////////////////////////////////////////// -->
+      <!-- ///////////////////////////////////////////////////////////////////////////////// -->
 
 
-     <div id="oscilloscope"></div>
+      <div id="oscilloscope"></div>
 
-     <div id="gain">V o l u m e</div>
+      <div id="dials-container">
 
-     <div id="LPFilter"> L o w P a s s</div>
+      <div id="gain">V o l u m e</div>
 
-     <div id="HPFilter">H i g h P a s s</div>
+      <div id="LPFilter"> L o w P a s s</div>
 
-     <div id="verb">R e v e r b</div>
+      <div id="HPFilter">H i g h P a s s</div>
 
-     <div id="FBDelay">D e l a y</div>
+      <div id="verb">R e v e r b</div>
 
-		 <div id="attack">ATTACK</div>
+      <div id="FBDelay">D e l a y</div>
 
+    </div>
 
-<script>
+      <script>
+        ////////////////////////////////////////////////////////////////////////
+        // KEY SELECTOR GENERATIVE
+        ////////////////////////////////////////////////////////////////////////
 
+        const key = {
+          cMinor: ["c2", "d#2", "g2", "c3", "d#3", "g3", "c4", "d#4", "g4"],
+          cSharpMinor: ["c#2", "e2", "g#2", "c#3", "e3", "g#3", "c#4", "e4", "g#4"],
+          dMinor: ["d2", "f2", "a2", "d3", "f3", "a3", "d4", "f4", "a4"],
+          dSharpMinor: ["d#2", "f#2", "a#2", "d#3", "f#3", "a#3", "d#4", "f#4"],
+          eMinor: ["e2", "g2", "b2", "e3", "g3", "b3", "e4", "g4", "b4"],
+          fMinor: ["f2", "g#2", "c2", "c#2", "f3", "g#3", "c3", "f4", "g#4", "c4"],
+          fSharpMinor: ["f#2", "a2", "c#2", "f#3", "a3", "c#3", "f#4", "a4", "c#4"],
+          gMinor: ["g2", "a#2", "d2", "g3", "a#3", "d3", "g4", "a#4", "d4"],
+          gSharpMinor: ["g#2", "b2", "d#2", "g#3", "b3", "d#3", "g#4", "b4", "d#4"],
+          aMinor: ["a2", "c2", "e2", "a3", "c3", "e3", "a4", "c4", "e4"],
+          aSharpMinor: ["a#2", "c#2", "e#2", "a#3", "c#3", "e#3", "a#4", "c#4", "e#4"],
+          bMinor: ["b2", "d2", "f#2", "b3", "d3", "f#3", "b4", "d4", "f#4"],
 
-////////////////////////////////////////////////////////////////////////
-// KEY SELECTOR GENERATIVE
-////////////////////////////////////////////////////////////////////////
+        };
 
-const key = {
-  cMinor:      ["c2", "d#2", "g2", "c3", "d#3", "g3", "c4", "d#4", "g4"],
-  cSharpMinor: ["c#2", "e2", "g#2","c#3", "e3", "g#3", "c#4", "e4", "g#4"],
-  dMinor:      ["d2", "f2", "a2", "d3", "f3", "a3", "d4", "f4", "a4"],
-  dSharpMinor: ["d#2", "f#2", "a#2", "d#3", "f#3", "a#3", "d#4", "f#4"],
-  eMinor:      ["e2", "g2", "b2", "e3", "g3", "b3", "e4", "g4", "b4"],
-  fMinor:      ["f2", "g#2", "c2", "c#2", "f3", "g#3", "c3", "f4", "g#4", "c4"],
-  fSharpMinor: ["f#2", "a2","c#2", "f#3", "a3", "c#3", "f#4", "a4", "c#4"],
-  gMinor:      ["g2", "a#2", "d2", "g3", "a#3", "d3", "g4", "a#4", "d4"],
-  gSharpMinor: ["g#2", "b2", "d#2", "g#3", "b3", "d#3", "g#4", "b4", "d#4"],
-  aMinor:      ["a2", "c2", "e2", "a3", "c3", "e3", "a4", "c4", "e4"],
-  aSharpMinor: ["a#2", "c#2", "e#2", "a#3", "c#3", "e#3", "a#4", "c#4", "e#4"],
-  bMinor:      ["b2", "d2", "f#2", "b3", "d3", "f#3", "b4", "d4", "f#4"],
+        ////////////////////////////////////////////////////////////////////////
+        // KEY DROPDOWN SELECTORS
+        ////////////////////////////////////////////////////////////////////////
 
-};
 
-////////////////////////////////////////////////////////////////////////
-// KEY DROPDOWN SELECTORS
-////////////////////////////////////////////////////////////////////////
 
+        window.keyChange = function() {
+          console.log('selected key' + selectedKey)
+          console.log('key' + key)
 
+          currentKey = document.getElementById("assignKey").value;
+          selectedKey = key[currentKey];
+          console.log('selected key HAS THE KEY CHANGED  ' + selectedKey)
 
-    window.keyChange = function(){
-      console.log('selected key' + selectedKey)
-      console.log('key' + key)
+          console.log(selectedKey);
 
-    currentKey = document.getElementById("assignKey").value;
-    selectedKey = key[currentKey];
-    console.log('selected key HAS THE KEY CHANGED  ' + selectedKey)
 
-    console.log(selectedKey);
+        };
 
 
-    };
+        let currentKey = 'dSharpMinor'
+        let selectedKey = key[currentKey];
 
 
-    let currentKey= 'dSharpMinor'
-    let selectedKey = key[currentKey];
+        ////////////////////////////////////////////////////////////////////////
+        // KEY SELECTOR PADS
+        ////////////////////////////////////////////////////////////////////////
 
+        const keyPads = {
+          cMinor: ["c3", "d3", "d#3", "f3", "g3", "g#3", "a#3", "c4"],
+          cSharpMinor: ["c#3", "d#3", "e3", "f#3", "g#3", "a3", "b3", "c#4"],
+          dMinor: ["d3", "e3", "f3", "g3", "a3", "a#3", "c3", "d4"],
+          dSharpMinor: ["d#4", "e#4", "f#4", "g#4", "a#4", "b4", "c#5", "d#5"],
+          eMinor: ["e3", "f#3", "g3", "a3", "b3", "c3", "d3", "e4"],
+          fMinor: ["f3", "g3", "g#3", "a#3", "c3", "c#3", "d#3", "f4"],
+          fSharpMinor: ["f#3", "g#3", "a3", "b3", "c#3", "d3", "e3", "f#4"],
+          gMinor: ["g3", "a3", "a#3", "c3", "d3", "d#3", "f3", "g4"],
+          gSharpMinor: ["g#3", "a#3", "b3", "c#3", "d#3", "e3", "f#3", "g#4"],
+          aMinor: ["a3", "b3", "c3", "d3", "e3", "f3", "g3", "a4"],
+          aSharpMinor: ["a#3", "b#3", "c#3", "d#3", "e#3", "f#3", "g#3", "a#4"],
+          bMinor: ["b3", "c#3", "d3", "e3", "f#3", "g3", "a3", "b4"],
 
-////////////////////////////////////////////////////////////////////////
-// KEY SELECTOR PADS
-////////////////////////////////////////////////////////////////////////
 
-const keyPads = {
-    cMinor:      ["c3", "d3", "d#3", "f3", "g3", "g#3", "a#3", "c4"],
-    cSharpMinor: ["c#3", "d#3", "e3", "f#3", "g#3", "a3", "b3", "c#4"],
-    dMinor:      ["d3", "e3", "f3", "g3", "a3", "a#3", "c3", "d4"],
-    dSharpMinor: ["d#4", "e#4", "f#4", "g#4", "a#4", "b4", "c#5", "d#5"],
-    eMinor:      ["e3", "f#3", "g3", "a3", "b3", "c3", "d3", "e4"],
-    fMinor:      ["f3", "g3", "g#3", "a#3", "c3", "c#3", "d#3", "f4"],
-    fSharpMinor: ["f#3", "g#3", "a3", "b3", "c#3", "d3", "e3", "f#4"],
-    gMinor:      ["g3", "a3", "a#3", "c3", "d3", "d#3", "f3", "g4"],
-    gSharpMinor: ["g#3", "a#3", "b3", "c#3", "d#3", "e3", "f#3", "g#4"],
-    aMinor:      ["a3", "b3", "c3", "d3", "e3", "f3", "g3", "a4"],
-    aSharpMinor: ["a#3", "b#3", "c#3", "d#3", "e#3", "f#3", "g#3", "a#4"],
-    bMinor:      ["b3", "c#3", "d3", "e3", "f#3", "g3", "a3", "b4"],
+        };
 
+        ////////////////////////////////////////////////////////////////////////
+        // WAVEFORM SELECTOR
+        ////////////////////////////////////////////////////////////////////////
 
-};
+        const waveform = {
+          sine: "sine",
+          triangle: "triangle",
+          square: "square",
+          saw: "sawtooth",
 
-////////////////////////////////////////////////////////////////////////
-// WAVEFORM SELECTOR
-////////////////////////////////////////////////////////////////////////
+        };
 
-const waveform = {
-  sine:     "sine",
-  triangle: "triangle",
-  square:   "square",
-  saw:      "sawtooth",
+        ////////////////////////////////////////////////////////////////////////
+        // DURATION SELECTOR
+        ////////////////////////////////////////////////////////////////////////
 
-};
+        const duration = {
 
-////////////////////////////////////////////////////////////////////////
-// DURATION SELECTOR
-////////////////////////////////////////////////////////////////////////
+          // N = BEATS
+          // M = MESSURES
 
-const duration = {
+          "16": "16m",
+          "8": "8m",
+          "4": "4m",
+          "2": "2m",
+          "1": "1m",
+          "1/4": "1n",
+          "2/4": "2n",
+          "4/4": "4n",
+          "8/4": "8n",
+          "16/4": "16n",
+          "32/4": "32n",
+          "64/4": "64n"
 
-// N = BEATS
-// M = MESSURES
+        };
 
-  "16": "16m",
-  "8" : "8m",
-  "4" : "4m",
-  "2" : "2m",
-  "1" : "1m",
-  "1/4" : "1n",
-  "2/4" : "2n",
-  "4/4" : "4n",
-  "8/4" : "8n",
-  "16/4": "16n",
-  "32/4": "32n",
-  "64/4": "64n"
 
-};
+        ////////////////////////////////////////////////////////////////////////
+        // GLOBAL SELECTORS
+        ////////////////////////////////////////////////////////////////////////
 
 
-////////////////////////////////////////////////////////////////////////
-// GLOBAL SELECTORS
-////////////////////////////////////////////////////////////////////////
 
-Tone.Transport.bpm.value = 132;
-const scale = selectedKey;
-const scalePads = keyPads.dSharpMinor;
-const wave = waveform.saw;
-const noteDuration = duration[16];
-const noteDurationPads = duration[4];
 
-const attack  = 2.0;
-const decay   = 20.0;
-const sustain = 0.0;
-const release = 10.0;
 
+        // Tone.Transport.bpm.value = 132;
+        const scale = selectedKey;
+        const scalePads = keyPads.dSharpMinor;
+        const wave = waveform.saw;
+        const noteDuration = duration[16];
+        const noteDurationPads = duration[4];
 
+        const attack = 2.0;
+        const decay = 20.0;
+        const sustain = 0.0;
+        const release = 10.0;
 
-//////////////////////////////////////////////////////
-// GLOBAL EFFECTS
-//////////////////////////////////////////////////////
 
 
+        //////////////////////////////////////////////////////
+        // GLOBAL EFFECTS
+        //////////////////////////////////////////////////////
 
-const volume = new Tone.Volume(-Infinity).toDestination();
 
-const LPfilter = new Tone.Filter(10000, "lowpass").connect(volume);
 
-const HPfilter = new Tone.Filter(550, "highpass").connect(LPfilter);
+        const volume = new Tone.Volume(-Infinity).toDestination();
 
-const reverb = new Tone.Reverb(10).connect(HPfilter);
+        const LPfilter = new Tone.Filter(10000, "lowpass").connect(volume);
 
-const delay = new Tone.FeedbackDelay("1m.", 0.9).connect(reverb);
+        const HPfilter = new Tone.Filter(550, "highpass").connect(LPfilter);
 
+        const reverb = new Tone.Reverb(10).connect(HPfilter);
 
-//////////////////////////////////////////////////////
-// SYNTH INST 1
-//////////////////////////////////////////////////////
+        const delay = new Tone.FeedbackDelay("1m.", 0.9).connect(reverb);
 
-  const synth1 = new Tone.MonoSynth({
 
-    "volume": -8,
-  "oscillator": {
-    "type": wave
-  },
-  "envelope": {
-    "attack": attack,
-    "decay": decay,
-    "sustain": sustain,
-    "release": release,
-  },
-  "filterEnvelope": {
-    "attack": attack,
-    "decay": decay,
-    "sustain": sustain,
-    "release": release,
-    "baseFrequency": 300,
-    "octaves": 4
-  }});
+        //////////////////////////////////////////////////////
+        // SYNTH INST 1
+        //////////////////////////////////////////////////////
 
-  synth1.connect(delay);
+        const synth1 = new Tone.MonoSynth({
 
-  const pattern1 = scale;
+          "volume": -8,
+          "oscillator": {
+            "type": wave
+          },
+          "envelope": {
+            "attack": attack,
+            "decay": decay,
+            "sustain": sustain,
+            "release": release,
+          },
+          "filterEnvelope": {
+            "attack": attack,
+            "decay": decay,
+            "sustain": sustain,
+            "release": release,
+            "baseFrequency": 300,
+            "octaves": 4
+          }
+        });
 
+        synth1.connect(delay);
 
-var index = 0;
+        const pattern1 = scale;
 
-Tone.Transport.scheduleRepeat(time => {
-  repeat(time);
-}, noteDuration);
 
-function repeat(time) {
-  let note = pattern1[Math.floor(Math.random() * pattern1.length)];
-  synth1.triggerAttackRelease(note, noteDuration, time);
-  synth1.envelope.triggerAttackRelease(noteDuration);
-  index++;
-}
-Tone.Transport.start();
+        var index = 0;
 
+        Tone.Transport.scheduleRepeat(time => {
+          repeat(time);
+        }, noteDuration);
 
-///////////////////////////////////////////////
-
-const synth2 = new Tone.MonoSynth({
-
-  "volume": -10,
-"oscillator": {
-  "type": wave
-},
-"envelope": {
-  "attack": attack,
-  "decay": decay,
-  "sustain": sustain,
-  "release": release,
-},
-"filterEnvelope": {
-  "attack": attack,
-  "decay": decay,
-  "sustain": sustain,
-  "release": release,
-  "baseFrequency": 300,
-  "octaves": 4
-}});
+        function repeat(time) {
+          let note = pattern1[Math.floor(Math.random() * pattern1.length)];
+          synth1.triggerAttackRelease(note, noteDuration, time);
+          synth1.envelope.triggerAttackRelease(noteDuration);
+          index++;
+        }
+        Tone.Transport.start();
 
-synth2.connect(delay);
 
-const pattern2 = scale;
+        ///////////////////////////////////////////////
 
+        const synth2 = new Tone.MonoSynth({
 
-var index = 0;
+          "volume": -10,
+          "oscillator": {
+            "type": wave
+          },
+          "envelope": {
+            "attack": attack,
+            "decay": decay,
+            "sustain": sustain,
+            "release": release,
+          },
+          "filterEnvelope": {
+            "attack": attack,
+            "decay": decay,
+            "sustain": sustain,
+            "release": release,
+            "baseFrequency": 300,
+            "octaves": 4
+          }
+        });
 
-Tone.Transport.scheduleRepeat(time => {
-repeat2(time);
-}, noteDuration);
+        synth2.connect(delay);
 
-function repeat2(time) {
-let note = pattern2[Math.floor(Math.random() * pattern2.length)];
-synth2.triggerAttackRelease(note, noteDuration, time);
-synth2.envelope.triggerAttackRelease(noteDuration);
-index++;
-}
+        const pattern2 = scale;
 
-///////////////////////////////////////////////
-
-const synth3 = new Tone.MonoSynth({
-
-  "volume": -9,
-"oscillator": {
-  "type": wave
-},
-"envelope": {
-  "attack": attack,
-  "decay": decay,
-  "sustain": sustain,
-  "release": release,
-},
-"filterEnvelope": {
-  "attack": attack,
-  "decay": decay,
-  "sustain": sustain,
-  "release": release,
-  "baseFrequency": 300,
-  "octaves": 4
-}});
 
-synth3.connect(delay);
+        var index = 0;
 
-const pattern3 = scale;
+        Tone.Transport.scheduleRepeat(time => {
+          repeat2(time);
+        }, noteDuration);
 
+        function repeat2(time) {
+          let note = pattern2[Math.floor(Math.random() * pattern2.length)];
+          synth2.triggerAttackRelease(note, noteDuration, time);
+          synth2.envelope.triggerAttackRelease(noteDuration);
+          index++;
+        }
 
-var index = 0;
+        ///////////////////////////////////////////////
 
-Tone.Transport.scheduleRepeat(time => {
-repeat3(time);
-}, noteDuration);
+        const synth3 = new Tone.MonoSynth({
 
-function repeat3(time) {
-let note = pattern3[Math.floor(Math.random() * pattern3.length)];
-synth3.triggerAttackRelease(note, noteDuration, time);
-synth3.envelope.triggerAttackRelease(noteDuration);
-index++;
-}
+          "volume": -9,
+          "oscillator": {
+            "type": wave
+          },
+          "envelope": {
+            "attack": attack,
+            "decay": decay,
+            "sustain": sustain,
+            "release": release,
+          },
+          "filterEnvelope": {
+            "attack": attack,
+            "decay": decay,
+            "sustain": sustain,
+            "release": release,
+            "baseFrequency": 300,
+            "octaves": 4
+          }
+        });
 
-///////////////////////////////////////////////
+        synth3.connect(delay);
 
-const synth4 = new Tone.MonoSynth({
-
-  "volume": -10,
-"oscillator": {
-  "type": wave
-},
-"envelope": {
-  "attack": attack,
-  "decay": decay,
-  "sustain": sustain,
-  "release": release,
-},
-"filterEnvelope": {
-  "attack": attack,
-  "decay": decay,
-  "sustain": sustain,
-  "release": release,
-  "baseFrequency": 300,
-  "octaves": 4
-}});
+        const pattern3 = scale;
 
-const panner4 = new Tone.Panner(-1).connect(delay);
-
-synth4.connect(panner4);
-
-const pattern4 = scale;
-
-
-var index = 0;
-
-Tone.Transport.scheduleRepeat(time => {
-repeat4(time);
-}, noteDuration);
-
-function repeat4(time) {
-let note = pattern4[Math.floor(Math.random() * pattern4.length)];
-synth4.triggerAttackRelease(note, noteDuration, time);
-synth4.envelope.triggerAttackRelease(noteDuration);
-index++;
-}
-
-///////////////////////////////////////////////
-
-const synth5 = new Tone.MonoSynth({
-
-  "volume": -10,
-"oscillator": {
-  "type": wave
-},
-"envelope": {
-  "attack": attack,
-  "decay": decay,
-  "sustain": sustain,
-  "release": release,
-},
-"filterEnvelope": {
-  "attack": attack,
-  "decay": decay,
-  "sustain": sustain,
-  "release": release,
-  "baseFrequency": 300,
-  "octaves": 4
-}});
 
-const panner5 = new Tone.Panner(1).connect(delay);
-
-synth5.connect(panner5);
+        var index = 0;
 
-const pattern5 = scale;
+        Tone.Transport.scheduleRepeat(time => {
+          repeat3(time);
+        }, noteDuration);
 
+        function repeat3(time) {
+          let note = pattern3[Math.floor(Math.random() * pattern3.length)];
+          synth3.triggerAttackRelease(note, noteDuration, time);
+          synth3.envelope.triggerAttackRelease(noteDuration);
+          index++;
+        }
 
-var index = 0;
+        ///////////////////////////////////////////////
 
-Tone.Transport.scheduleRepeat(time => {
-repeat5(time);
-}, noteDuration);
+        const synth4 = new Tone.MonoSynth({
 
-function repeat5(time) {
-let note = pattern5[Math.floor(Math.random() * pattern5.length)];
-synth5.triggerAttackRelease(note, noteDuration, time);
-synth5.envelope.triggerAttackRelease(noteDuration);
-index++;
-}
+          "volume": -10,
+          "oscillator": {
+            "type": wave
+          },
+          "envelope": {
+            "attack": attack,
+            "decay": decay,
+            "sustain": sustain,
+            "release": release,
+          },
+          "filterEnvelope": {
+            "attack": attack,
+            "decay": decay,
+            "sustain": sustain,
+            "release": release,
+            "baseFrequency": 300,
+            "octaves": 4
+          }
+        });
+
+        const panner4 = new Tone.Panner(-1).connect(delay);
 
-//////////////////////////////////////////////////////////////////////
-//PAD SYNTH
-//////////////////////////////////////////////////////////////////////
+        synth4.connect(panner4);
 
-const synth = new Tone.MonoSynth({
+        const pattern4 = scale;
+
+
+        var index = 0;
+
+        Tone.Transport.scheduleRepeat(time => {
+          repeat4(time);
+        }, noteDuration);
 
+        function repeat4(time) {
+          let note = pattern4[Math.floor(Math.random() * pattern4.length)];
+          synth4.triggerAttackRelease(note, noteDuration, time);
+          synth4.envelope.triggerAttackRelease(noteDuration);
+          index++;
+        }
 
-			"volume": -6,
-			"oscillator": {
-				"type": wave
-			},
-			"envelope": {
-				"attack": attack,
-				"decay": decay,
-				"sustain": sustain,
-				"release": release,
-			},
-			"filterEnvelope": {
-				"attack": attack,
-				"decay": decay,
-				"sustain": sustain,
-				"release": release,
-				"baseFrequency": 300,
-				"octaves": 4
-			}});
+        ///////////////////////////////////////////////
 
-    synth.connect(delay);
+        const synth5 = new Tone.MonoSynth({
 
-//////////////////////////////////////////////////////////////////////
-var padContainer = document.createElement('div');
-padContainer.className = "pads";
-padContainer.id ="padContainer";
-document.body.appendChild(padContainer);
-
-
-
-for (var i = 0; i< scalePads.length; i++) {
-    var newPad = document.createElement('button');
-    newPad.id = scalePads[i]; newPad.className = "pad-1";
-    newPad.onclick = PadOnClickHandler;
-    // newPad.innerHTML = scalePads[i]; // DISPLAYS NAMES ON PADS
-    document.getElementById("padContainer").appendChild(newPad);
-
-}
-
- function PadOnClickHandler(){
-   console.log(this.id)
-   noteDown(this.id);
-   startLoop();
-
-
- }
- function noteDown(note) {
-     synth.triggerAttackRelease(note, noteDurationPads);
-     synth.envelope.triggerAttackRelease(noteDuration);
-     Tone.start();
-     }
-
- function noteUp(note) {
-     synth.triggerRelease(note);
-     Tone.stop();
-     }
-
-
-
-function startLoop(){
- const loop = new Tone.Loop((time) => {
- 	// console.log(time);
- }, "1n").start(0);
- Tone.Transport.start();
-}
-
-//////////////////////////////////////////////////////////////////////
-
-var oscilloscope = new Nexus.Oscilloscope('#oscilloscope',{
-  'size': [480,250]
-})
-
-oscilloscope.colorize("accent","white")
-oscilloscope.colorize("fill","black")
-document.body.style.backgroundColor = "#000"
-
-oscilloscope.connect(reverb);
-
-
-
-const gain = new Nexus.Dial("#gain",{
-
-  'size': [70,70],
-  'interaction': 'vertical',
-  'mode': 'relative',
-})
- gain.on('change',function(v) {
-	volume.volume.rampTo(v,.1)
-  // console.log(volume)
-});
-gain.min = -50;
-gain.max = 0;
-gain.value = -6;
-gain.colorize("accent","white")
-gain.colorize("fill","#333")
-document.body.style.backgroundColor = "#000"
-
-
+          "volume": -10,
+          "oscillator": {
+            "type": wave
+          },
+          "envelope": {
+            "attack": attack,
+            "decay": decay,
+            "sustain": sustain,
+            "release": release,
+          },
+          "filterEnvelope": {
+            "attack": attack,
+            "decay": decay,
+            "sustain": sustain,
+            "release": release,
+            "baseFrequency": 300,
+            "octaves": 4
+          }
+        });
 
+        const panner5 = new Tone.Panner(1).connect(delay);
 
-const LPFilter = new Nexus.Dial("#LPFilter",{
+        synth5.connect(panner5);
 
-  'size': [70,70],
-  'interaction': 'vertical',
-  'mode': 'relative',
-})
- LPFilter.on('change',function(v) {
-	LPfilter.frequency.rampTo(v,.1)
-});
-LPFilter.min = 20;
-LPFilter.max = 10000;
-LPFilter.value = 10000;
-LPFilter.colorize("accent","white")
-LPFilter.colorize("fill","#333")
-document.body.style.backgroundColor = "#000"
+        const pattern5 = scale;
 
 
-const HPFilter = new Nexus.Dial("#HPFilter",{
+        var index = 0;
 
-  'size': [70,70],
-  'interaction': 'vertical',
-  'mode': 'relative',
-})
- HPFilter.on('change',function(v) {
-	HPfilter.frequency.rampTo(v,.1)
-});
-HPFilter.min = 20;
-HPFilter.max = 650;
-HPFilter.value = 20;
-HPFilter.colorize("accent","white")
-HPFilter.colorize("fill","#333")
-document.body.style.backgroundColor = "#000"
+        Tone.Transport.scheduleRepeat(time => {
+          repeat5(time);
+        }, noteDuration);
 
-const verb = new Nexus.Dial("#verb",{
+        function repeat5(time) {
+          let note = pattern5[Math.floor(Math.random() * pattern5.length)];
+          synth5.triggerAttackRelease(note, noteDuration, time);
+          synth5.envelope.triggerAttackRelease(noteDuration);
+          index++;
+        }
 
-  'size': [70,70],
-  'interaction': 'vertical',
-  'mode': 'relative',
-})
- verb.on('change',function(v) {
-	reverb.wet.rampTo(v,.1)
-});
-verb.min = 0;
-verb.max = 1;
-verb.value = 0.8;
-verb.colorize("accent","white")
-verb.colorize("fill","#333")
-document.body.style.backgroundColor = "#000"
+        //////////////////////////////////////////////////////////////////////
+        //PAD SYNTH
+        //////////////////////////////////////////////////////////////////////
 
+        const synth = new Tone.MonoSynth({
 
-const FBDelay = new Nexus.Dial("#FBDelay",{
 
-  'size': [70,70],
-  'interaction': 'vertical',
-  'mode': 'relative',
-})
- FBDelay.on('change',function(v) {
-	delay.wet.rampTo(v,.1)
-});
-FBDelay.min = 0;
-FBDelay.max = 1;
-FBDelay.value = 0.9;
-FBDelay.colorize("accent","white")
-FBDelay.colorize("fill","#333")
-document.body.style.backgroundColor = "#000"
+          "volume": -6,
+          "oscillator": {
+            "type": wave
+          },
+          "envelope": {
+            "attack": attack,
+            "decay": decay,
+            "sustain": sustain,
+            "release": release,
+          },
+          "filterEnvelope": {
+            "attack": attack,
+            "decay": decay,
+            "sustain": sustain,
+            "release": release,
+            "baseFrequency": 300,
+            "octaves": 4
+          }
+        });
 
+        synth.connect(delay);
 
-///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-///// LPD8 MIDI CONTROL SETUP
-///////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////
+        var padContainer = document.createElement('div');
+        padContainer.className = "pads";
+        padContainer.id = "padContainer";
+        document.body.appendChild(padContainer);
 
 
 
-const LPD8 = new AkaiLPD8()
+        for (var i = 0; i < scalePads.length; i++) {
+          var newPad = document.createElement('button');
+          newPad.id = scalePads[i];
+          newPad.className = "pad-1";
+          newPad.onclick = PadOnClickHandler;
+          // newPad.innerHTML = scalePads[i]; // DISPLAYS NAMES ON PADS
+          document.getElementById("padContainer").appendChild(newPad);
 
+        }
 
-LPD8.init()
-    .then(() => {
-        console.log(LPD8)
+        function PadOnClickHandler() {
+          console.log(this.id)
+          noteDown(this.id);
+          startLoop();
+
+
+        }
+
+        function noteDown(note) {
+          synth.triggerAttackRelease(note, noteDurationPads);
+          synth.envelope.triggerAttackRelease(noteDuration);
+          Tone.start();
+        }
+
+        function noteUp(note) {
+          synth.triggerRelease(note);
+          Tone.stop();
+        }
+
+
+
+        function startLoop() {
+          const loop = new Tone.Loop((time) => {
+            // console.log(time);
+          }, "1n").start(0);
+          Tone.Transport.start();
+        }
+
+        //////////////////////////////////////////////////////////////////////
+
+        var oscilloscope = new Nexus.Oscilloscope('#oscilloscope', {
+          'size': [480, 250]
+        })
+
+        oscilloscope.colorize("accent", "white")
+        oscilloscope.colorize("fill", "black")
+        document.body.style.backgroundColor = "#000"
 
+        oscilloscope.connect(reverb);
 
-        LPD8.K1.on('change', vel =>
-        	calculateNewVolume(vel))
-          console.log(gain.value)
 
-        LPD8.K2.on('change', vel =>
-          calculateNewLPF(vel))
-          console.log(LPFilter.value)
 
-        LPD8.K3.on('change', vel =>
-          calculateNewHPF(vel))
-          console.log(HPFilter.value)
+        const gain = new Nexus.Dial("#gain", {
 
-        LPD8.K4.on('change', vel =>
-          calculateNewVerb(vel))
-          console.log(verb.value)
+          'size': [70, 70],
+          'interaction': 'vertical',
+          'mode': 'relative',
+        })
+        gain.on('change', function(v) {
+          volume.volume.rampTo(v, .1)
+          // console.log(volume)
+        });
+        gain.min = -50;
+        gain.max = 0;
+        gain.value = -6;
+        gain.colorize("accent", "white")
+        gain.colorize("fill", "#333")
+        document.body.style.backgroundColor = "#000"
 
 
-        LPD8.K8.on('change', vel =>
-          calculateNewFBDelay(vel))
-          console.log(FBDelay.value)
 
 
-        LPD8.PAD5.on('change', vel =>
-          NewPAD5(vel))
-          console.log(newPad)
+        const LPFilter = new Nexus.Dial("#LPFilter", {
 
+          'size': [70, 70],
+          'interaction': 'vertical',
+          'mode': 'relative',
+        })
+        LPFilter.on('change', function(v) {
+          LPfilter.frequency.rampTo(v, .1)
+        });
+        LPFilter.min = 20;
+        LPFilter.max = 10000;
+        LPFilter.value = 10000;
+        LPFilter.colorize("accent", "white")
+        LPFilter.colorize("fill", "#333")
+        document.body.style.backgroundColor = "#000"
 
 
-    })
+        const HPFilter = new Nexus.Dial("#HPFilter", {
 
-    .catch(error => console.error({ error }))
+          'size': [70, 70],
+          'interaction': 'vertical',
+          'mode': 'relative',
+        })
+        HPFilter.on('change', function(v) {
+          HPfilter.frequency.rampTo(v, .1)
+        });
+        HPFilter.min = 20;
+        HPFilter.max = 650;
+        HPFilter.value = 20;
+        HPFilter.colorize("accent", "white")
+        HPFilter.colorize("fill", "#333")
+        document.body.style.backgroundColor = "#000"
 
-///////////////////////////////
-//KNOBS
-//////////////////////////////
+        const verb = new Nexus.Dial("#verb", {
 
-// K1
+          'size': [70, 70],
+          'interaction': 'vertical',
+          'mode': 'relative',
+        })
+        verb.on('change', function(v) {
+          reverb.wet.rampTo(v, .1)
+        });
+        verb.min = 0;
+        verb.max = 1;
+        verb.value = 0.8;
+        verb.colorize("accent", "white")
+        verb.colorize("fill", "#333")
+        document.body.style.backgroundColor = "#000"
 
-function calculateNewVolume(vel){
-  var gainRange = MIDIVolumeRange(vel, 0, 127, -50, 0) // (MIDI min, MIDI max, Tone min, Tone max)
-  console.log(gainRange); // 0
 
-  volume.volume.rampTo(gainRange,.1)
-  gain.value = gainRange;
-}
+        const FBDelay = new Nexus.Dial("#FBDelay", {
 
-const MIDIVolumeRange = (num, in_min, in_max, out_min, out_max) => {
-  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
+          'size': [70, 70],
+          'interaction': 'vertical',
+          'mode': 'relative',
+        })
+        FBDelay.on('change', function(v) {
+          delay.wet.rampTo(v, .1)
+        });
+        FBDelay.min = 0;
+        FBDelay.max = 1;
+        FBDelay.value = 0.9;
+        FBDelay.colorize("accent", "white")
+        FBDelay.colorize("fill", "#333")
+        document.body.style.backgroundColor = "#000"
 
 
-//k2
 
-function calculateNewLPF(vel){
-  var LPFRange = MIDILPFRange(vel, 0, 127, 20, 10000)
-  console.log(LPFRange); // 0
 
-  LPfilter.frequency.rampTo(LPFRange,.1)
-  LPFilter.value = LPFRange;
-}
+        ///////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////
+        ///// LPD8 MIDI CONTROL SETUP
+        ///////////////////////////////////////////////////////////
 
-const MIDILPFRange = (num, in_min, in_max, out_min, out_max) => {
-  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
 
-//K3
 
-function calculateNewHPF(vel){
-  var HPFRange = MIDIHPFRange(vel, 0, 127, 20, 650)
-  console.log(HPFRange); // 0
+        const LPD8 = new AkaiLPD8()
 
-  HPfilter.frequency.rampTo(HPFRange,.1)
-  HPFilter.value = HPFRange;
-}
 
-const MIDIHPFRange = (num, in_min, in_max, out_min, out_max) => {
-  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
+        LPD8.init()
+          .then(() => {
+            console.log(LPD8)
 
-//K4
 
-function calculateNewVerb(vel){
-  var verbRange = MIDIVerbRange(vel, 0, 127, 0, 1)
-  console.log(verbRange); // 0
+            LPD8.K1.on('change', vel =>
+              calculateNewVolume(vel))
+            console.log(gain.value)
 
-  reverb.wet.rampTo(verbRange,.1)
-  verb.value = verbRange;
-}
+            LPD8.K2.on('change', vel =>
+              calculateNewLPF(vel))
+            console.log(LPFilter.value)
 
-const MIDIVerbRange = (num, in_min, in_max, out_min, out_max) => {
-  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
+            LPD8.K3.on('change', vel =>
+              calculateNewHPF(vel))
+            console.log(HPFilter.value)
 
+            LPD8.K4.on('change', vel =>
+              calculateNewVerb(vel))
+            console.log(verb.value)
 
-//K8
 
-function calculateNewFBDelay(vel){
-  var FBDelayRange = MIDIFBDelayRange(vel, 0, 127, 0, 1)
-  console.log(FBDelayRange); // 0
+            LPD8.K8.on('change', vel =>
+              calculateNewFBDelay(vel))
+            console.log(FBDelay.value)
 
-  delay.wet.rampTo(FBDelayRange,.1)
-  FBDelay.value = FBDelayRange;
-}
 
-const MIDIFBDelayRange = (num, in_min, in_max, out_min, out_max) => {
-  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
+            LPD8.PAD5.on('change', vel =>
+              NewPAD5(vel))
+            console.log(newPad)
 
 
 
-///////////////
-//PADS
-///////////////
+          })
 
-function NewPAD5(vel){
+          .catch(error => console.error({
+            error
+          }))
 
+        ///////////////////////////////
+        //KNOBS
+        //////////////////////////////
 
-}
+        // K1
 
+        function calculateNewVolume(vel) {
+          var gainRange = MIDIVolumeRange(vel, 0, 127, -50, 0) // (MIDI min, MIDI max, Tone min, Tone max)
+          console.log(gainRange); // 0
 
-////////////////////////////////////////////////////////////////////////////
+          volume.volume.rampTo(gainRange, .1)
+          gain.value = gainRange;
+        }
 
+        const MIDIVolumeRange = (num, in_min, in_max, out_min, out_max) => {
+          return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+        }
 
 
+        //k2
 
-</script>
+        function calculateNewLPF(vel) {
+          var LPFRange = MIDILPFRange(vel, 0, 127, 20, 10000)
+          console.log(LPFRange); // 0
+
+          LPfilter.frequency.rampTo(LPFRange, .1)
+          LPFilter.value = LPFRange;
+        }
+
+        const MIDILPFRange = (num, in_min, in_max, out_min, out_max) => {
+          return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+        }
+
+        //K3
+
+        function calculateNewHPF(vel) {
+          var HPFRange = MIDIHPFRange(vel, 0, 127, 20, 650)
+          console.log(HPFRange); // 0
+
+          HPfilter.frequency.rampTo(HPFRange, .1)
+          HPFilter.value = HPFRange;
+        }
+
+        const MIDIHPFRange = (num, in_min, in_max, out_min, out_max) => {
+          return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+        }
+
+        //K4
+
+        function calculateNewVerb(vel) {
+          var verbRange = MIDIVerbRange(vel, 0, 127, 0, 1)
+          console.log(verbRange); // 0
+
+          reverb.wet.rampTo(verbRange, .1)
+          verb.value = verbRange;
+        }
+
+        const MIDIVerbRange = (num, in_min, in_max, out_min, out_max) => {
+          return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+        }
+
+
+        //K8
+
+        function calculateNewFBDelay(vel) {
+          var FBDelayRange = MIDIFBDelayRange(vel, 0, 127, 0, 1)
+          console.log(FBDelayRange); // 0
+
+          delay.wet.rampTo(FBDelayRange, .1)
+          FBDelay.value = FBDelayRange;
+        }
+
+        const MIDIFBDelayRange = (num, in_min, in_max, out_min, out_max) => {
+          return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+        }
+
+
+
+        ///////////////
+        //PADS
+        ///////////////
+
+        function NewPAD5(vel) {
+
+
+        }
+
+
+        ////////////////////////////////////////////////////////////////////////////
+      </script>
 
 </body>
+
 </html>
