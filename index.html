@@ -96,7 +96,7 @@
 
 
       <!-- //////////////////////////////////////////////////////////////////////////////////
-//DROPDOWN
+//DROPDOWNS
 ///////////////////////////////////////////////////////////////////////////////// -->
 
       <select id="assignKey" onchange="keyChange()">
@@ -112,6 +112,21 @@
         <option id="Aminor" value="Aminor"> A Minor</option>
         <option id="A#minor" value="A#minor">A# Minor</option>
         <option id="Bminor" value="Bminor"> B Minor</option>
+      </select>
+
+
+      <select id="assignDuration">
+        <option id="16" value="16" selected="selected"> 16 </option>
+        <option id="8" value="8"> 8 </option>
+        <option id="4" value="4"> 4 </option>
+        <option id="2" value="2"> 2 </option>
+        <option id="1" value="1"> 1 </option>
+        <option id="2/4" value="2/4"> 2/4 </option>
+        <option id="4/4" value="4/4"> 4/4 </option>
+        <option id="8/4" value="8/4"> 8/4 </option>
+        <option id="16/4" value="16/4"> 16/4 </option>
+        <option id="32/4" value="32/4"> 32/4 </option>
+        <option id="64/4" value="64/4"> 64/4 </option>
       </select>
 
 
@@ -246,7 +261,7 @@
 
 
 
-        // Tone.Transport.bpm.value = 132;
+
         const scale = selectedKey;
         const scalePads = keyPads.dSharpMinor;
         const wave = waveform.saw;
@@ -671,6 +686,14 @@
         document.body.style.backgroundColor = "#000"
 
 
+        const BPMslider = new Nexus.Slider('#BPMslider',{
+     'size': [120,20],
+     'mode': 'relative',  // 'relative' or 'absolute'
+     'min': 0,
+     'max': 1,
+     'step': 0,
+     'value': 0
+ })
 
 
         ///////////////////////////////////////////////////////////

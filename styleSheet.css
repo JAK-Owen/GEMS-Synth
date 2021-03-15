@@ -10,13 +10,16 @@
 
 
 tone-slider{
-  color: white;
-  background-color: #444;
+  color: black;
+  background-color: white;
   font-family: monospace;
   font-weight: lighter;
   font-size: 8px;
   border-style: solid;
-  border-color: white;
+  border-color: black;
+  width: 150px;
+  height: 50px;
+  filter: invert();
 
 }
 
@@ -24,13 +27,13 @@ tone-slider{
 #bpm-slider{
   width: 130px;
   height: 50%;
-  color: white;
   position: relative;
   left:calc(38% - 200px);
   top: 55px;
 
-
 }
+
+
 
 #reset-button{
   position: absolute;
@@ -83,6 +86,25 @@ tone-slider{
 }
 
 #assignKey:hover {
+  cursor: pointer;
+
+}
+
+#assignDuration {
+
+  position: absolute;
+  background-color: black;
+  color: white;
+  /* border: none; */
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 11px;
+  top:calc(15% - 100px);
+  left:calc(80% - 200px);
+  filter: grayscale(1);
+}
+
+#assignDuration:hover {
   cursor: pointer;
 
 }
