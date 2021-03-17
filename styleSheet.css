@@ -22,13 +22,13 @@ tone-slider {
 #bpm-slider {
   width: 130px;
   height: 50%;
-  position: relative;
+  position: fixed;
   left: calc(38% - 200px);
   top: 55px;
 }
 
 #reset-button {
-  position: absolute;
+  position: fixed;
   background-color: black;
   color: white;
   font-family: monospace;
@@ -45,7 +45,7 @@ tone-slider {
 }
 
 #stop-button {
-  position: absolute;
+  position: fixed;
   background-color: black;
   color: white;
   font-family: monospace;
@@ -62,7 +62,7 @@ tone-slider {
 }
 
 #assignKey {
-  position: absolute;
+  position: fixed;
   background-color: black;
   color: white;
   /* border: none; */
@@ -79,7 +79,7 @@ tone-slider {
 }
 
 #assignDuration {
-  position: absolute;
+  position: fixed;
   background-color: black;
   color: white;
   /* border: none; */
@@ -107,13 +107,13 @@ tone-slider {
 }
 
 #envelope-container {
-  position: relative;
-  top: 75px;
-  left: calc(38% - 200px);
+  position: fixed;
+  top: 130px;
+  left: calc(40% - 200px);
 }
 
 #oscillator-type {
-  position: absolute;
+  position: fixed;
   background-color: black;
   color: white;
   font-family: monospace;
@@ -129,7 +129,7 @@ tone-slider {
 }
 
 #oscilloscope {
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: auto;
   border: 3px solid white;
@@ -144,14 +144,14 @@ tone-slider {
 }
 
 #dials-container {
-  position: relative;
+  position: fixed;
 }
 
 #gain {
-  position: relative;
+  position: fixed;
   color: white;
   padding: 10px;
-  top: 70px;
+  top: 310px;
   left: calc(53% - 200px);
   font-family: monospace;
   font-weight: lighter;
@@ -159,11 +159,11 @@ tone-slider {
 }
 
 #LPFilter {
-  position: relative;
+  position: fixed;
   left: 100px;
   color: white;
   padding: 10px;
-  top: -20px;
+  top: 310px;
   left: calc(53% - 100px);
   font-family: monospace;
   font-weight: lighter;
@@ -171,11 +171,11 @@ tone-slider {
 }
 
 #verb {
-  position: relative;
+  position: fixed;
   left: 300px;
   color: white;
   padding: 10px;
-  top: -110px;
+  top: 310px;
   left: calc(46% - -100px);
   font-family: monospace;
   font-weight: lighter;
@@ -183,11 +183,11 @@ tone-slider {
 }
 
 #FBDelay {
-  position: relative;
+  position: fixed;
   left: 400px;
   color: white;
   padding: 10px;
-  top: -199px;
+  top: 310px;
   left: calc(46% - -200px);
   font-family: monospace;
   font-weight: lighter;
@@ -197,9 +197,9 @@ tone-slider {
 .padContainer {}
 
 .pads {
-  top: -150px;
+  top: 450px;
   left: calc(53% - 200px);
-  position: relative;
+  position: fixed;
   width: 400px;
   display: flex;
   justify-content: space-between;
