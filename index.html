@@ -332,7 +332,7 @@
           synth1.envelope.triggerAttackRelease(noteDuration);
           index++;
         }
-        Tone.Transport.start();
+
 
 
         ///////////////////////////////////////////////
@@ -566,11 +566,13 @@
           synth.triggerAttackRelease(note, noteDurationPads);
           synth.envelope.triggerAttackRelease(noteDuration);
           Tone.start();
+
         }
 
         function noteUp(note) {
           synth.triggerRelease(note);
           Tone.stop();
+
         }
 
 
@@ -580,6 +582,11 @@
             // console.log(time);
           }, "1n").start(0);
           Tone.Transport.start();
+          setTimeout(function() {
+      console.log('Now should be stopping');
+      Tone.Transport.stop();
+    },4000)
+
         }
 
         //////////////////////////////////////////////////////////////////////
@@ -666,15 +673,6 @@
         FBDelay.colorize("fill", "#333")
         document.body.style.backgroundColor = "#000"
 
-
-        const BPMslider = new Nexus.Slider('#BPMslider',{
-     'size': [120,20],
-     'mode': 'relative',  // 'relative' or 'absolute'
-     'min': 0,
-     'max': 1,
-     'step': 0,
-     'value': 0
- })
 
 
         ///////////////////////////////////////////////////////////
