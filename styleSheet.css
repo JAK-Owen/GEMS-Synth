@@ -1,15 +1,12 @@
-
- body {
+body {
   background-color: black;
   -webkit-animation-name: fade;
   -webkit-animation-duration: 1.5s;
   animation-name: fade;
   animation-duration: 1.5s;
-
 }
 
-
-tone-slider{
+tone-slider {
   color: black;
   background-color: white;
   font-family: monospace;
@@ -20,59 +17,51 @@ tone-slider{
   width: 150px;
   height: 50px;
   filter: invert();
-
 }
 
-
-#bpm-slider{
+#bpm-slider {
   width: 130px;
   height: 50%;
   position: relative;
-  left:calc(38% - 200px);
+  left: calc(38% - 200px);
   top: 55px;
-
 }
 
-
-
-#reset-button{
+#reset-button {
   position: absolute;
   background-color: black;
   color: white;
   font-family: monospace;
   font-weight: lighter;
   font-size: 20px;
-  top:calc(15% - 100px);
-  left:calc(50% - 200px);
-
+  top: calc(15% - 100px);
+  left: calc(50% - 200px);
 }
 
-#reset-button:hover{
+#reset-button:hover {
   background-color: white;
   color: black;
   cursor: pointer;
 }
 
-#stop-button{
+#stop-button {
   position: absolute;
   background-color: black;
   color: white;
   font-family: monospace;
   font-weight: lighter;
   font-size: 20px;
-  top:calc(15% - 100px);
-  left:calc(55% - 200px);
-
+  top: calc(15% - 100px);
+  left: calc(55% - 200px);
 }
 
-#stop-button:hover{
+#stop-button:hover {
   background-color: white;
   color: black;
   cursor: pointer;
 }
 
 #assignKey {
-
   position: absolute;
   background-color: black;
   color: white;
@@ -80,18 +69,16 @@ tone-slider{
   font-family: monospace;
   font-weight: lighter;
   font-size: 11px;
-  top:calc(15% - 100px);
-  left:calc(60% - 200px);
+  top: calc(15% - 100px);
+  left: calc(60% - 200px);
   filter: grayscale(1);
 }
 
 #assignKey:hover {
   cursor: pointer;
-
 }
 
 #assignDuration {
-
   position: absolute;
   background-color: black;
   color: white;
@@ -99,62 +86,56 @@ tone-slider{
   font-family: monospace;
   font-weight: lighter;
   font-size: 11px;
-  top:calc(15% - 100px);
-  left:calc(80% - 200px);
+  top: calc(15% - 100px);
+  left: calc(80% - 200px);
   filter: grayscale(1);
 }
 
 #assignDuration:hover {
   cursor: pointer;
-
 }
 
-
-.control{
+.control {
   filter: grayscale();
 }
 
-.label{
+.label {
   color: white;
   font-family: monospace;
   font-weight: lighter;
   font-size: 8px;
 }
 
-#envelope-container{
+#envelope-container {
   position: relative;
   top: 75px;
-  left:calc(38% - 200px);
+  left: calc(38% - 200px);
 }
 
 #oscillator-type {
-
   position: absolute;
   background-color: black;
   color: white;
   font-family: monospace;
   font-weight: lighter;
   font-size: 11px;
-  top:calc(15% - 100px);
-  left:calc(70% - 200px);
+  top: calc(15% - 100px);
+  left: calc(70% - 200px);
   filter: grayscale(1);
 }
 
 #oscillator-type:hover {
   cursor: pointer;
-
 }
 
-
-
 #oscilloscope {
-  position:absolute;
-  height:100%;
+  position: absolute;
+  height: 100%;
   width: auto;
-  border:3px solid white;
-  top:calc(20% - 100px);
-  left:calc(50% - 200px);
-  overflow:hidden;
+  border: 3px solid white;
+  top: calc(20% - 100px);
+  left: calc(50% - 200px);
+  overflow: hidden;
   z-index: 1;
   -webkit-animation-name: fade;
   -webkit-animation-duration: 1.5s;
@@ -162,24 +143,20 @@ tone-slider{
   animation-duration: 1.5s;
 }
 
-#dials-container{
- position: relative;
-
+#dials-container {
+  position: relative;
 }
-
 
 #gain {
- position: relative;
- color: white;
- padding: 10px;
- top: 70px;
- left:calc(53% - 200px);
- font-family: monospace;
- font-weight: lighter;
- font-size: 7px;
-
+  position: relative;
+  color: white;
+  padding: 10px;
+  top: 70px;
+  left: calc(53% - 200px);
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 7px;
 }
-
 
 #LPFilter {
   position: relative;
@@ -187,7 +164,7 @@ tone-slider{
   color: white;
   padding: 10px;
   top: -20px;
-  left:calc(53% - 100px);
+  left: calc(53% - 100px);
   font-family: monospace;
   font-weight: lighter;
   font-size: 7px;
@@ -199,7 +176,7 @@ tone-slider{
   color: white;
   padding: 10px;
   top: -110px;
-  left:calc(46% - -100px);
+  left: calc(46% - -100px);
   font-family: monospace;
   font-weight: lighter;
   font-size: 7px;
@@ -211,24 +188,17 @@ tone-slider{
   color: white;
   padding: 10px;
   top: -199px;
-  left:calc(46% - -200px);
+  left: calc(46% - -200px);
   font-family: monospace;
   font-weight: lighter;
   font-size: 7px;
 }
 
-
-
-
-
-.padContainer{
-
-}
-
+.padContainer {}
 
 .pads {
   top: -150px;
-  left:calc(53% - 200px);
+  left: calc(53% - 200px);
   position: relative;
   width: 400px;
   display: flex;
@@ -237,7 +207,7 @@ tone-slider{
   filter: grayscale(1);
 }
 
-.pad-1  {
+.pad-1 {
   width: 100px;
   height: 100px;
   margin: 0px 0;
@@ -250,20 +220,27 @@ tone-slider{
   border: 3px solid white;
 }
 
-.pad-1:hover  {
-
+.pad-1:hover {
   background-color: white;
   cursor: pointer;
 }
 
-
-
 @-webkit-keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+  from {
+    opacity: .4
+  }
+
+  to {
+    opacity: 1
+  }
 }
 
 @keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+  from {
+    opacity: .4
+  }
+
+  to {
+    opacity: 1
+  }
 }
