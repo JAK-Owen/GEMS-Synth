@@ -131,6 +131,7 @@
 
 
 
+
       <!-- ///////////////////////////////////////////////////////////////////////////////// -->
 
 
@@ -141,8 +142,6 @@
       <div id="gain">V o l u m e</div>
 
       <div id="LPFilter"> L o w P a s s</div>
-
-      <div id="HPFilter">H i g h P a s s</div>
 
       <div id="verb">R e v e r b</div>
 
@@ -266,7 +265,7 @@
         const scalePads = keyPads.dSharpMinor;
         const wave = waveform.saw;
         const noteDuration = duration[16];
-        const noteDurationPads = duration[4];
+        const noteDurationPads = duration[8];
 
         const attack = 2.0;
         const decay = 20.0;
@@ -285,9 +284,7 @@
 
         const LPfilter = new Tone.Filter(10000, "lowpass").connect(volume);
 
-        const HPfilter = new Tone.Filter(550, "highpass").connect(LPfilter);
-
-        const reverb = new Tone.Reverb(10).connect(HPfilter);
+        const reverb = new Tone.Reverb(10).connect(LPfilter);
 
         const delay = new Tone.FeedbackDelay("1m.", 0.9).connect(reverb);
 
@@ -636,22 +633,6 @@
         document.body.style.backgroundColor = "#000"
 
 
-        const HPFilter = new Nexus.Dial("#HPFilter", {
-
-          'size': [70, 70],
-          'interaction': 'vertical',
-          'mode': 'relative',
-        })
-        HPFilter.on('change', function(v) {
-          HPfilter.frequency.rampTo(v, .1)
-        });
-        HPFilter.min = 20;
-        HPFilter.max = 650;
-        HPFilter.value = 20;
-        HPFilter.colorize("accent", "white")
-        HPFilter.colorize("fill", "#333")
-        document.body.style.backgroundColor = "#000"
-
         const verb = new Nexus.Dial("#verb", {
 
           'size': [70, 70],
@@ -663,7 +644,7 @@
         });
         verb.min = 0;
         verb.max = 1;
-        verb.value = 0.8;
+        verb.value = 1;
         verb.colorize("accent", "white")
         verb.colorize("fill", "#333")
         document.body.style.backgroundColor = "#000"
@@ -680,7 +661,7 @@
         });
         FBDelay.min = 0;
         FBDelay.max = 1;
-        FBDelay.value = 0.9;
+        FBDelay.value = 1;
         FBDelay.colorize("accent", "white")
         FBDelay.colorize("fill", "#333")
         document.body.style.backgroundColor = "#000"
@@ -719,16 +700,13 @@
               calculateNewLPF(vel))
             console.log(LPFilter.value)
 
-            LPD8.K3.on('change', vel =>
-              calculateNewHPF(vel))
-            console.log(HPFilter.value)
 
-            LPD8.K4.on('change', vel =>
+            LPD8.K3.on('change', vel =>
               calculateNewVerb(vel))
             console.log(verb.value)
 
 
-            LPD8.K8.on('change', vel =>
+            LPD8.K4.on('change', vel =>
               calculateNewFBDelay(vel))
             console.log(FBDelay.value)
 
@@ -780,20 +758,6 @@
 
         //K3
 
-        function calculateNewHPF(vel) {
-          var HPFRange = MIDIHPFRange(vel, 0, 127, 20, 650)
-          console.log(HPFRange); // 0
-
-          HPfilter.frequency.rampTo(HPFRange, .1)
-          HPFilter.value = HPFRange;
-        }
-
-        const MIDIHPFRange = (num, in_min, in_max, out_min, out_max) => {
-          return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-        }
-
-        //K4
-
         function calculateNewVerb(vel) {
           var verbRange = MIDIVerbRange(vel, 0, 127, 0, 1)
           console.log(verbRange); // 0
@@ -807,7 +771,7 @@
         }
 
 
-        //K8
+        //K4
 
         function calculateNewFBDelay(vel) {
           var FBDelayRange = MIDIFBDelayRange(vel, 0, 127, 0, 1)

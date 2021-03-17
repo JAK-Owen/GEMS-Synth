@@ -173,7 +173,7 @@ tone-slider{
  color: white;
  padding: 10px;
  top: 70px;
- left:calc(50% - 200px);
+ left:calc(53% - 200px);
  font-family: monospace;
  font-weight: lighter;
  font-size: 7px;
@@ -187,32 +187,19 @@ tone-slider{
   color: white;
   padding: 10px;
   top: -20px;
-  left:calc(50% - 100px);
+  left:calc(53% - 100px);
   font-family: monospace;
   font-weight: lighter;
   font-size: 7px;
 }
-
-#HPFilter {
-  position: relative;
-  left: 200px;
-  color: white;
-  padding: 10px;
-  top: -110px;
-  left:calc(50% - 0px);
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 7px;
-}
-
 
 #verb {
   position: relative;
   left: 300px;
   color: white;
   padding: 10px;
-  top: -200px;
-  left:calc(50% - -100px);
+  top: -110px;
+  left:calc(46% - -100px);
   font-family: monospace;
   font-weight: lighter;
   font-size: 7px;
@@ -223,8 +210,8 @@ tone-slider{
   left: 400px;
   color: white;
   padding: 10px;
-  top: -289px;
-  left:calc(50% - -200px);
+  top: -199px;
+  left:calc(46% - -200px);
   font-family: monospace;
   font-weight: lighter;
   font-size: 7px;
@@ -240,7 +227,7 @@ tone-slider{
 
 
 .pads {
-  top: -250px;
+  top: -150px;
   left:calc(53% - 200px);
   position: relative;
   width: 400px;
@@ -268,21 +255,6 @@ tone-slider{
   background-color: white;
   cursor: pointer;
 }
-
-
-
-/* .wave-selector {
-
- position: absolute;
- top: 650px;
- color: white;
- filter: grayscale(1);
- left:calc(50% - 200px);
- -webkit-animation-name: fade;
- -webkit-animation-duration: 1.5s;
- animation-name: fade;
- animation-duration: 1.5s;
-} */
 
 
 
