@@ -41,25 +41,25 @@
         <div class="field">
           <label class="label" for="envelope-attack">A t t a c k </label>
           <div class="control">
-            <input id="envelope-attack" value="1" min="0" max="10" step="1" type="range" />
+            <input id="envelope-attack" value="2" min="0" max="10" step="1" type="range" />
           </div>
         </div>
         <div class="field">
           <label class="label" for="envelope-decay">D e c a y </label>
           <div class="control">
-            <input id="envelope-decay" value="1" min="0" max="10" step="1" type="range" />
+            <input id="envelope-decay" value="10" min="0" max="10" step="1" type="range" />
           </div>
         </div>
         <div class="field">
           <label class="label" for="envelope-sustain">S u s t a i n </label>
           <div class="control">
-            <input id="envelope-sustain" value="9" min="0" max="10" step="1" type="range" />
+            <input id="envelope-sustain" value="1" min="0" max="10" step="1" type="range" />
           </div>
         </div>
         <div class="field">
           <label class="label" for="envelope-release">R e l e a s e </label>
           <div class="control">
-            <input id="envelope-release" value="7" min="0" max="10" step="1" type="range" />
+            <input id="envelope-release" value="5" min="0" max="10" step="1" type="range" />
           </div>
         </div>
       </div>
@@ -133,6 +133,8 @@
         <div id="verb">R e v e r b</div>
 
         <div id="FBDelay">D e l a y</div>
+
+        <div id="attackDial">ATTACK</div>
 
       </div>
 
@@ -243,548 +245,604 @@
         // GLOBAL SELECTORS
         ////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
         const scale = selectedKey;
         const scalePads = keyPads.dSharpMinor;
         const wave = waveform.saw;
-        const noteDuration = duration[16];
-        const noteDurationPads = duration[8];
+        const noteDuration = duration[4];
+        const noteDurationPads = duration[4];
 
-        const attack = 2.0;
-        const decay = 20.0;
-        const sustain = 0.0;
-        const release = 10.0;
-
-
-
-        //////////////////////////////////////////////////////
-        // GLOBAL EFFECTS
-        //////////////////////////////////////////////////////
+        // const attack = document.querySelector('#envelope-attack').value;
+        // const decay = document.querySelector('#envelope-decay').value;
+        // const sustain = document.querySelector('#envelope-sustain').value;
+        // const release = document.querySelector('#envelope-release').value;
 
 
+        // attack.addEventListener('input', (e) => attack.value = parseInt(e.target.value));
+        // decay.addEventListener('input', (e) => decay.value = parseInt(e.target.value));
+        // sustain.addEventListener('input', (e) => sustain.value = parseInt(e.target.value));
+        // release.addEventListener('input', (e) => release.value = parseInt(e.target.value));
 
-        const volume = new Tone.Volume(-Infinity).toDestination();
+        // updateEnv();
+        //
+        // function updateEnv() {
+        //     attack.value = parseInt(attack.value);
+        //     decay.value = parseInt(decay.value);
+        //     sustain.value = parseInt(sustain.value);
+        //     release.value = parseInt(release.value);
+        //
+        //     console.log(attack.value);
+        //     console.log(decay.value);
+        //     console.log(sustain.value);
+        //     console.log(release.value);
+        //
+        //   };
 
-        const LPfilter = new Tone.Filter(10000, "lowpass").connect(volume);
 
-        const reverb = new Tone.Reverb(10).connect(LPfilter);
+          // function attackChange(value) {
+          //   document.getElementById("envelope-attack").value = value;
+          //   attack = value;
+          //   console.log('atack')
+          //   console.log('dic' + document.getElementById("envelope-attack").value)
+          //   return value;
+          //   // console.log(e.target.value + 'event target value')
+          // }
 
-        const delay = new Tone.FeedbackDelay("1m.", 0.9).connect(reverb);
+          //////////////////////////////////////////////////////
+          // GLOBAL EFFECTS
+          //////////////////////////////////////////////////////
+
+          const ampEnv = new Tone.AmplitudeEnvelope({
+          		attack: 0.0,
+          		decay: 20.0,
+          		sustain: 0.0,
+          		release: 0
+          	}).toDestination();
 
 
-        //////////////////////////////////////////////////////
-        // SYNTH INST 1
-        //////////////////////////////////////////////////////
+          const volume = new Tone.Volume(-Infinity).connect(ampEnv);
 
-        const synth1 = new Tone.MonoSynth({
+          const LPfilter = new Tone.Filter(10000, "lowpass").connect(volume);
 
-          "volume": -8,
-          "oscillator": {
-            "type": wave
-          },
-          "envelope": {
-            "attack": attack,
-            "decay": decay,
-            "sustain": sustain,
-            "release": release,
-          },
-          "filterEnvelope": {
-            "attack": attack,
-            "decay": decay,
-            "sustain": sustain,
-            "release": release,
-            "baseFrequency": 300,
-            "octaves": 4
+          const reverb = new Tone.Reverb(10).connect(LPfilter);
+
+          const delay = new Tone.FeedbackDelay("1m.", 0.9).connect(reverb);
+
+
+          //////////////////////////////////////////////////////
+          // SYNTH INST 1
+          //////////////////////////////////////////////////////
+
+          const synth1 = new Tone.MonoSynth({
+
+            "volume": -8,
+            "oscillator": {
+              "type": wave
+            },
+            "envelope": {
+              "attack": 0,
+              "decay": 0,
+              "sustain": 1,
+              "release": 0,
+            },
+            "filterEnvelope": {
+              "attack": 0,
+              "decay": 0,
+              "sustain": 1,
+              "release": 0,
+            }
+          });
+
+          synth1.connect(delay);
+
+          const pattern1 = scale;
+
+
+          var index = 0;
+
+          Tone.Transport.scheduleRepeat(time => {
+            repeat(time);
+          }, noteDuration);
+
+          function repeat(time) {
+            let note = pattern1[Math.floor(Math.random() * pattern1.length)];
+            synth1.triggerAttackRelease(note, noteDuration, time);
+            // synth1.envelope.triggerAttackRelease();
+            ampEnv.triggerAttackRelease(noteDuration);
+            index++;
           }
-        });
-
-        synth1.connect(delay);
-
-        const pattern1 = scale;
-
-
-        var index = 0;
-
-        Tone.Transport.scheduleRepeat(time => {
-          repeat(time);
-        }, noteDuration);
-
-        function repeat(time) {
-          let note = pattern1[Math.floor(Math.random() * pattern1.length)];
-          synth1.triggerAttackRelease(note, noteDuration, time);
-          synth1.envelope.triggerAttackRelease(noteDuration);
-          index++;
-        }
 
 
 
-        ///////////////////////////////////////////////
+          ///////////////////////////////////////////////
 
-        const synth2 = new Tone.MonoSynth({
+          const synth2 = new Tone.MonoSynth({
+            "volume": -10,
+            "oscillator": {
+              "type": wave
+            },
+            "envelope": {
+              "attack": 0,
+              "decay": Infinity,
+              "sustain": 1,
+              "release": 0,
+            },
+            "filterEnvelope": {
+              "attack": 0,
+              "decay": Infinity,
+              "sustain": 1,
+              "release": 0,
+            }
+          });
 
-          "volume": -10,
-          "oscillator": {
-            "type": wave
-          },
-          "envelope": {
-            "attack": attack,
-            "decay": decay,
-            "sustain": sustain,
-            "release": release,
-          },
-          "filterEnvelope": {
-            "attack": attack,
-            "decay": decay,
-            "sustain": sustain,
-            "release": release,
-            "baseFrequency": 300,
-            "octaves": 4
+          synth2.connect(delay);
+
+          const pattern2 = scale;
+
+
+          var index = 0;
+
+          Tone.Transport.scheduleRepeat(time => {
+            repeat2(time);
+          }, noteDuration);
+
+          function repeat2(time) {
+            let note = pattern2[Math.floor(Math.random() * pattern2.length)];
+            synth2.triggerAttackRelease(note, noteDuration, time);
+            // synth2.envelope.triggerAttackRelease();
+              ampEnv.triggerAttackRelease(noteDuration);
+            index++;
           }
-        });
 
-        synth2.connect(delay);
+          ///////////////////////////////////////////////
 
-        const pattern2 = scale;
+          const synth3 = new Tone.MonoSynth({
+
+            "volume": -9,
+            "oscillator": {
+              "type": wave
+            },
+            "envelope": {
+              "attack": 0,
+              "decay": 0,
+              "sustain": 1,
+              "release": 0,
+            },
+            "filterEnvelope": {
+              "attack": 0,
+              "decay": 0,
+              "sustain": 1,
+              "release": 0,
+            }
+          });
+
+          synth3.connect(delay);
+
+          const pattern3 = scale;
 
 
-        var index = 0;
+          var index = 0;
 
-        Tone.Transport.scheduleRepeat(time => {
-          repeat2(time);
-        }, noteDuration);
+          Tone.Transport.scheduleRepeat(time => {
+            repeat3(time);
+          }, noteDuration);
 
-        function repeat2(time) {
-          let note = pattern2[Math.floor(Math.random() * pattern2.length)];
-          synth2.triggerAttackRelease(note, noteDuration, time);
-          synth2.envelope.triggerAttackRelease(noteDuration);
-          index++;
-        }
-
-        ///////////////////////////////////////////////
-
-        const synth3 = new Tone.MonoSynth({
-
-          "volume": -9,
-          "oscillator": {
-            "type": wave
-          },
-          "envelope": {
-            "attack": attack,
-            "decay": decay,
-            "sustain": sustain,
-            "release": release,
-          },
-          "filterEnvelope": {
-            "attack": attack,
-            "decay": decay,
-            "sustain": sustain,
-            "release": release,
-            "baseFrequency": 300,
-            "octaves": 4
+          function repeat3(time) {
+            let note = pattern3[Math.floor(Math.random() * pattern3.length)];
+            synth3.triggerAttackRelease(note, noteDuration, time);
+            // synth3.envelope.triggerAttackRelease();
+              ampEnv.triggerAttackRelease(noteDuration);
+            index++;
           }
-        });
 
-        synth3.connect(delay);
+          ///////////////////////////////////////////////
 
-        const pattern3 = scale;
+          const synth4 = new Tone.MonoSynth({
+
+            "volume": -10,
+            "oscillator": {
+              "type": wave
+            },
+            "envelope": {
+              "attack": 0,
+              "decay": 0,
+              "sustain": 1,
+              "release": 0,
+            },
+            "filterEnvelope": {
+              "attack": 0,
+              "decay": 0,
+              "sustain": 1,
+              "release": 0,
+            }
+          });
+
+          const panner4 = new Tone.Panner(-1).connect(delay);
+
+          synth4.connect(panner4);
+
+          const pattern4 = scale;
 
 
-        var index = 0;
+          var index = 0;
 
-        Tone.Transport.scheduleRepeat(time => {
-          repeat3(time);
-        }, noteDuration);
+          Tone.Transport.scheduleRepeat(time => {
+            repeat4(time);
+          }, noteDuration);
 
-        function repeat3(time) {
-          let note = pattern3[Math.floor(Math.random() * pattern3.length)];
-          synth3.triggerAttackRelease(note, noteDuration, time);
-          synth3.envelope.triggerAttackRelease(noteDuration);
-          index++;
-        }
-
-        ///////////////////////////////////////////////
-
-        const synth4 = new Tone.MonoSynth({
-
-          "volume": -10,
-          "oscillator": {
-            "type": wave
-          },
-          "envelope": {
-            "attack": attack,
-            "decay": decay,
-            "sustain": sustain,
-            "release": release,
-          },
-          "filterEnvelope": {
-            "attack": attack,
-            "decay": decay,
-            "sustain": sustain,
-            "release": release,
-            "baseFrequency": 300,
-            "octaves": 4
+          function repeat4(time) {
+            let note = pattern4[Math.floor(Math.random() * pattern4.length)];
+            synth4.triggerAttackRelease(note, noteDuration, time);
+            // synth4.envelope.triggerAttackRelease();
+              ampEnv.triggerAttackRelease(noteDuration);
+            index++;
           }
-        });
 
-        const panner4 = new Tone.Panner(-1).connect(delay);
+          ///////////////////////////////////////////////
 
-        synth4.connect(panner4);
+          const synth5 = new Tone.MonoSynth({
 
-        const pattern4 = scale;
+            "volume": -10,
+            "oscillator": {
+              "type": wave
+            },
+            "envelope": {
+              "attack": 0,
+              "decay": 0,
+              "sustain": 1,
+              "release": 0,
+            },
+            "filterEnvelope": {
+              "attack": 0,
+              "decay": 0,
+              "sustain": 1,
+              "release": 0,
+            }
+
+          });
+
+          const panner5 = new Tone.Panner(1).connect(delay);
+
+          synth5.connect(panner5);
+
+          const pattern5 = scale;
 
 
-        var index = 0;
+          var index = 0;
 
-        Tone.Transport.scheduleRepeat(time => {
-          repeat4(time);
-        }, noteDuration);
+          Tone.Transport.scheduleRepeat(time => {
+            repeat5(time);
+          }, noteDuration);
 
-        function repeat4(time) {
-          let note = pattern4[Math.floor(Math.random() * pattern4.length)];
-          synth4.triggerAttackRelease(note, noteDuration, time);
-          synth4.envelope.triggerAttackRelease(noteDuration);
-          index++;
-        }
-
-        ///////////////////////////////////////////////
-
-        const synth5 = new Tone.MonoSynth({
-
-          "volume": -10,
-          "oscillator": {
-            "type": wave
-          },
-          "envelope": {
-            "attack": attack,
-            "decay": decay,
-            "sustain": sustain,
-            "release": release,
-          },
-          "filterEnvelope": {
-            "attack": attack,
-            "decay": decay,
-            "sustain": sustain,
-            "release": release,
-            "baseFrequency": 300,
-            "octaves": 4
+          function repeat5(time) {
+            let note = pattern5[Math.floor(Math.random() * pattern5.length)];
+            synth5.triggerAttackRelease(note, noteDuration, time);
+            // synth5.envelope.triggerAttackRelease();
+              ampEnv.triggerAttackRelease(noteDuration);
+            index++;
           }
-        });
 
-        const panner5 = new Tone.Panner(1).connect(delay);
+          //////////////////////////////////////////////////////////////////////
+          //PAD SYNTH
+          //////////////////////////////////////////////////////////////////////
 
-        synth5.connect(panner5);
-
-        const pattern5 = scale;
-
-
-        var index = 0;
-
-        Tone.Transport.scheduleRepeat(time => {
-          repeat5(time);
-        }, noteDuration);
-
-        function repeat5(time) {
-          let note = pattern5[Math.floor(Math.random() * pattern5.length)];
-          synth5.triggerAttackRelease(note, noteDuration, time);
-          synth5.envelope.triggerAttackRelease(noteDuration);
-          index++;
-        }
-
-        //////////////////////////////////////////////////////////////////////
-        //PAD SYNTH
-        //////////////////////////////////////////////////////////////////////
-
-        const synth = new Tone.MonoSynth({
+          const synth = new Tone.MonoSynth({
 
 
-          "volume": -6,
-          "oscillator": {
-            "type": wave
-          },
-          "envelope": {
-            "attack": attack,
-            "decay": decay,
-            "sustain": sustain,
-            "release": release,
-          },
-          "filterEnvelope": {
-            "attack": attack,
-            "decay": decay,
-            "sustain": sustain,
-            "release": release,
-            "baseFrequency": 300,
-            "octaves": 4
+            "volume": -6,
+            "oscillator": {
+              "type": wave
+            },
+            "envelope": {
+              "attack": 0,
+              "decay": 0,
+              "sustain": 1,
+              "release": 0,
+            },
+            "filterEnvelope": {
+              "attack": 0,
+              "decay": 0,
+              "sustain": 1,
+              "release": 0,
+            }
+          });
+
+          synth.connect(delay);
+
+          //////////////////////////////////////////////////////////////////////
+          var padContainer = document.createElement('div');
+          padContainer.className = "pads";
+          padContainer.id = "padContainer";
+          document.body.appendChild(padContainer);
+
+          var rubyspad = '';
+
+          for (var i = 0; i < scalePads.length; i++) {
+            var newPad = document.createElement('button');
+            newPad.id = scalePads[i];
+            newPad.className = "pad-1";
+            newPad.onclick = PadOnClickHandler;
+            // newPad.innerHTML = scalePads[i]; // DISPLAYS NAMES ON PADS
+            document.getElementById("padContainer").appendChild(newPad);
+            rubyspad = newPad;
+            console.log('id' + newPad.id)
+
           }
-        });
 
-        synth.connect(delay);
+          function PadOnClickHandler() {
+            console.log('i' + i)
+            noteDown(this.id);
+            startLoop();
+          }
 
-        //////////////////////////////////////////////////////////////////////
-        var padContainer = document.createElement('div');
-        padContainer.className = "pads";
-        padContainer.id = "padContainer";
-        document.body.appendChild(padContainer);
+          function noteDown(note) {
+            synth.triggerAttackRelease(note, noteDurationPads);
+              ampEnv.triggerAttackRelease(noteDuration);
+            // synth.envelope.triggerAttackRelease();
+            Tone.start();
 
+          }
 
+          function noteUp(note) {
+            synth.triggerRelease(note);
+            Tone.stop();
 
-        for (var i = 0; i < scalePads.length; i++) {
-          var newPad = document.createElement('button');
-          newPad.id = scalePads[i];
-          newPad.className = "pad-1";
-          newPad.onclick = PadOnClickHandler;
-          // newPad.innerHTML = scalePads[i]; // DISPLAYS NAMES ON PADS
-          document.getElementById("padContainer").appendChild(newPad);
-
-        }
-
-        function PadOnClickHandler() {
-          console.log(this.id)
-          noteDown(this.id);
-          startLoop();
-
-
-        }
-
-        function noteDown(note) {
-          synth.triggerAttackRelease(note, noteDurationPads);
-          synth.envelope.triggerAttackRelease(noteDuration);
-          Tone.start();
-
-        }
-
-        function noteUp(note) {
-          synth.triggerRelease(note);
-          Tone.stop();
-
-        }
+          }
 
 
 
-        function startLoop() {
-          const loop = new Tone.Loop((time) => {
-            // console.log(time);
-          }, "1n").start(0);
-          Tone.Transport.start();
-          setTimeout(function() {
-            // console.log('Now should be stopping');
-            Tone.Transport.stop();
-          }, 4000)
+          function startLoop() {
+            const loop = new Tone.Loop((time) => {
+              // console.log(time);
+            }, "1n").start(0);
+            Tone.Transport.start();
+            setTimeout(function() {
+              // console.log('Now should be stopping');
+              Tone.Transport.stop();
+            }, 1000)
 
-        }
+          }
 
-        //////////////////////////////////////////////////////////////////////
+          //////////////////////////////////////////////////////////////////////
 
-        var oscilloscope = new Nexus.Oscilloscope('#oscilloscope', {
-          'size': [480, 250]
-        })
-
-        oscilloscope.colorize("accent", "white")
-        oscilloscope.colorize("fill", "black")
-        document.body.style.backgroundColor = "#000"
-
-        oscilloscope.connect(reverb);
-
-
-
-        const gain = new Nexus.Dial("#gain", {
-
-          'size': [70, 70],
-          'interaction': 'vertical',
-          'mode': 'relative',
-        })
-        gain.on('change', function(v) {
-          volume.volume.rampTo(v, .1)
-          // console.log(volume)
-        });
-        gain.min = -50;
-        gain.max = 0;
-        gain.value = -6;
-        gain.colorize("accent", "white")
-        gain.colorize("fill", "#333")
-        document.body.style.backgroundColor = "#000"
-
-
-
-
-        const LPFilter = new Nexus.Dial("#LPFilter", {
-
-          'size': [70, 70],
-          'interaction': 'vertical',
-          'mode': 'relative',
-        })
-        LPFilter.on('change', function(v) {
-          LPfilter.frequency.rampTo(v, .1)
-        });
-        LPFilter.min = 20;
-        LPFilter.max = 10000;
-        LPFilter.value = 10000;
-        LPFilter.colorize("accent", "white")
-        LPFilter.colorize("fill", "#333")
-        document.body.style.backgroundColor = "#000"
-
-
-        const verb = new Nexus.Dial("#verb", {
-
-          'size': [70, 70],
-          'interaction': 'vertical',
-          'mode': 'relative',
-        })
-        verb.on('change', function(v) {
-          reverb.wet.rampTo(v, .1)
-        });
-        verb.min = 0;
-        verb.max = 1;
-        verb.value = 0.8;
-        verb.colorize("accent", "white")
-        verb.colorize("fill", "#333")
-        document.body.style.backgroundColor = "#000"
-
-
-        const FBDelay = new Nexus.Dial("#FBDelay", {
-
-          'size': [70, 70],
-          'interaction': 'vertical',
-          'mode': 'relative',
-        })
-        FBDelay.on('change', function(v) {
-          delay.wet.rampTo(v, .1)
-        });
-        FBDelay.min = 0;
-        FBDelay.max = 1;
-        FBDelay.value = 0.8;
-        FBDelay.colorize("accent", "white")
-        FBDelay.colorize("fill", "#333")
-        document.body.style.backgroundColor = "#000"
-
-
-/////////////////////////////////////////////////////////////////////////////
-
-
-        ///////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////
-        ///// LPD8 MIDI CONTROL SETUP
-        ///////////////////////////////////////////////////////////
-
-
-
-        const LPD8 = new AkaiLPD8()
-
-
-        LPD8.init()
-          .then(() => {
-            console.log(LPD8)
-
-
-            LPD8.K1.on('change', vel =>
-              calculateNewVolume(vel))
-            console.log(gain.value)
-
-            LPD8.K2.on('change', vel =>
-              calculateNewLPF(vel))
-            console.log(LPFilter.value)
-
-
-            LPD8.K3.on('change', vel =>
-              calculateNewVerb(vel))
-            console.log(verb.value)
-
-
-            LPD8.K4.on('change', vel =>
-              calculateNewFBDelay(vel))
-            console.log(FBDelay.value)
-
-
-            LPD8.PAD5.on('change', vel =>
-              NewPAD5(vel))
-            console.log(newPad)
-
-
-
+          var oscilloscope = new Nexus.Oscilloscope('#oscilloscope', {
+            'size': [480, 250]
           })
 
-          .catch(error => console.error({
-            error
-          }))
+          oscilloscope.colorize("accent", "white")
+          oscilloscope.colorize("fill", "black")
+          document.body.style.backgroundColor = "#000"
 
-        ///////////////////////////////
-        //KNOBS
-        //////////////////////////////
-
-        // K1
-
-        function calculateNewVolume(vel) {
-          var gainRange = MIDIVolumeRange(vel, 0, 127, -50, 0) // (MIDI min, MIDI max, Tone min, Tone max)
-          console.log(gainRange); // 0
-
-          volume.volume.rampTo(gainRange, .1)
-          gain.value = gainRange;
-        }
-
-        const MIDIVolumeRange = (num, in_min, in_max, out_min, out_max) => {
-          return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-        }
-
-
-        //k2
-
-        function calculateNewLPF(vel) {
-          var LPFRange = MIDILPFRange(vel, 0, 127, 20, 10000)
-          console.log(LPFRange); // 0
-
-          LPfilter.frequency.rampTo(LPFRange, .1)
-          LPFilter.value = LPFRange;
-        }
-
-        const MIDILPFRange = (num, in_min, in_max, out_min, out_max) => {
-          return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-        }
-
-        //K3
-
-        function calculateNewVerb(vel) {
-          var verbRange = MIDIVerbRange(vel, 0, 127, 0, 1)
-          console.log(verbRange); // 0
-
-          reverb.wet.rampTo(verbRange, .1)
-          verb.value = verbRange;
-        }
-
-        const MIDIVerbRange = (num, in_min, in_max, out_min, out_max) => {
-          return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-        }
-
-
-        //K4
-
-        function calculateNewFBDelay(vel) {
-          var FBDelayRange = MIDIFBDelayRange(vel, 0, 127, 0, 1)
-          console.log(FBDelayRange); // 0
-
-          delay.wet.rampTo(FBDelayRange, .1)
-          FBDelay.value = FBDelayRange;
-        }
-
-        const MIDIFBDelayRange = (num, in_min, in_max, out_min, out_max) => {
-          return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-        }
+          oscilloscope.connect(ampEnv);
 
 
 
-        ///////////////
-        //PADS
-        ///////////////
+          const gain = new Nexus.Dial("#gain", {
 
-        function NewPAD5(vel) {
+            'size': [70, 70],
+            'interaction': 'vertical',
+            'mode': 'relative',
+          })
+          gain.on('change', function(v) {
+            volume.volume.rampTo(v, .1)
+            // console.log(volume)
+          });
+          gain.min = -50;
+          gain.max = 0;
+          gain.value = -6;
+          gain.colorize("accent", "white")
+          gain.colorize("fill", "#333")
+          document.body.style.backgroundColor = "#000"
 
 
-        }
 
 
-        ////////////////////////////////////////////////////////////////////////////
+          const LPFilter = new Nexus.Dial("#LPFilter", {
+
+            'size': [70, 70],
+            'interaction': 'vertical',
+            'mode': 'relative',
+          })
+          LPFilter.on('change', function(v) {
+            LPfilter.frequency.rampTo(v, .1)
+          });
+          LPFilter.min = 20;
+          LPFilter.max = 10000;
+          LPFilter.value = 10000;
+          LPFilter.colorize("accent", "white")
+          LPFilter.colorize("fill", "#333")
+          document.body.style.backgroundColor = "#000"
+
+
+          const verb = new Nexus.Dial("#verb", {
+
+            'size': [70, 70],
+            'interaction': 'vertical',
+            'mode': 'relative',
+          })
+          verb.on('change', function(v) {
+            reverb.wet.rampTo(v, .1)
+          });
+          verb.min = 0;
+          verb.max = 1;
+          verb.value = 0;
+          verb.colorize("accent", "white")
+          verb.colorize("fill", "#333")
+          document.body.style.backgroundColor = "#000"
+
+
+          const FBDelay = new Nexus.Dial("#FBDelay", {
+
+            'size': [70, 70],
+            'interaction': 'vertical',
+            'mode': 'relative',
+          })
+          FBDelay.on('change', function(v) {
+            delay.wet.rampTo(v, .1)
+          });
+          FBDelay.min = 0;
+          FBDelay.max = 1;
+          FBDelay.value = 0;
+          FBDelay.colorize("accent", "white")
+          FBDelay.colorize("fill", "#333")
+          document.body.style.backgroundColor = "#000"
+
+
+          const attackDial = new Nexus.Dial("#attackDial", {
+
+            'size': [70, 70],
+            'interaction': 'vertical',
+            'mode': 'relative',
+          })
+          attackDial.on('change', function(v) {
+            ampEnv.attack.rampTo(v, .1)
+          });
+          attackDial.min = 0;
+          attackDial.max = 20;
+          attackDial.value = 0;
+          attackDial.colorize("accent", "white")
+          attackDial.colorize("fill", "#333")
+          document.body.style.backgroundColor = "#000"
+
+
+
+
+
+          /////////////////////////////////////////////////////////////////////////////
+
+
+          ///////////////////////////////////////////////////////////
+          ///////////////////////////////////////////////////////////
+          ///// LPD8 MIDI CONTROL SETUP
+          ///////////////////////////////////////////////////////////
+
+          function handlePadDown() {
+
+
+
+          }
+
+          const LPD8 = new AkaiLPD8()
+
+
+          LPD8.init()
+            .then(() => {
+              console.log(LPD8)
+
+
+              LPD8.K1.on('change', vel =>
+                calculateNewVolume(vel))
+              console.log(gain.value)
+
+              LPD8.K2.on('change', vel =>
+                calculateNewLPF(vel))
+              console.log(LPFilter.value)
+
+
+              LPD8.K3.on('change', vel =>
+                calculateNewVerb(vel))
+              console.log(verb.value)
+
+
+              LPD8.K4.on('change', vel =>
+                calculateNewFBDelay(vel))
+              console.log(FBDelay.value)
+
+              LPD8.PAD1.on('change', vel =>
+                console.log(vel))
+
+              LPD8.PAD2.on('change', vel =>
+                // PadOnClickHandler()
+                PadOnClickHandler())
+
+              LPD8.PAD5.on('change', vel =>
+                NewPAD5(vel))
+              console.log(newPad)
+
+
+
+            })
+
+            .catch(error => console.error({
+              error
+            }))
+
+
+
+          ///////////////////////////////
+          //KNOBS
+          //////////////////////////////
+
+          // K1
+
+          function calculateNewVolume(vel) {
+            var gainRange = MIDIVolumeRange(vel, 0, 127, -50, 0) // (MIDI min, MIDI max, Tone min, Tone max)
+            console.log(gainRange); // 0
+
+            volume.volume.rampTo(gainRange, .1)
+            gain.value = gainRange;
+          }
+
+          const MIDIVolumeRange = (num, in_min, in_max, out_min, out_max) => {
+            return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+          }
+
+
+          //k2
+
+          function calculateNewLPF(vel) {
+            var LPFRange = MIDILPFRange(vel, 0, 127, 20, 10000)
+            console.log(LPFRange); // 0
+
+            LPfilter.frequency.rampTo(LPFRange, .1)
+            LPFilter.value = LPFRange;
+          }
+
+          const MIDILPFRange = (num, in_min, in_max, out_min, out_max) => {
+            return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+          }
+
+          //K3
+
+          function calculateNewVerb(vel) {
+            var verbRange = MIDIVerbRange(vel, 0, 127, 0, 1)
+            console.log(verbRange); // 0
+
+            reverb.wet.rampTo(verbRange, .1)
+            verb.value = verbRange;
+          }
+
+          const MIDIVerbRange = (num, in_min, in_max, out_min, out_max) => {
+            return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+          }
+
+
+          //K4
+
+          function calculateNewFBDelay(vel) {
+            var FBDelayRange = MIDIFBDelayRange(vel, 0, 127, 0, 1)
+            console.log(FBDelayRange); // 0
+
+            delay.wet.rampTo(FBDelayRange, .1)
+            FBDelay.value = FBDelayRange;
+          }
+
+          const MIDIFBDelayRange = (num, in_min, in_max, out_min, out_max) => {
+            return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+          }
+
+
+
+          ///////////////
+          //PADS
+          ///////////////
+
+          function NewPAD5(vel) {
+
+
+          }
+
+
+          ////////////////////////////////////////////////////////////////////////////
       </script>
 
 </body>
