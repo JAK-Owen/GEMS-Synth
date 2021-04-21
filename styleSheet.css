@@ -17,13 +17,13 @@ tone-slider {
   filter: invert();
 }
 
-#bpm-slider {
+/* #bpm-slider {
   width: 130px;
   height: 50%;
   position: fixed;
   left: calc(38% - 200px);
   top: 55px;
-}
+} */
 
 #reset-button {
   position: fixed;
@@ -42,7 +42,7 @@ tone-slider {
   cursor: pointer;
 }
 
-#stop-button {
+/* #stop-button {
   position: fixed;
   background-color: black;
   color: white;
@@ -50,7 +50,7 @@ tone-slider {
   font-weight: lighter;
   font-size: 20px;
   top: calc(15% - 100px);
-  left: calc(55% - 200px);
+  left: calc(55% - 200px); */
 }
 
 #stop-button:hover {
@@ -192,10 +192,58 @@ tone-slider {
   font-size: 7px;
 }
 
+#attackDial {
+  position: fixed;
+  left: 400px;
+  color: white;
+  padding: 10px;
+  top: 410px;
+  left: calc(53% - 200px);
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 7px;
+}
+
+#decayDial {
+  position: fixed;
+  left: 100px;
+  color: white;
+  padding: 10px;
+  top: 410px;
+  left: calc(53% - 100px);
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 7px;
+}
+
+#sustainDial {
+  position: fixed;
+  left: 300px;
+  color: white;
+  padding: 10px;
+  top: 410px;
+  left: calc(46% - -100px);
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 7px;
+}
+
+#releaseDial {
+  position: fixed;
+  left: 400px;
+  color: white;
+  padding: 10px;
+  top: 410px;
+  left: calc(46% - -200px);
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 7px;
+}
+
 .padContainer {}
 
 .pads {
-  top: 450px;
+  top: 550px;
   left: calc(53% - 200px);
   position: fixed;
   width: 400px;
