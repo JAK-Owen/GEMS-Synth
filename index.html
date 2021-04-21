@@ -705,7 +705,7 @@
           });
           attackDial.min = 0;
           attackDial.max = 20;
-          attackDial.value = 0;
+          attackDial.value = 5;
           attackDial.colorize("accent", "white")
           attackDial.colorize("fill", "#333")
           document.body.style.backgroundColor = "#000"
@@ -717,12 +717,12 @@
             'mode': 'relative',
           })
           decayDial.on('change', function(v) {
-            ampEnv.attack = v;
+            ampEnv.decay = v;
             // console.log(ampEnv.attack);
           });
           decayDial.min = 0;
           decayDial.max = 20;
-          decayDial.value = 0;
+          decayDial.value = 10;
           decayDial.colorize("accent", "white")
           decayDial.colorize("fill", "#333")
           document.body.style.backgroundColor = "#000"
@@ -734,11 +734,11 @@
             'mode': 'relative',
           })
           sustainDial.on('change', function(v) {
-            ampEnv.attack = v;
+            ampEnv.sustain = v;
             // console.log(ampEnv.attack);
           });
           sustainDial.min = 0;
-          sustainDial.max = 20;
+          sustainDial.max = 1;
           sustainDial.value = 0;
           sustainDial.colorize("accent", "white")
           sustainDial.colorize("fill", "#333")
@@ -751,7 +751,7 @@
             'mode': 'relative',
           })
           releaseDial.on('change', function(v) {
-            ampEnv.attack = v;
+            ampEnv.release = v;
             // console.log(ampEnv.attack);
           });
           releaseDial.min = 0;
