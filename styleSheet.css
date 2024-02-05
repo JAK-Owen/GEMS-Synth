@@ -1,9 +1,12 @@
 body {
+  transform: scale(0.8);
   background-color: black;
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
+  animation: fade 1.5s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
 }
 
 tone-slider {
@@ -17,91 +20,40 @@ tone-slider {
   filter: invert();
 }
 
-/* #bpm-slider {
-  width: 130px;
-  height: 50%;
-  position: fixed;
-  left: calc(38% - 200px);
-  top: 55px;
-} */
+#reset-button,
+#assignKey,
+#assignDuration,
+#oscillator-type {
+  position: absolute;
+  background-color: black;
+  color: white;
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 11px;
+  top: 50px;
+  filter: grayscale(1);
+  cursor: pointer;
+}
 
 #reset-button {
-  position: fixed;
-  background-color: black;
-  color: white;
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 20px;
-  top: calc(15% - 100px);
   left: calc(50% - 200px);
 }
-
-#reset-button:hover {
-  background-color: white;
-  color: black;
-  cursor: pointer;
-}
-
-/* #stop-button {
-  position: fixed;
-  background-color: black;
-  color: white;
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 20px;
-  top: calc(15% - 100px);
-  left: calc(55% - 200px); */
-}
-
-#stop-button:hover {
-  background-color: white;
-  color: black;
-  cursor: pointer;
-}
-
 #assignKey {
-  position: fixed;
-  background-color: black;
-  color: white;
-  /* border: none; */
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 11px;
-  top: calc(15% - 100px);
   left: calc(60% - 200px);
-  filter: grayscale(1);
 }
-
-#assignKey:hover {
-  cursor: pointer;
-}
-
 #assignDuration {
-  position: fixed;
-  background-color: black;
-  color: white;
-  /* border: none; */
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 11px;
-  top: calc(15% - 100px);
   left: calc(80% - 200px);
-  filter: grayscale(1);
+}
+#oscillator-type {
+  left: calc(70% - 200px);
 }
 
-#assignDuration:hover {
-  cursor: pointer;
-}
-
-.control {
-  filter: grayscale();
-}
-
-.label {
-  color: white;
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 8px;
+#reset-button:hover,
+#assignKey:hover,
+#assignDuration:hover,
+#oscillator-type:hover {
+  background-color: white;
+  color: black;
 }
 
 #envelope-container {
@@ -110,142 +62,58 @@ tone-slider {
   left: calc(40% - 200px);
 }
 
-#oscillator-type {
-  position: fixed;
-  background-color: black;
-  color: white;
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 11px;
-  top: calc(15% - 100px);
-  left: calc(70% - 200px);
-  filter: grayscale(1);
-}
-
-#oscillator-type:hover {
-  cursor: pointer;
-}
-
 #oscilloscope {
-  position: fixed;
+  position: relative;
   height: 100%;
   width: auto;
   border: 3px solid white;
-  top: calc(20% - 100px);
-  left: calc(50% - 200px);
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
   overflow: hidden;
   z-index: 1;
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
+  animation: fade 1.5s;
 }
 
 #dials-container {
-  position: fixed;
+  position: relative;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-around;
+}
+
+.dial {
+  color: white;
+  padding: 10px;
+}
+
+.dial-text {
+  color: white;
+  padding-bottom: 10px;
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: 8px;
+  text-align: center;
+}
+
+#gain,
+#attackDial,
+#decayDial {
+  margin-right: 20px;
 }
 
 #gain {
-  position: fixed;
-  color: white;
-  padding: 10px;
-  top: 310px;
-  left: calc(53% - 200px);
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 7px;
+  margin-right: 0;
 }
 
-#LPFilter {
-  position: fixed;
-  left: 100px;
-  color: white;
-  padding: 10px;
-  top: 310px;
-  left: calc(53% - 100px);
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 7px;
+.padContainer {
 }
-
-#verb {
-  position: fixed;
-  left: 300px;
-  color: white;
-  padding: 10px;
-  top: 310px;
-  left: calc(46% - -100px);
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 7px;
-}
-
-#FBDelay {
-  position: fixed;
-  left: 400px;
-  color: white;
-  padding: 10px;
-  top: 310px;
-  left: calc(46% - -200px);
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 7px;
-}
-
-#attackDial {
-  position: fixed;
-  left: 400px;
-  color: white;
-  padding: 10px;
-  top: 410px;
-  left: calc(53% - 200px);
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 7px;
-}
-
-#decayDial {
-  position: fixed;
-  left: 100px;
-  color: white;
-  padding: 10px;
-  top: 410px;
-  left: calc(53% - 100px);
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 7px;
-}
-
-#sustainDial {
-  position: fixed;
-  left: 300px;
-  color: white;
-  padding: 10px;
-  top: 410px;
-  left: calc(46% - -100px);
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 7px;
-}
-
-#releaseDial {
-  position: fixed;
-  left: 400px;
-  color: white;
-  padding: 10px;
-  top: 410px;
-  left: calc(46% - -200px);
-  font-family: monospace;
-  font-weight: lighter;
-  font-size: 7px;
-}
-
-.padContainer {}
 
 .pads {
-  top: 550px;
-  left: calc(53% - 200px);
-  position: fixed;
+  top: 150px;
+  position: relative;
   width: 400px;
   display: flex;
   justify-content: space-between;
@@ -271,22 +139,12 @@ tone-slider {
   cursor: pointer;
 }
 
-@-webkit-keyframes fade {
-  from {
-    opacity: .4
-  }
-
-  to {
-    opacity: 1
-  }
-}
-
 @keyframes fade {
   from {
-    opacity: .4
+    opacity: 0.4;
   }
 
   to {
-    opacity: 1
+    opacity: 1;
   }
 }
